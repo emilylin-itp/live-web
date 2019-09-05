@@ -4,11 +4,9 @@
     <title>I</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="SharpGroteskBlack24, Sharp Grotesk Black" font-size="200" font-style="expanded" font-weight="700">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Desktop-HD" transform="translate(-686.000000, -413.000000)" fill="#000000">
-            <text id="I">
-                <tspan x="683.5" y="557">I</tspan>
-            </text>
+            <polygon id="I" points="686.9 557 686.9 413 764.9 413 764.9 557"></polygon>
         </g>
     </g>
 </svg>

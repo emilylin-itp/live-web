@@ -25,12 +25,37 @@ body, html{
     padding: 2%;
 }
 
-#E{
+.letter{
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+}
+
+.E{
+    background-image: url(../assets/e.svg);
+}
+
+#div-E{
     float: left;
     left: 2%;
     top: 2%;
     position: absolute;
+    background-size: cover;
 }
+
+.E:hover{
+    background-image: url(../assets/e_turq.svg);
+}
+
+/* #E{
+    float: left;
+    left: 2%;
+    top: 2%;
+    position: absolute;
+    background-size: cover;
+    fill: white;
+} */
 
 #M{
     float: right;
