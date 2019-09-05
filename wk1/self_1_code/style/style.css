@@ -3,9 +3,10 @@ body, html{
     width: 100%;
     margin: 0;
     padding:0;
+    overflow: hidden;
 }
 
-#video{
+.video{
     -webkit-transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
     -ms-transform: translateX(-50%) translateY(-50%);
@@ -19,69 +20,141 @@ body, html{
     width: auto;
     height: auto;
     z-index: -1;
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
 }
 
 #container{
     padding: 2%;
 }
 
-.letter{
+/* LETTER E */
+#letter_E{
   display: inline-block;
   width: 150px;
   height: 150px;
   background-size: cover;
+  background-image: url(../assets/e_pink.svg);
 }
 
-.E{
-    background-image: url(../assets/e.svg);
+#letter_E:hover{
+    background-image: url(../assets/e_white.svg);
 }
 
-#div-E{
+#div_E{
     float: left;
-    left: 2%;
-    top: 2%;
     position: absolute;
     background-size: cover;
-}
-
-.E:hover{
-    background-image: url(../assets/e_turq.svg);
-}
-
-/* #E{
-    float: left;
     left: 2%;
     top: 2%;
-    position: absolute;
-    background-size: cover;
-    fill: white;
-} */
+}
 
-#M{
+
+/* LETTER M */
+#letter_M{
+    display: inline-block;
+    width: 200px;
+    height: 150px;
+    background-size: cover;
+    background-image: url(../assets/m_yellow.svg);
+}
+
+#letter_M:hover{
+    background-image: url(../assets/m_white.svg);
+}
+
+#div_M{
     float: right;
     position: absolute;
+    background-size: cover;
     right: 2%;
     top: 2%;
 }
 
+/* EYE LEFT */
 #eye_left{
-    /* padding-right: 15%; */
-    position:absolute;
-    top:0;
-    right:0;
+    display: inline-block;
+    width: 125px;
+    height: 155px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(../assets/eye_green.svg);
 }
 
-#I{
-    padding-top: 15%;
-    margin-top: 5%;
+#eye_left:hover{
+    background-image: url(../assets/eye_white.svg);
 }
 
-#eye_right{
+#div_eye_left{
     position:absolute;
     top:0;
     left:0;
 }
 
+/* I */
+#letter_I{
+    display: inline-block;
+    width: 80px;
+    height: 150px;
+    background-size: cover;
+    background-image: url(../assets/i_blue.svg);
+}
+
+#letter_I:hover{
+    background-image: url(../assets/i_white.svg);
+}
+
+#div_I{
+    padding-top: 15%;
+    /* margin-top: 5%; */
+}
+
+/* EYE RIGHT */
+#eye_right{
+    display: inline-block;
+    width: 125px;
+    height: 155px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(../assets/eye_magenta.svg);
+}
+
+#eye_right:hover{
+    background-image: url(../assets/eye_white.svg);
+}
+
+#div_eye_right{
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+/* MOUTH */
+#mouth{
+    display: inline-block;
+    width: 300px;
+    height: 300px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(../assets/mouth_orange.svg);
+}
+
+#mouth:hover{
+    background-image: url(../assets/mouth_white.svg);
+}
+
+#div_mouth{
+    text-align: center;
+    width: 300px;
+    float: center;
+    left: 50%;
+    position: relative;
+    padding: 2%;
+    transform: translateX(-50%);
+    /* margin-bottom: 30%; */
+}
+
+/* FACE */
 #face{
     float: center;
     left: 50%;
@@ -89,27 +162,10 @@ body, html{
     transform: translateX(-50%);
     width: 500px;
     text-align: center;
-    margin-top: 30%;
+    margin-top: 25%;
     padding: 2%;
 }
 
-#mouth{
-    text-align: center;
-    width: 500px;
-    float: center;
-    left: 50%;
-    position: relative;
-    transform: translateX(-50%);
-    padding: 2%;
-    margin-bottom: 30%;
-}
-
-/* #eye_right
-    width: 100px;
-    position: relative;
-    margin-top: 20%;
-    margin-left: 35%;
-} */
 
 #full_face{
     top: 50%;
@@ -117,8 +173,53 @@ body, html{
     transform: translate(0, -15%);
 }
 
+/* LETTER L */
+#letter_L{
+    display: inline-block;
+    position:relative;
+    width: 120px;
+    height: 150px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(../assets/l_purple.svg);
+}
 
+#letter_L:hover{
+    background-image: url(../assets/l_white.svg);
+}
 
+#div_L{
+    float: left;
+    left:2%;
+    bottom: 2%;
+    position: absolute;
+}
+
+/* LETTER Y */
+#letter_Y{
+    display: inline-block;
+    position: relative;
+    width: 180px;
+    height: 150px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url(../assets/y_turq.svg);
+}
+
+#letter_Y:hover{
+    background-image: url(../assets/y_white.svg);
+}
+
+#div_Y{
+    float: right;
+    position: absolute;
+    background-size: cover;
+    float:right;
+    right:2%;
+    bottom:2%;
+}
+
+/* 
 #L{
     float: left;
     left:2%;
@@ -131,7 +232,76 @@ body, html{
     right: 2%;
     bottom: 2%;
     position: absolute;
+} */
+
+/*
+#mouth{
+    text-align: center;
+    width: 500px;
+    float: center;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    padding: 2%;
+    margin-bottom: 30%;
 }
+*/
+
+
+/* #E{
+    float: left;
+    left: 2%;
+    top: 2%;
+    position: absolute;
+    background-size: cover;
+    fill: white;
+} */
+
+/* #M{
+    float: right;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+} */
+
+/*
+#eye_left{
+    position:absolute;
+    top:0;
+    right:0;
+}
+*/
+
+/* 
+#I{
+    padding-top: 15%;
+    margin-top: 5%;
+} 
+*/
+
+/* #eye_right{
+    position:absolute;
+    top:0;
+    left:0;
+} */
+
+/* #mouth{
+    text-align: center;
+    width: 500px;
+    float: center;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    padding: 2%;
+    margin-bottom: 30%;
+} */
+
+/* #eye_right
+    width: 100px;
+    position: relative;
+    margin-top: 20%;
+    margin-left: 35%;
+} */
 
 
 /* div{
