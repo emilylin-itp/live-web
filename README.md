@@ -1,4 +1,6 @@
 # Live Web Fall 2019
 
-Week 1 Hw
+<br>
+
+Week 1 <br>
 a.) Self Portrait: 
