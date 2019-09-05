@@ -1,0 +1,114 @@
+body, html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding:0;
+}
+
+#video{
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+}
+
+#container{
+    padding: 2%;
+}
+
+#E{
+    float: left;
+    left: 2%;
+    top: 2%;
+    position: absolute;
+}
+
+#M{
+    float: right;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+
+#eye_left{
+    /* padding-right: 15%; */
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+#I{
+    padding-top: 15%;
+    margin-top: 5%;
+}
+
+#eye_right{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#face{
+    float: center;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: 500px;
+    text-align: center;
+    margin-top: 30%;
+    padding: 2%;
+}
+
+#mouth{
+    text-align: center;
+    width: 500px;
+    float: center;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    padding: 2%;
+    margin-bottom: 30%;
+}
+
+/* #eye_right
+    width: 100px;
+    position: relative;
+    margin-top: 20%;
+    margin-left: 35%;
+} */
+
+#full_face{
+    top: 50%;
+    left: 50%;
+    transform: translate(0, -15%);
+}
+
+
+
+#L{
+    float: left;
+    left:2%;
+    bottom: 2%;
+    position: absolute;
+}
+
+#Y{
+    float: right;
+    right: 2%;
+    bottom: 2%;
+    position: absolute;
+}
+
+
+/* div{
+    border: 1px solid blue;
+} */
