@@ -6,6 +6,12 @@ body, html{
     overflow: hidden;
 }
 
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+  }
+
 #video{
     -webkit-transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
@@ -38,7 +44,7 @@ body, html{
 }
 
 #letter_E:hover{
-    background-image: url(../assets/e_white.svg);
+    background-image: url(../assets/e_white.svg)!important;
 }
 
 #div_E{
@@ -60,7 +66,7 @@ body, html{
 }
 
 #letter_M:hover{
-    background-image: url(../assets/m_white.svg);
+    background-image: url(../assets/m_white.svg)!important;
 }
 
 #div_M{
@@ -78,11 +84,11 @@ body, html{
     height: 155px;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url(../assets/eye_green.svg);
+    background-image: url(../assets/minus_left_green.svg);
 }
 
 #eye_left:hover{
-    background-image: url(../assets/eye_white.svg);
+    background-image: url(../assets/minus_left_white.svg)!important;
 }
 
 #div_eye_left{
@@ -101,7 +107,7 @@ body, html{
 }
 
 #letter_I:hover{
-    background-image: url(../assets/i_white.svg);
+    background-image: url(../assets/i_white.svg)!important;
 }
 
 #div_I{
@@ -116,11 +122,11 @@ body, html{
     height: 155px;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url(../assets/eye_magenta.svg);
+    background-image: url(../assets/plus_right_magenta.svg);
 }
 
 #eye_right:hover{
-    background-image: url(../assets/eye_white.svg);
+    background-image: url(../assets/plus_right_white.svg)!important;
 }
 
 #div_eye_right{
@@ -140,7 +146,7 @@ body, html{
 }
 
 #mouth:hover{
-    background-image: url(../assets/mouth_white.svg);
+    background-image: url(../assets/mouth_white.svg)!important;
 }
 
 #div_mouth{
@@ -177,15 +183,15 @@ body, html{
 #letter_L{
     display: inline-block;
     position:relative;
-    width: 120px;
-    height: 150px;
+    width: 150px;
+    height: 180px;
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url(../assets/l_purple.svg);
 }
 
 #letter_L:hover{
-    background-image: url(../assets/l_white.svg);
+    background-image: url(../assets/l_white.svg) !important; 
 }
 
 #div_L{
@@ -199,15 +205,15 @@ body, html{
 #letter_Y{
     display: inline-block;
     position: relative;
-    width: 180px;
-    height: 150px;
+    width: 200px;
+    height: 170px;
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url(../assets/y_turq.svg);
 }
 
 #letter_Y:hover{
-    background-image: url(../assets/y_white.svg);
+    background-image: url(../assets/y_white.svg)!important;
 }
 
 #div_Y{
