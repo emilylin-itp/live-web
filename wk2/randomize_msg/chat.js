@@ -33,7 +33,7 @@ function getOriginal() {
     
     //call randomizeMessage function
     let newMessage = randomizeMessage(ogMessage);
-    document.getElementById("gibberish").innerHTML = newMessage
+    document.getElementById("gibberish").innerHTML = "this is your gibberish message: " + newMessage
 }
 
 function randomizeMessage(x) {
