@@ -40,6 +40,14 @@ function display(txt) {
   //p.html(txt);
 }
 
+function search(ele) {
+  if(event.key === 'Enter') {
+    console.log(ele.value); 
+    gibber(input.value())
+    input.value('');   
+  }
+}
+
 // Listen for line breaks to clear input field
 function keyPressed() {
   if (keyCode == ENTER) {
