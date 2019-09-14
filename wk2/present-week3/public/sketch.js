@@ -49,12 +49,12 @@ function search(ele) {
 }
 
 // Listen for line breaks to clear input field
-function keyPressed() {
-  if (keyCode == ENTER) {
-    gibber(input.value())
-    input.value('');
-  }
-}
+// function keyPressed() {
+//   if (keyCode == ENTER) {
+//     gibber(input.value())
+//     input.value('');
+//   }
+// }
 
 function gibber() {
   let ogMessage = input.value();
