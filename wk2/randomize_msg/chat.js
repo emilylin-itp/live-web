@@ -2,10 +2,21 @@
 let globalArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V"];
 
 function init() {
-    let randomizeButton = document.getElementById('bttn');
+    let button = document.getElementById('bttn');
+
+    button.addEventListener('mouseover', mouseOver);
+    button.addEventListener('mouseout',mouseOut);
 
     //when button is clicked perform getOriginal function
-    randomizeButton.addEventListener('click', getOriginal);
+    button.addEventListener('click', getOriginal);
+}
+
+function mouseOver(){
+    document.getElementById("bttn").style.backgroundColor = 'yellow';
+}
+
+function mouseOut(){
+    document.getElementById("bttn").style.backgroundColor = "white";
 }
 
 function getOriginal() {
@@ -53,7 +64,6 @@ function randomizeMessage(x) {
     //make into a new string
     return array.join('');
 }
-
 
 
 console.log(randomizeMessage('hello this is my message'));
