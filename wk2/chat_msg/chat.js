@@ -29,11 +29,15 @@ function randomizeMessage(x) {
     //random number of characters to replace
     let randomNum = Math.floor(Math.random() * array.length); 
 
-    //everytime you go through for loop 
-    for(let i = 0; i < )
+    //getting a random index from for loop
+    for(let i = 0; i < array.length;i++){
+        let randomIndex = Math.floor(Math.random() * array.length); 
+        //find a character at that specific random number and then replace it with ?
+        array[randomIndex] = "?"; 
+    }
 }
 
-// console.log(replace('123456abcdef'));
+console.log(randomizeMessage('123456abcdef'));
 
 window.addEventListener('load', init);	
 
