@@ -50,6 +50,7 @@ io.sockets.on('connection',
 			
 			// Send it to all of the clients
 			socket.broadcast.emit('chatmessage', data);
+			socket.emit('chatmessage', data);
 		});
 		
 		
