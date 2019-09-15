@@ -40,9 +40,9 @@ function display(txt) {
   //p.html(txt);
 }
 
-function search(ele) {
+function enter(input) {
   if(event.key === 'Enter') {
-    console.log(ele.value); 
+    console.log(input.value); 
     gibber(input.value())
     input.value('');   
   }
