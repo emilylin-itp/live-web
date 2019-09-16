@@ -38,13 +38,13 @@ body {
 }
 
 #userInput{
-  font-size: 0.85em;
+  font-size: 9pt;
   font-family: 'MaaxMono-Regular';
   /* padding-top: 0.75%; */
   color: #6BFFFB;
   background-color: black;
   width:100%;
-  height: 4.5%;
+  height: 5%;
   float: top;
   top: 0px;
   position: absolute;
@@ -52,8 +52,9 @@ body {
   border: none;
   padding:none;
   box-sizing: border-box;
-  text-align: center;
+  text-align: left;
   margin: auto;
+  padding-left: 5%;
 }
 
 #input {
@@ -61,11 +62,10 @@ body {
   bottom: 0;
   float: bottom;
   width: 100%;
-  height: 14%;
-  font-size: 1.5em;
+  height: 18%;
   color: black;
   padding-left: 5%;
-  font-size: 0.95em;
+  font-size: 10pt;
   font-family: 'MaaxMono-Regular';
   background-color: #6BFFFB;
   outline: solid 4px black;
@@ -92,20 +92,20 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 
 #input::placeholder{
   color: black;
-  font-size: 0.95em;
+  font-size: 10pt;
   font-family: 'MaaxMono-Regular';
 }
 
 #userInput::placeholder{
   color: #6BFFFB;
-  font-size: 1em;
+  font-size: 9pt;
   font-family: 'MaaxMono-Regular';
 }
 
 
 p {
   font-family: sans-serif;
-  font-size: 1.5em;
+  font-size: 9.5pt;
   text-align: center;
   margin-top: 40vh;
 }
