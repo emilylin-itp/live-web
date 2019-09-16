@@ -138,37 +138,63 @@ p.fade {
 
 /*/////////////// GRADIENT GENERAL /////////////*/
 
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 87%}
+  50%{background-position:100% 14%}
+  100%{background-position:0% 87%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 87%}
+  50%{background-position:100% 14%}
+  100%{background-position:0% 87%}
+}
+@keyframes AnimationName {
+  0%{background-position:0% 87%}
+  50%{background-position:100% 14%}
+  100%{background-position:0% 87%}
+}
+/*/////////////// GRADIENT CONTAINER/////////////*/
 .gradientContainer{
   width: calc(100vw);
   height: calc(100vh);
   /* background: #eee; */
 } 
 
-/*/////////////// GRADIENT INDEX/////////////*/
+/*/////////////// GRADIENT CONTAINER/////////////*/
 #gradientContainer{
+    background: linear-gradient(60deg, #D8D8D8, #6BFFFB, #F5E3E1, #ADF0EB,  #6BFFFB);
+    
+    background-size: 500% 500%;
+    -webkit-animation: AnimationName 12s ease infinite;
+    -moz-animation: AnimationName 12s ease infinite;
+    -o-animation: AnimationName 12s ease infinite;
+    animation: AnimationName 12s ease infinite;
+}
+
+
   /* background: linear-gradient(60deg, #6BFFFB, #D8D8D8); */
   /* background-size: 100% 100%; */
+/* 
+  background: linear-gradient(230deg, #4ce5eb, #ced8d8, #6bdeea);
+  background-size: 600% 600%;
 
-  background: linear-gradient(228deg, #7deef2, #cbd8d8, #6bdeea);
-  background-size: 400% 400%;
+  -webkit-animation: AnimationName 7s ease infinite;
+  -moz-animation: AnimationName 7s ease infinite;
+  animation: AnimationName 7s ease infinite;
 
-  -webkit-animation: blueGray 8s ease infinite;
-  -moz-animation: blueGray 8s ease infinite;
-  animation: blueGray 8s ease infinite;
-
-  @-webkit-keyframes blueGray {
-    0%{background-position:0% 26%}
-    50%{background-position:100% 75%}
-    100%{background-position:0% 26%}
+  @-webkit-keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
   }
-
-@-moz-keyframes blueGray {
-    0%{background-position:0% 26%}
-    50%{background-position:100% 75%}
-    100%{background-position:0% 26%}
-}
-@keyframes blueGray {
-    0%{background-position:0% 26%}
-    50%{background-position:100% 75%}
-    100%{background-position:0% 26%}
+  @-moz-keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+  }
+  @keyframes AnimationName {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+  } */
 }
