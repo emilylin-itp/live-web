@@ -1,0 +1,174 @@
+@font-face {
+  font-family:'MaaxMono-Regular';
+  src: url('fonts/MaaxMono-Regular.eot');
+  src: url('fonts/MaaxMono-Regular.ttf');
+  format('truetype');
+}
+
+/* maybe??? not retro but still cool font
+@font-face {
+  font-family:'SharpGroteskBold21';
+  src: url('fonts/SharpGroteskBold21.eot');
+  src: url('fonts/SharpGroteskBold21.ttf');
+  format('truetype');
+}
+*/ 
+
+@font-face {
+  font-family:'barcade-brawl';
+  src: url('fonts/barcade-brawl.eot');
+  src: url('fonts/barcade-brawl.ttf');
+  format('truetype');
+}
+
+body {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#chatHolder{
+  border: solid 4.1px black;
+  width: 90%;
+  height: 90%;
+  position: relative;
+  overflow: hidden;
+}
+
+#userInput{
+  font-size: 0.85em;
+  font-family: 'MaaxMono-Regular';
+  /* padding-top: 0.75%; */
+  color: #6BFFFB;
+  background-color: black;
+  width:100%;
+  height: 4.5%;
+  float: top;
+  top: 0px;
+  position: absolute;
+  outline: solid 4px black;
+  border: none;
+  padding:none;
+  box-sizing: border-box;
+  text-align: center;
+  margin: auto;
+}
+
+#input {
+  position: absolute;
+  bottom: 0;
+  float: bottom;
+  width: 100%;
+  height: 14%;
+  font-size: 1.5em;
+  color: black;
+  padding-left: 5%;
+  font-size: 0.95em;
+  font-family: 'MaaxMono-Regular';
+  background-color: #6BFFFB;
+  outline: solid 4px black;
+  border: none;
+  padding:none;
+  box-sizing: border-box;
+
+  /*position: fixed;
+  /* bottom: 0px;
+  left: 0px; */
+  /* width: 100vw; */
+}
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+  border: none;
+  -moz-box-shadow:    inset 0 0 15px darkslategray;
+  -webkit-box-shadow: inset 0 0 15px darkslategray;
+  box-shadow:        inset 0 0 15px darkslategray;
+  /* outline: none; */
+  outline: solid 1px black;
+  cursor: text;
+}
+
+
+#input::placeholder{
+  color: black;
+  font-size: 0.95em;
+  font-family: 'MaaxMono-Regular';
+}
+
+#userInput::placeholder{
+  color: #6BFFFB;
+  font-size: 1em;
+  font-family: 'MaaxMono-Regular';
+}
+
+
+p {
+  font-family: sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 40vh;
+}
+
+p.fade {
+  -webkit-transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -ms-transition: opacity 3s ease-in-out;
+  -o-transition: opacity 3s ease-in-out;
+  opacity: 0;
+}
+
+#displayText{
+  font-family:'barcade-brawl';
+  /*font-family:'SharpGroteskBold21'; */
+  font-size: 3.75em;
+  letter-spacing: 0.5pt;
+  line-height: 1.5em;
+  /*padding: 5%;*/
+}
+
+#displayTextHolder{
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/*/////////////// GRADIENT GENERAL /////////////*/
+
+.gradientContainer{
+  width: calc(100vw);
+  height: calc(100vh);
+  /* background: #eee; */
+} 
+
+/*/////////////// GRADIENT INDEX/////////////*/
+#gradientContainer{
+  /* background: linear-gradient(60deg, #6BFFFB, #D8D8D8); */
+  /* background-size: 100% 100%; */
+
+  background: linear-gradient(228deg, #7deef2, #cbd8d8, #6bdeea);
+  background-size: 400% 400%;
+
+  -webkit-animation: blueGray 8s ease infinite;
+  -moz-animation: blueGray 8s ease infinite;
+  animation: blueGray 8s ease infinite;
+
+  @-webkit-keyframes blueGray {
+    0%{background-position:0% 26%}
+    50%{background-position:100% 75%}
+    100%{background-position:0% 26%}
+  }
+
+@-moz-keyframes blueGray {
+    0%{background-position:0% 26%}
+    50%{background-position:100% 75%}
+    100%{background-position:0% 26%}
+}
+@keyframes blueGray {
+    0%{background-position:0% 26%}
+    50%{background-position:100% 75%}
+    100%{background-position:0% 26%}
+}
