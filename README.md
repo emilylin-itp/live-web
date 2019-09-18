@@ -9,4 +9,4 @@ Self Portrait: https://emilylin-itp.github.io/live-web/wk1/self_1_code/index.htm
 **Week 2** <br>
 Chat Message: https://github.com/emilylin-itp/live-web/tree/gh-pages/wk2/present-week3-final-final
 > #start server 
-> node server.js
+> #node server.js
