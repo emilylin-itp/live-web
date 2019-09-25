@@ -1,0 +1,37 @@
+html,body{
+    height: 100%;
+    padding: 0;
+    background-color: #F7EAE4 !important;
+}
+
+body{
+    background-image: url("assets/person.svg");
+    background-repeat: no-repeat;
+    background-size: 55%;
+    background-position: center bottom;
+    /* width: 90%; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#canvas-drawing{
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position:relative;
+  }
+
+  #title{
+    width: 80vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+  }
+
+  #redo{
+      bottom: 0;
+  }
