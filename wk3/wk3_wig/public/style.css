@@ -1,6 +1,12 @@
+@font-face {
+    font-family:'SharpGroteskBold21';
+    src: url('fonts/SharpGroteskBold21.eot');
+    src: url('fonts/SharpGroteskBold21.ttf');
+    format('truetype');
+}
+
 html,body{
     height: 100%;
-    padding: 0;
     background-color: #F7EAE4 !important;
 }
 
@@ -10,8 +16,8 @@ body{
     background-size: 55%;
     background-position: center bottom;
     /* width: 90%; */
-    margin-left: auto;
-    margin-right: auto;
+    /* margin-left: auto;
+    margin-right: auto; */
 }
 
 #canvas-drawing{
@@ -22,10 +28,11 @@ body{
     bottom: 0;
     top: 0;
     position:relative;
+    padding-left: 5%;
   }
 
   #title{
-    width: 80vw;
+    width: 60vw;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -33,5 +40,38 @@ body{
   }
 
   #redo{
-      bottom: 0;
+    display: fixed;
+    top: 300px;
+    left: 0px;
+    z-index: 2;
+    width: 15vw;
   }
+
+  /* NAVBAR */
+#navbar-header{
+    background-color: black;
+    color: white;
+    font-family: 'SharpGroteskBold21';
+    font-size: 2.35vw;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    height: 8vh;
+    z-index: 3;
+    text-align: center;
+}
+
+#nav-container{
+    padding-top: 2vh;
+    align-items: center;
+    margin:auto;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+#nav-container > p{
+  margin: auto;
+}
