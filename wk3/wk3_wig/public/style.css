@@ -1,0 +1,77 @@
+@font-face {
+    font-family:'SharpGroteskBold21';
+    src: url('fonts/SharpGroteskBold21.eot');
+    src: url('fonts/SharpGroteskBold21.ttf');
+    format('truetype');
+}
+
+html,body{
+    height: 100%;
+    background-color: #F7EAE4 !important;
+}
+
+body{
+    background-image: url("assets/person.svg");
+    background-repeat: no-repeat;
+    background-size: 55%;
+    background-position: center bottom;
+    /* width: 90%; */
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+#canvas-drawing{
+    height: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position:relative;
+    padding-left: 5%;
+  }
+
+  #title{
+    width: 60vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5%;
+  }
+
+  #redo{
+    display: fixed;
+    top: 300px;
+    left: 0px;
+    z-index: 2;
+    width: 15vw;
+  }
+
+  /* NAVBAR */
+#navbar-header{
+    background-color: black;
+    color: white;
+    font-family: 'SharpGroteskBold21';
+    font-size: 2.35vw;
+    text-transform: uppercase;
+    letter-spacing: 0.1vw;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    height: 7vh;
+    z-index: 3;
+    text-align: center;
+}
+
+#nav-container{
+    padding-top: 2vh;
+    align-items: center;
+    margin:auto;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+}
+
+#nav-container > p{
+  margin: auto;
+}

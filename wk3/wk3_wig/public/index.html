@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Draw a Wig</title>
+
+    <!--style-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/main.js"></script>
+
+
+
+    <!--title-->
+    <!-- <div id='title' class='row'>
+            <img src="assets/title.svg" alt="draw a wig">
+        </div> -->
+
+    <!--HEADER NAV-->
+    <nav id='navbar-header' class='navbar navbar-default navbar-fixed-top'>
+        <div id='nav-container' class="container">
+            <p>Make - A - Wig</p>
+        </div>
+    </nav>
+
+    <div id="redo" class='col-3'>
+        <img src="assets/redo.svg" alt="">
+    </div>
+    <!--canvas-->
+    <canvas id="drawing">
+
+    </canvas>
+
+
+</body>
+
+</html>
