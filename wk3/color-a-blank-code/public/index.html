@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+    <!--scripts-->
+    <script src="script.js"></script>
+
+    <!--NAVBAR-->
+    <nav id="navbar-holder" class='row justify-content-between'>
+        <!--ARROW LEFT-->
+        <div id='arrow-left' class="col-2">
+            <a href="pizza.html"><img src="assets/nav/arrow_left.svg" alt="left arrow"></a>
+        </div>
+
+        <!--TITLE-->
+        <div id='title' class="col-8">
+            <p>Color - A - Fish</p>
+        </div>
+
+        <!--ARROW LEFT-->
+        <div id='arrow-right' class="col-2">
+            <img src="assets/nav/arrow_right.svg" alt="right arrow">
+        </div>
+    </nav>
+
+    <canvas id="mycanvas">
+    </canvas>
+
+    <div id="drawing-tools" class='row justify-content-between'>
+        <!--COLOR PALETTE-->
+        <div id='color-div' class='col-8'>
+            <p id='color-p'>Select Color:
+                <img src="assets/colors/blue.svg" id='blue-circle' alt="blue">
+                <img src="assets/colors/purple.svg" id='purple-circle' alt="purple">
+                <img src="assets/colors/orange.svg" id='orange-circle' alt="orange">
+                <img src="assets/colors/yellow.svg" id='yellow-circle' alt="yellow">
+                <img src="assets/colors/turq.svg" id='turq-circle' alt="turq">
+                <img src="assets/colors/magenta.svg" id='magenta-circle' alt="magenta">
+                <img src="assets/colors/green.svg" id='green-circle' alt="green">
+            </p>
+        </div>
+        <!--REDRAW-->
+        <div id='redraw-div' class='col-2'>
+            <p id='redraw-p'>Redraw</p>
+        </div>
+        <!--SHARE-->
+        <div id='photo-div' class='col-2'>
+            <a href="#" id="photo-download" download="image.png">Take a Photo!</a>
+        </div>
+
+        <div id ='messages'>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
