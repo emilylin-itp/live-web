@@ -1,60 +1,95 @@
-var socket = io.connect();
+// Steps from Code and Coffee
 
-socket.on('connect', function () {
-    console.log("Connected");
-});
+//client side needs:
+//1. resize the canvas to users screen
+//2. connect to the server and raw lines for the "drawLine" messages
+//3. on click the client should send a "drawLine" message to the server when we are moving the mouse.
 
-// Receive a message
-socket.on('message', function (data) {
-    console.log("Got: " + data);
-    document.getElementById('messages').innerHTML += data;
-});
 
-socket.on("position", function (data) {
-    console.log(data);
-});
+document.addEventListener("DOMContentLoaded", function () {
 
-// Receive from any event
-socket.on('news', function (data) {
-    console.log(data);
-});
+    var socket = io.connect();
 
-// var sendmessage = function () {
-//     var message = document.getElementById('message').value;
-//     console.log("Sending: " + message);
 
-//     // Send a messaage
-//     socket.send(message);
-// };
+    var mouse = {
+        click: false,
+        move: false,
+        pos: { x: 0, y: 0 },
+        pos_prev: false
+    };
+    // get canvas element and create context
+    let canvas = document.getElementById('mycanvas');
+    let context = canvas.getContext('2d');
+    var width = window.innerWidth;
+    var height = window.innerHeight;
 
-// var sendother = function () {
-//     var othermessage = document.getElementById('message').value;
-//     console.log("sending: " + othermessage);
 
-//     // Send any kind of data with a custom event
-//     //socket.emit('otherevent',{ othermessage: othermessage });
-//     socket.emit('otherevent', othermessage);
-// };
 
-window.addEventListener('load', function () {
-    window.addEventListener('mousemove', function (e) {
-        console.log(e);
-        let p = {
-            x: e.pageX,
-            y: e.pageY
-        };
+    // set canvas to full browser width/height
+    canvas.width = width;
+    canvas.height = height;
 
-        socket.emit('position', p);
+    // register mouse event handlers
+    canvas.onmousedown = function (e) { mouse.click = true; };
+    canvas.onmouseup = function (e) { mouse.click = false; };
 
-        // let p = new Object();
-        // p.x = e.pageX;
-        // p.y = e.pageY;
+    canvas.onmousemove = function (e) {
+        // normalize mouse position to range 0.0 - 1.0
+        mouse.pos.x = e.clientX / width;
+        mouse.pos.y = e.clientY / height;
+        mouse.move = true;
+    };
 
-        // e.pageX
-        // e.pageY
+    // draw line received from server
+    socket.on('drawLine', function (data) {
+        var line = data.line;
+        context.beginPath();
+        context.moveTo(line[0].x * width, line[0].y * height);
+        context.lineTo(line[1].x * width, line[1].y * height);
+        context.lineWidth = 7;
+        context.lineCap = 'round';
+        context.stroke();
     });
-});
 
+    //function to clear canvas
+    function emitAndCanvas() {
+        socket.emit('clear');
+        clearCanvas();
+        console.log('emitAndCanvas works!');
+    }
+
+    function clearCanvas() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        console.log('clearCanvas works!');
+    }
+
+    //redo button clicked -> clear canvas
+    let redoButton = document.getElementById('redraw-div');
+    redoButton.addEventListener('click', () => {
+        console.log('redo button clicked!');
+        emitAndCanvas();
+        clearCanvas();
+    });
+
+    // this will handle the socket event and clears the canvas; server side will recieve clear
+    socket.on('clear', clearCanvas);
+
+    // main loop, running every 25ms
+    function mainLoop() {
+        // check if the user is drawing
+        if (mouse.click && mouse.move && mouse.pos_prev) {
+            // send line to to the server
+            socket.emit('drawLine', {
+                line: [mouse.pos, mouse.pos_prev]
+            });
+            mouse.move = false;
+        }
+        mouse.pos_prev = { x: mouse.pos.x, y: mouse.pos.y };
+        setTimeout(mainLoop, 25);
+    }
+    mainLoop();
+
+});
 
 /* WILL USE BUT JUST NEED TO FIGURE OTHER THINGS OUT FIRST
 window.addEventListener('load', init);

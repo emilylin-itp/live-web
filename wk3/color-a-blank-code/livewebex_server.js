@@ -10,11 +10,29 @@ function onConnection(socket) {
     socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 }
 
+io.on('connection', function (socket) {
+    //we are given a websocket object in our function
+    function(socket){
+        console.log("we have a new client: " + socket.id);
+
+        //when this user emits, client side: socket.emit('otherevent', some data);
+        socket.on('othermouse', function(data){
+            //data comes in as what was sent, including obj
+            console.log("Received: 'othermouse' " + data.x + " " + data.y);
+            //send it to all clients
+            socket.emit('othermouse', data);
+        });
+        socket.on('disconnect', function() {
+			console.log("Client has disconnected " + socket.id);
+		});
+    }
+}
+
 // io.on('connection', onConnection);
 
+/*
 //array of all lines drawn
 let lineHistory = [];
-
 
 //event handler for new incoming connections
 io.on('connection', function (socket) {
@@ -35,12 +53,9 @@ io.on('connection', function (socket) {
             line: data.line 
         });
     });
-
-    // clear lineHistory array when clear function is called on client side!
-    socket.on('clear', function(data){
-        lineHistory = [];
-    })
 });
+
+*/
 
 
 
