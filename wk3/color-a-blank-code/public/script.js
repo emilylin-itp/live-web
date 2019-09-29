@@ -8,22 +8,27 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    var socket = io.connect();
+    let socket = io.connect();
 
-
-    var mouse = {
+    let mouse = {
         click: false,
         move: false,
         pos: { x: 0, y: 0 },
         pos_prev: false
     };
+
     // get canvas element and create context
     let canvas = document.getElementById('mycanvas');
     let context = canvas.getContext('2d');
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let blue = document.getElementById('blue-circle');
+    let purple = document.getElementById('purple-circle');
+    let orange = document.getElementById('orange-circle');
+    let yellow = document.getElementById('yellow-circle');
+    let turquoise = document.getElementById('turq-circle');
+    let magenta = document.getElementById('magenta-circle');
+    let green = document.getElementById('green-circle');
 
     // set canvas to full browser width/height
     canvas.width = width;
@@ -40,15 +45,47 @@ document.addEventListener("DOMContentLoaded", function () {
         mouse.move = true;
     };
 
+
     // draw line received from server
-    socket.on('drawLine', function (data) {
-        var line = data.line;
+    socket.on('drawLine', function (data, color) {
+        let line = data.line;
+        let strokeColor = color.stroke;
         context.beginPath();
         context.moveTo(line[0].x * width, line[0].y * height);
         context.lineTo(line[1].x * width, line[1].y * height);
         context.lineWidth = 7;
         context.lineCap = 'round';
         context.stroke();
+        // context.globalCompositeOperation = 'multiply';
+
+        blue.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(0,96,255,0.15)'; 
+        });
+
+        purple.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(157,79,255,0.15)'; 
+        });
+
+        orange.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(255,99,0,0.15)'; 
+        });
+
+        yellow.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(255,231,28,0.15)'; 
+        });
+
+        turquoise.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(80,227,194,0.15)'; 
+        });
+
+        magenta.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(255,0,241,0.15)'; 
+        });
+
+        green.addEventListener('click', ()=>{
+            context.strokeStyle = 'rgba(126,211,33,0.15)'; 
+        });
+
     });
 
     //function to clear canvas
@@ -58,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('emitAndCanvas works!');
     }
 
+    //function clear Canvas
     function clearCanvas() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         console.log('clearCanvas works!');
@@ -74,21 +112,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // this will handle the socket event and clears the canvas; server side will recieve clear
     socket.on('clear', clearCanvas);
 
+
     // main loop, running every 25ms
     function mainLoop() {
+
         // check if the user is drawing
         if (mouse.click && mouse.move && mouse.pos_prev) {
+
             // send line to to the server
             socket.emit('drawLine', {
                 line: [mouse.pos, mouse.pos_prev]
             });
             mouse.move = false;
         }
-        mouse.pos_prev = { x: mouse.pos.x, y: mouse.pos.y };
+        mouse.pos_prev = {
+            x: mouse.pos.x,
+            y: mouse.pos.y
+        };
+
         setTimeout(mainLoop, 25);
     }
     mainLoop();
-
 });
 
 /* WILL USE BUT JUST NEED TO FIGURE OTHER THINGS OUT FIRST
@@ -115,11 +159,7 @@ function downloadImage() {
 }
 */
 
-
-
-
 ////////* DUMPSTER CODE */////////
-
 
 //     let canvas = document.getElementById("draw-canvas");
 //     let context = canvas.getContext('2d');
