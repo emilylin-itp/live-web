@@ -9,11 +9,9 @@
 **Week 2**<br>
   * Chat Message: https://github.com/emilylin-itp/live-web/tree/gh-pages/wk2/present-week3-final-final
   * Try it out: http://157.230.220.209:8000/index.html
-  * > #start server: <br> 
-  * > node server.js <br> 
-<br> 
+    > #start server: <br> 
+    > node server.js <br> 
 
 **Week 3**<br>
-  * Coloring Book (v.1): https://github.com/emilylin-itp/live-web/tree/gh-pages/wk3/wk3_wig
-<br>
+  * Coloring Book (v.1): https://github.com/emilylin-itp/live-web/tree/gh-pages/wk3/wk3_wig <br>
   * Coloring Book (v.2): wip
