@@ -32,7 +32,8 @@ io.on('connection', function (socket) {
 
         //send line to all clients
         io.emit('drawLine', { 
-            line: data.line 
+            line: data.line,
+            color: data.color 
         });
     });
 
@@ -40,6 +41,7 @@ io.on('connection', function (socket) {
     socket.on('clear', function(data){
         lineHistory = [];
     })
+
 });
 
 

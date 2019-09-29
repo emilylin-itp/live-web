@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let socket = io.connect();
 
+    let color;
+
     let mouse = {
         click: false,
         move: false,
@@ -22,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let context = canvas.getContext('2d');
     let width = window.innerWidth;
     let height = window.innerHeight;
+
+    // select color circles
     let blue = document.getElementById('blue-circle');
     let purple = document.getElementById('purple-circle');
     let orange = document.getElementById('orange-circle');
@@ -45,49 +49,62 @@ document.addEventListener("DOMContentLoaded", function () {
         mouse.move = true;
     };
 
+    let currentColor = 'rgba(0,96,255,0.15)'; //default color
 
     // draw line received from server
-    socket.on('drawLine', function (data, color) {
-        let line = data.line;
-        let strokeColor = color.stroke;
+    socket.on('drawLine', function (data) {
+        var line = data.line;
+        // var color = data.color;
+
         context.beginPath();
         context.moveTo(line[0].x * width, line[0].y * height);
         context.lineTo(line[1].x * width, line[1].y * height);
         context.lineWidth = 7;
         context.lineCap = 'round';
         context.stroke();
+        // context.strokeStyle = color;
+
+        context.strokeStyle = currentColor;
         // context.globalCompositeOperation = 'multiply';
 
-        blue.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(0,96,255,0.15)'; 
+        blue.addEventListener('click', () => {
+            console.log('blue selected');
+            currentColor = 'rgba(0,96,255,0.15)';
         });
 
-        purple.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(157,79,255,0.15)'; 
+
+        purple.addEventListener('click', () => {
+            console.log('purple selected');
+            currentColor = 'rgba(157,79,255,0.15)';
         });
 
-        orange.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(255,99,0,0.15)'; 
+        orange.addEventListener('click', () => {
+            console.log('og selected');
+            currentColor = 'rgba(255,99,0,0.15)';
         });
 
-        yellow.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(255,231,28,0.15)'; 
+        yellow.addEventListener('click', () => {
+            console.log('yellow selected');
+            currentColor = 'rgba(255,231,25,0.15)';
         });
 
-        turquoise.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(80,227,194,0.15)'; 
+        turquoise.addEventListener('click', () => {
+            console.log('turq selected');
+            currentColor = 'rgba(80,227,194,0.15)';
         });
 
-        magenta.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(255,0,241,0.15)'; 
+        magenta.addEventListener('click', () => {
+            console.log('magenta selected');
+            currentColor = 'rgba(255,0,241,0.15)';
         });
 
-        green.addEventListener('click', ()=>{
-            context.strokeStyle = 'rgba(126,211,33,0.15)'; 
+        green.addEventListener('click', () => {
+            console.log('green selected');
+            currentColor = 'rgba(126,211,33,0.15)';
         });
-
     });
 
+    ////////// CLEAR CANVAS /////////
     //function to clear canvas
     function emitAndCanvas() {
         socket.emit('clear');
@@ -109,8 +126,8 @@ document.addEventListener("DOMContentLoaded", function () {
         clearCanvas();
     });
 
-    // this will handle the socket event and clears the canvas; server side will recieve clear
     socket.on('clear', clearCanvas);
+
 
 
     // main loop, running every 25ms
@@ -121,7 +138,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // send line to to the server
             socket.emit('drawLine', {
-                line: [mouse.pos, mouse.pos_prev]
+                line: [mouse.pos, mouse.pos_prev],
+                // color: color
             });
             mouse.move = false;
         }
@@ -134,6 +152,73 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     mainLoop();
 });
+
+
+
+/* COLORS TO USE
+        purple.addEventListener('click', () => {
+            console.log('purple selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+        orange.addEventListener('click', () => {
+            console.log('og selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+        yellow.addEventListener('click', () => {
+            console.log('yellow selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+        turquoise.addEventListener('click', () => {
+            console.log('turq selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+        magenta.addEventListener('click', () => {
+            console.log('magenta selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+        green.addEventListener('click', () => {
+            console.log('green selected');
+            context.strokeStyle = 'rgba(0,96,255,0.15)';
+        });
+
+*/
+
+////////////////////////* DUMPSTER CODE *//////////////////////////////
+    ////////// COLOR /////////
+/*
+// this will handle the socket event and clears the canvas; server side will recieve clear
+socket.on('blue', changeBlue);
+
+//function to change to blue
+blue.addEventListener('click', changeBlue);
+
+function changeBlue() {
+    blue.addEventListener('click', () => {
+        console.log('blue selected');
+        context.strokeStyle = 'rgba(0,96,255,0.15)';
+    });
+}
+
+// this will handle the socket event and change the color; server side will recieve color
+socket.on('purple', changePurple);
+
+//function to change to purple
+purple.addEventListener('click', changePurple);
+
+function changePurple() {
+    purple.addEventListener('click', () => {
+        console.log('purple selected');
+        context.strokeStyle = 'rgba(0,96,255,0.15)';
+    });
+}
+*/
+
+
 
 /* WILL USE BUT JUST NEED TO FIGURE OTHER THINGS OUT FIRST
 window.addEventListener('load', init);
@@ -159,7 +244,6 @@ function downloadImage() {
 }
 */
 
-////////* DUMPSTER CODE */////////
 
 //     let canvas = document.getElementById("draw-canvas");
 //     let context = canvas.getContext('2d');
