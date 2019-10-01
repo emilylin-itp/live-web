@@ -25,3 +25,15 @@
     background: blue;
     /* visibility: hidden; */
 }
+
+#partner-canvas{
+    border: 2px blue solid;
+}
+
+#mycanvas{
+    border: 2px yellow solid;
+}
+
+#otherimage{
+    border: 2px yellow solid;
+}

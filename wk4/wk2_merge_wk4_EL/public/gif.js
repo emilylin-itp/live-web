@@ -14,15 +14,6 @@ socket.on('connect', function () {
     console.log("Connected");
 });
 
-
-/*
-//listen for a message
-socket.on('message', function (data) {
-    console.log("Got: " + data);
-    document.getElementById('messages').innerHTML += data;
-});
-*/
-
 //listen for position 
 socket.on('position', function (data) {
     //console.log(data);
@@ -76,33 +67,18 @@ socket.on('image', function (imageData) {
 });
 
 // DISPLAY USERNAME
-
 function displayUsername(data) {
     // removeElements();
     document.getElementById('usernameText').innerHTML = data;
 }
 
-/*
-var sendmessage = function () {
-    var message = document.getElementById('message').value;
-    console.log("Sending: " + message);
-
-    // Send a messaage
-    socket.send(message);
-};
-
-var sendother = function () {
-    var othermessage = document.getElementById('message').value;
-    console.log("sending: " + othermessage);
-
-    // Send any kind of data with a custom event
-    //socket.emit('otherevent',{ othermessage: othermessage });
-    socket.emit('otherevent', othermessage);
-};
-*/
+function displayImage(data) {
+    // removeElements();
+    document.getElementById('partner-canvas').innerHTML = data;
+  }
 
 
-// VIDEO MESSAGES
+////////////  ONCE PG LOADED  //////////////
 window.addEventListener('load', function () {
 
     //SOCKET ROOM CONNECTION 
@@ -131,10 +107,6 @@ window.addEventListener('load', function () {
         }
     }
 
-
-    //the video element on the page to display the webcam
-    let video = document.getElementById('myvideo');
-
     //constrains - what do we want?
     let constraints = {
         audio: true,
@@ -159,16 +131,21 @@ window.addEventListener('load', function () {
             alert(err);
         });
 
-    //VIDEO + DOM
+    ///////////// VIDEO + DOM SECTION //////////
+
+    //the video element on the page to display the webcam
+    let video = document.getElementById('myvideo');
+
     let usernameText = document.getElementById('usernameText')
     let playBttn = document.getElementById('playbttn');
     let photoBttn = document.getElementById('photobttn');
     let canvas = document.getElementById('mycanvas');
     let context = canvas.getContext('2d');
-    
+
 
     context.fillStyle = "#FF000";
     context.fillRect(0, 0, canvas.width, canvas.height);
+
 
     photoBttn.addEventListener('click', function (e) {
         context.drawImage(video, 10, 10);
@@ -187,4 +164,43 @@ window.addEventListener('load', function () {
         //v returns array of images
         gif = [];
     });
+
+
+    // Listen for img from partners
+    socket.on('img', function (data) {
+        displayImage(data);
+    });
+
 });
+
+
+
+
+///////////////* DUMPSTER CODE *///////////////
+/* FROM SHAWN EX
+var sendmessage = function () {
+    var message = document.getElementById('message').value;
+    console.log("Sending: " + message);
+
+    // Send a messaage
+    socket.send(message);
+};
+
+var sendother = function () {
+    var othermessage = document.getElementById('message').value;
+    console.log("sending: " + othermessage);
+
+    // Send any kind of data with a custom event
+    //socket.emit('otherevent',{ othermessage: othermessage });
+    socket.emit('otherevent', othermessage);
+};
+*/
+
+
+/* FROM SHAWN EX
+//listen for a message
+socket.on('message', function (data) {
+    console.log("Got: " + data);
+    document.getElementById('messages').innerHTML += data;
+});
+*/

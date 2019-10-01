@@ -82,11 +82,13 @@ io.sockets.on('connection',
       console.log("Received: 'otherevent' " + data);
     });
 
+    /*
     //SAY WHO YOU ARE PARTNERED WITH
     socket.on('istyping', function () {
       let room = socket.room;
       socket.to(room).emit('istyping');
     });
+    */
 
     //SAY WHEN PARTNER LEFT ROOM
     // Listen for this client to disconnect
@@ -94,7 +96,6 @@ io.sockets.on('connection',
     socket.on('disconnect', function () {
       console.log("Client has disconnected " + socket.id);
 
-    
       // Which room was this client in?
       let room = socket.room;
       // Tell others in room client has left
@@ -104,7 +105,6 @@ io.sockets.on('connection',
 
     });
   });
-
 
 
 // Join room

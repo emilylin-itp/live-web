@@ -35,6 +35,7 @@ io.on('connection', function (socket) {
             line: data.line,
             color: data.color 
         });
+        console.log(data.color);
     });
 
     // clear lineHistory array when clear function is called on client side!
@@ -43,6 +44,9 @@ io.on('connection', function (socket) {
     })
 
 });
+
+// doesn't know which person
+
 
 
 

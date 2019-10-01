@@ -51,10 +51,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentColor = 'rgba(0,96,255,0.15)'; //default color
 
+    blue.addEventListener('click', () => {
+        console.log('blue selected');
+        currentColor = 'rgba(0,96,255,0.15)';
+    });
+
+    purple.addEventListener('click', () => {
+        console.log('purple selected');
+        currentColor = 'rgba(157,79,255,0.15)';
+    });
+
+    orange.addEventListener('click', () => {
+        console.log('og selected');
+        currentColor = 'rgba(255,99,0,0.15)';
+    });
+
+    yellow.addEventListener('click', () => {
+        console.log('yellow selected');
+        currentColor = 'rgba(255,231,25,0.15)';
+    });
+
+    turquoise.addEventListener('click', () => {
+        console.log('turq selected');
+        currentColor = 'rgba(80,227,194,0.15)';
+    });
+
+    magenta.addEventListener('click', () => {
+        console.log('magenta selected');
+        currentColor = 'rgba(255,0,241,0.15)';
+    });
+
+    green.addEventListener('click', () => {
+        console.log('green selected');
+        currentColor = 'rgba(126,211,33,0.15)';
+    });
+
     // draw line received from server
     socket.on('drawLine', function (data) {
         var line = data.line;
-        // var color = data.color;
+        var color = data.color;
 
         context.beginPath();
         context.moveTo(line[0].x * width, line[0].y * height);
@@ -64,44 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         context.stroke();
         // context.strokeStyle = color;
 
-        context.strokeStyle = currentColor;
-        // context.globalCompositeOperation = 'multiply';
-
-        blue.addEventListener('click', () => {
-            console.log('blue selected');
-            currentColor = 'rgba(0,96,255,0.15)';
-        });
-
-
-        purple.addEventListener('click', () => {
-            console.log('purple selected');
-            currentColor = 'rgba(157,79,255,0.15)';
-        });
-
-        orange.addEventListener('click', () => {
-            console.log('og selected');
-            currentColor = 'rgba(255,99,0,0.15)';
-        });
-
-        yellow.addEventListener('click', () => {
-            console.log('yellow selected');
-            currentColor = 'rgba(255,231,25,0.15)';
-        });
-
-        turquoise.addEventListener('click', () => {
-            console.log('turq selected');
-            currentColor = 'rgba(80,227,194,0.15)';
-        });
-
-        magenta.addEventListener('click', () => {
-            console.log('magenta selected');
-            currentColor = 'rgba(255,0,241,0.15)';
-        });
-
-        green.addEventListener('click', () => {
-            console.log('green selected');
-            currentColor = 'rgba(126,211,33,0.15)';
-        });
+        context.strokeStyle = color;
     });
 
     ////////// CLEAR CANVAS /////////
@@ -128,8 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.on('clear', clearCanvas);
 
-
-
     // main loop, running every 25ms
     function mainLoop() {
 
@@ -139,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // send line to to the server
             socket.emit('drawLine', {
                 line: [mouse.pos, mouse.pos_prev],
-                // color: color
+                color: currentColor
             });
             mouse.move = false;
         }
