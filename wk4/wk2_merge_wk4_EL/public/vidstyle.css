@@ -1,39 +1,320 @@
-#inputText {
-    z-index: 3;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5vh;
-    color: black;
-    font-size: 2vw;
-    font-family: sans-serif;
-    background: yellow;
-    /* visibility: hidden; */
+@font-face {
+    font-family: 'MaaxMono-Regular';
+    src: url('fonts/MaaxMono-Regular.eot');
+    src: url('fonts/MaaxMono-Regular.ttf');
+    format('truetype');
   }
   
-#usernameText{
-    z-index: 4;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+@font-face {
+    font-family: 'value-serif';
+    src: url('fonts/value-serif.eot');
+    src: url('fonts/value-serif.ttf');
+    format('truetype');
+}
+
+
+body {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+}
+
+#chatHolder{
+    width: 78vw;
+    height: 55vh;
+    position: absolute;
+    /* border: 1px solid red; */
+}
+
+
+/*///////// INPUT CONTAINER ///////////*/
+
+#leftSide .col-6{
+    padding: none!important;
+}
+
+
+#leftSide{
+    /* width: 100%; */
+    position:relative;
     width: 100%;
-    height: 5vh;
+    height: 90%;
+    box-sizing: border-box;
+    padding: none!important;
+    margin: none!important;
+    border: 6px solid black;
+}
+
+.box{
+    width: 100%;
+    z-index: 6!important; 
+    /* border: 8px solid black; */
+    box-sizing: border-box;
+    height: 25vh;
+    z-index: 5 !important;
+    background-color: black;
+    height: 6vh;
+    float: top;
+    padding: none;
+    text-align: center;
+    border-radius: 0;
+}
+
+
+#username{
     color: white;
-    font-size: 2vw;
-    font-family: sans-serif;
-    background: blue;
+    font-size:1vw;
+    font-family: 'MaaxMono-Regular';
+    /* outline: solid 4px black;  */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: black;
+    z-index: 5 !important;
+    width: 100%;
+    height: 6vh;
+    top: 0;
+    left: 0;
+    position:absolute;
+    border-style: none;
+}
+
+#username{
+    color: white;
+    background-color: black;
+}
+
+
+/* OTHER IMAGE + OTHER CONTAINER*/ 
+/* username that appears when person enters in user name */
+
+#usernameText{
+    color: white;
+    font-size:1vw;
+    font-family: 'MaaxMono-Regular';
+    /* outline: solid 4px black;  */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: black;
+    z-index: 5 !important;
+    width: 100%;
+    height: 6vh;
+    top: 0;
+    left: 0;
+    position:absolute;
+    border-style: none;
+    padding-top: 2vh;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none !important;
+}
+
+*:focus {
+    outline: none;
+}
+/* 
+  #inputText {
+    height: 6vh;
+    position: absolute;
+    top:0;
+    float: bottom;
+    width: 100%;
+    height: 18%;
+    color: white;
+    padding-left: 5%;
+    font-size: 10pt;
+    font-family: 'MaaxMono-Regular';
+    background-color: black;
+    outline: solid 4px black;
+    border: none;
+    padding: none;
+    box-sizing: border-box;
+    border-radius: 0;
     /* visibility: hidden; */
+  }
+   */
+   
+  #inputText::placeholder {
+    color: black;
+    font-size: 10pt;
+    font-family: 'MaaxMono-Regular';
+  }
+  
+/*   
+  #username::placeholder {
+    color: white;
+    font-size: 9pt;
+    font-family: 'MaaxMono-Regular';
+  } */
+  
+/*//////// VIDEO SECTION //////////*/
+
+#myvideo{
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    /* transform: scale(1.5); */
+    width: 80%;
+    height: 80%;
 }
 
 #partner-canvas{
-    border: 2px blue solid;
+    background-color: white;
 }
 
 #mycanvas{
-    border: 2px yellow solid;
+    /* background-color: white; */
+    visibility: hidden;
+}
+
+/* OTHER CONTAINTER */
+/* RIGHT SIDE IMAGE GOES HERE */
+
+#yourBox{
+    font-family: 'MaaxMono-Regular';
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin:none!important;
+    padding-left: none!important;
+    padding-right: none !important;
+}
+
+.col-6{
+    padding-left: none !important;
+    padding-right: none !important;
+}
+
+#rightSide{
+    /* width: 100%; */
+    position:relative;
+    width: 100%;
+    height:90%;
+    box-sizing: border-box;
+    padding: none!important;
+    margin: none!important;
+    border: 6px solid black;
 }
 
 #otherimage{
-    border: 2px yellow solid;
+    width:100%;
+    z-index: -1 !important;
+    /* border: 6px solid black; */
+    box-sizing: border-box;
+    margin-top: 1vh;
+    position: relative;
 }
+
+#inputText{
+    background-color: black;
+    width: 100%;
+    font-size: 9pt;
+    font-family: 'MaaxMono-Regular';
+    color: white;
+    background-color: black;
+    height: 6vh;
+    float: top;
+    float: left;
+    padding: none;
+    text-align: center;
+    border-radius: 0;
+    visibility: hidden;
+}
+
+
+/*BUTTON */
+/* #buttonContainer{
+    position:fixed;
+    bottom: 0;
+    padding: none!important;
+} */
+
+#buttonDiv{
+    position: relative;
+    bottom:0vh;
+    width: 100%;
+}
+
+.bttn{
+    position: relative;
+    text-align: center;
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9vw;
+    font-family: 'MaaxMono-Regular';
+    height: 6vh;
+    width: 55%;
+}
+
+#photobttn, #playbttn{
+    display: block;
+    margin-bottom: 2vh;
+}
+
+
+/*/////////////// GRADIENT GENERAL /////////////*/
+@-webkit-keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  /*/////////////// GRADIENT CONTAINER/////////////*/
+  .gradientContainer {
+    width: calc(100vw);
+    height: calc(100vh);
+  }
+  
+  /*/////////////// GRADIENT CONTAINER/////////////*/
+  .gradientContainer {
+    background: linear-gradient(60deg, #D8D8D8, #6BFFFB, #FFFDB7, #ADF0EB, #6BFFFB);
+    background-size: 500% 500%;
+    -webkit-animation: AnimationName 12s ease infinite;
+    -moz-animation: AnimationName 12s ease infinite;
+    -o-animation: AnimationName 12s ease infinite;
+    animation: AnimationName 12s ease infinite;
+  }
+  

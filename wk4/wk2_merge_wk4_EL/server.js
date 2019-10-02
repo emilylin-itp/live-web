@@ -2,7 +2,7 @@
 let port = process.env.PORT || 8000;
 let express = require('express');
 let app = express();
-let server = require('http').createServer(app).listen(port, function () {
+let server = require('http').createServer(app).listen(port, function() {
   console.log('Server listening at port: ', port);
 });
 
@@ -23,13 +23,13 @@ let NUM_PARTNERS = 2;
 // Listen for clients to connect
 io.sockets.on('connection',
 
-  function (socket) {
+  function(socket) {
     console.log('An input client connected: ' + socket.id);
 
     // Join a room
     joinRoom(socket);
 
-    socket.on('username', function (senderUsername) {
+    socket.on('username', function(senderUsername) {
 
       let room = socket.room;
       let data = senderUsername;
@@ -50,50 +50,26 @@ io.sockets.on('connection',
       socket.broadcast.to(receiver).emit('connectedUsername', data);
     });
 
-
-    /* IGNORE TEXT MSG FOR NOW
-    // Listen for data messages
-    socket.on('text', function (data) {
-      // Data comes in as whatever was sent, including objects
-      //console.log("Received: 'message' " + data);
-      // Which private room does this client belong to?
-      let room = socket.room;
-
-      // Share data to all members of room
-      socket.to(room).emit('text', data);
-    }
-*/
-
-    /////// MERGED SECTION ///////
-
     // listen for 'image' event then emit to other sockets
-    socket.on('image', function (data) {
-      io.sockets.emit('image', data);
-    });
-
-    // listen for 'position' event then emit to other sockets
-    socket.on('position', function (data) {
-      io.sockets.emit('position', data);
-    })
-
-    // When this user emits, client side: socket.emit('otherevent',some data);
-    socket.on('otherevent', function (data) {
-      // Data comes in as whatever was sent, including objects
-      console.log("Received: 'otherevent' " + data);
-    });
-
-    /*
-    //SAY WHO YOU ARE PARTNERED WITH
-    socket.on('istyping', function () {
+    socket.on('image', function(data) {
       let room = socket.room;
-      socket.to(room).emit('istyping');
-    });
-    */
+      // console.log(data);
+      let members = rooms[room].sockets;
+      // console.log(members);
+      let sender = socket.id;
+      // console.log('sender: ' + sender);
+      let receiver;
+      for (member in members) {
+        if (member != sender) {
+          receiver = member;
+          // console.log('receiver: ' + receiver);
+        }
+      }
 
-    //SAY WHEN PARTNER LEFT ROOM
-    // Listen for this client to disconnect
-    // Tell partners this client disconnected
-    socket.on('disconnect', function () {
+      socket.broadcast.to(receiver).emit('image', data);
+    });
+
+    socket.on('disconnect', function() {
       console.log("Client has disconnected " + socket.id);
 
       // Which room was this client in?

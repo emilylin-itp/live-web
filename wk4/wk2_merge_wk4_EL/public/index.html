@@ -7,7 +7,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script> -->
 
+  <!--STYLESHEET-->
   <link rel="stylesheet" type="text/css" href="vidstyle.css">
+
+  <!--BOOTSTRAP-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+    integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -19,30 +24,65 @@
   <script src="/socket.io/socket.io.js"></script>
   <!-- <script src="username.js"></script> -->
 
-  <div id='chatHolder'>
-    <input id="username" class="force-select-all" placeholder="whats your name" maxlength="15"></input>
 
-    <div id='inputText'></div>
-    <div id = 'usernameText'></div>
+  <div id='chatHolder' class='row'>
 
-    <button id='photobttn'>Snap A Pix</button>
-    <button id='playbttn'>Play Me</button>
+    <!--LEFT SIDE-->
+    <div id='leftSide' class='col-6'>
+      <!--PERSONAL USERNAME -->
+      <!-- <div id=inputContainer class='box'> -->
 
-    <video id="myvideo" width="500" height="500" muted></video>
-    <canvas width="500" height="500" id="mycanvas"></canvas>
-    <img id="otherimage" width="500" height="500" src="" />
+        <input id="username" class="force-select-all" placeholder="What's your name?" maxlength="15"></input>
 
+        <!--VIDEO OF PERSONAL USER-->
+        <video id="myvideo" muted></video>
+        <canvas id="mycanvas"></canvas>
+      </div>
+    <!-- </div> -->
+
+    <!--RIGHT SIDE-->
+    <div id='yourBox' class='col-6'>
+      <div id='rightSide'>
+
+        <!--YOU USER NAME-->
+        <!-- <div id='yourUsername'></div> -->
+        <div id='inputText'></div>
+        <div id='usernameText'><p></p></div>
+
+        <!-- <p>this is where the gif img go!</p> -->
+        <img id="otherimage" width="500" height="500" onerror="this.style.display='none'" src="" />
+      </div>
+    </div>
+
+
+
+    <!-- BUTTONS -->
+    <div id='buttonContainer' class='container'>
+      <div id='buttonDiv' class="row justify-content-center">
+
+        <!-- CLICK GIF -->
+         <button id='photobttn' class='bttn'>Click A Gif</button>
+        <!-- SEND -->
+          <button id='playbttn' class='bttn'>Send</button>
+
+
+      </div>
+    </div>
   </div>
 
-  <!--NOT NECESSARY-->
-  <!-- 
-    <input id="username" class="force-select-all" placeholder="whats your name" maxlength="15"></inpust> -->
-
-  <!-- <div id='displayTextHolder'>
-      <p id="displayText"></p>
-    </div> -->
-
-  <!-- <input id="inputText" placeholder="say something" maxlength="45"></input> -->
 </body>
 
 </html>
+
+
+
+
+<!--DUMPSTER CODE-->
+<!--
+    <input id="username" class="force-select-all" placeholder="whats your name" maxlength="15"></inpust> -->
+
+<!-- <div id='displayTextHolder'>
+      <p id="displayText"></p>
+    </div> -->
+
+<!-- <input id="inputText" placeholder="say something" maxlength="45"></input> -->

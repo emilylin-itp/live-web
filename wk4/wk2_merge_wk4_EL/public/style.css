@@ -6,9 +6,9 @@
 }
 
 @font-face {
-  font-family: 'barcade-brawl';
-  src: url('fonts/barcade-brawl.eot');
-  src: url('fonts/barcade-brawl.ttf');
+  font-family: 'value-serif';
+  src: url('fonts/value-serif.eot');
+  src: url('fonts/value-serif.ttf');
   format('truetype');
 }
 
@@ -20,6 +20,11 @@
   format('truetype');
 }
 */
+
+div{
+  border: 1px solid red;
+}
+
 body {
   cursor: url("assets/blue_8bit_cursor.svg"), default;
 }
@@ -34,10 +39,20 @@ body {
 
 #chatHolder {
   border: solid 4.1px black;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
+}
+
+#title{
+  top: 0;
+  position: relative;
+}
+
+#titleText{
+  font-family: 'value-serif';
+  font-size: 15vw;
 }
 
 #username {
@@ -72,7 +87,7 @@ body {
   font-size: 10pt;
   font-family: 'MaaxMono-Regular';
   background-color: #6BFFFB;
-  outline: solid 4px black;
+  /* outline: solid 4px black; */
   border: none;
   padding: none;
   box-sizing: border-box;
@@ -99,18 +114,14 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   font-family: 'MaaxMono-Regular';
 }
 
-/* #input:hover{
-  cursor: url("assets/black_8bit_type.png"), text;
-} */
+
 #username::placeholder {
   color: #6BFFFB;
   font-size: 9pt;
   font-family: 'MaaxMono-Regular';
 }
 
-/* #username:hover{
-  cursor: url("assets/black_8bit_type.png"), text;
-} */
+
 p {
   font-family: sans-serif;
   font-size: 9pt;
@@ -195,8 +206,8 @@ p.fade {
 
 /*/////////////// GRADIENT CONTAINER/////////////*/
 .gradientContainer {
-  background: linear-gradient(60deg, #D8D8D8, #6BFFFB, #FFFDB7, #ADF0EB, #6BFFFB);
-  background-size: 500% 500%;
+  background: linear-gradient(60deg, #DBFF67, #6BFFFB, #DBFF67);
+  background-size: 300% 300%;
   -webkit-animation: AnimationName 12s ease infinite;
   -moz-animation: AnimationName 12s ease infinite;
   -o-animation: AnimationName 12s ease infinite;
