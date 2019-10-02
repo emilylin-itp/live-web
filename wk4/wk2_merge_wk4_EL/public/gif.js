@@ -10,66 +10,66 @@ let otherUser = '';
 let inputText;
 
 //listen for event 'connect'
-socket.on('connect', function() {
-  console.log("Connected");
+socket.on('connect', function () {
+    console.log("Connected");
 });
 
 //listen for position
-socket.on('position', function(data) {
-  //console.log(data);
+socket.on('position', function (data) {
+    //console.log(data);
 });
 
 //receive from any event
-socket.on('news', function(data) {
-  console.log(data);
+socket.on('news', function (data) {
+    console.log(data);
 });
 
 //recieve 'connectedUsername' data if partner is connected
-socket.on('connectedUsername', function(user) {
-  otherUser = user;
-  console.log('connected to: ' + otherUser);
-  // removeElements();
-  displayUsername(`You're connected to ${otherUser}`);
+socket.on('connectedUsername', function (user) {
+    otherUser = user;
+    console.log('connected to: ' + otherUser);
+    // removeElements();
+    displayUsername(`You're connected to ${otherUser}`);
 });
 
-socket.on('leave room', function() {
-  console.log('(they left...)');
-  displayUsername('(they left...)');
+socket.on('leave room', function () {
+    console.log('(they left...)');
+    displayUsername('(they left...)');
 });
 
 // GIF
-socket.on('image', function(imageData) {
-  //incoming image..
-  console.log("image recd");
-  // console.log("imageData.image: " + imageData.image);
-  latest = 0;
-  latest = imageData.image;
-  // displayFrames(latest);
+socket.on('image', function (imageData) {
+    //incoming image..
+    console.log("image recd");
+    // console.log("imageData.image: " + imageData.image);
+    latest = 0;
+    latest = imageData.image;
+    // displayFrames(latest);
 
-  window.requestAnimationFrame(step);
-
-  function step(timestamp) {
-    //console.log("entered function, index: " + index);
-    if (!start) start = timestamp;
-    let progress = timestamp - start;
-
-    //console.log("progress: " + progress);
-
-    //if progress is greater than 0 than change otherimg.src to be the latest
-    if (progress > 200 * index) {
-      console.log('index: ' + index);
-      // console.log('latest index: ' + latest[index]);
-      document.getElementById('otherimage').src = latest[index];
-
-      if (index < latest.length) {
-        index++;
-      } else if (index == latest.length) {
-        index = 0;
-        start = timestamp;
-      }
-    }
     window.requestAnimationFrame(step);
-  }
+
+    function step(timestamp) {
+        //console.log("entered function, index: " + index);
+        if (!start) start = timestamp;
+        let progress = timestamp - start;
+
+        //console.log("progress: " + progress);
+
+        //if progress is greater than 0 than change otherimg.src to be the latest
+        if (progress > 200 * index) {
+            console.log('index: ' + index);
+            // console.log('latest index: ' + latest[index]);
+            document.getElementById('otherimage').src = latest[index];
+
+            if (index < latest.length) {
+                index++;
+            } else if (index == latest.length) {
+                index = 0;
+                start = timestamp;
+            }
+        }
+        window.requestAnimationFrame(step);
+    }
 });
 
 // function displayFrames(e) {
@@ -83,8 +83,8 @@ socket.on('image', function(imageData) {
 
 // DISPLAY USERNAME
 function displayUsername(data) {
-  // removeElements();
-  document.getElementById('usernameText').innerHTML = data;
+    // removeElements();
+    document.getElementById('usernameText').innerHTML = data;
 }
 
 // function displayImage(data) {
@@ -94,105 +94,112 @@ function displayUsername(data) {
 
 
 ////////////  ONCE PG LOADED  //////////////
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
 
-  //SOCKET ROOM CONNECTION
+    //SOCKET ROOM CONNECTION
 
-  //USERNAME
-  username = document.getElementById('username');
-  username.addEventListener('keypress', keyPressedUser);
+    //USERNAME
+    username = document.getElementById('username');
+    username.addEventListener('keypress', keyPressedUser);
 
-  socket.on('connectedUsername', function(user) {
-    otherUser = user;
-    console.log('connected to: ' + otherUser);
-    // removeElements();
-    displayUsername(`You're connected to ${otherUser}`);
-  });
-
-  function keyPressedUser(e) {
-    // console.log(e);
-    if (e.keyCode == 13) {
-      console.log('my username: ' + username.value);
-      let myUsername = username.value;
-      socket.emit('username', myUsername);
-
-    //   inputText = document.getElementById('inputText');
-    //   inputText.style.visibility = "visible";
-    //   inputText.innerHTML = myUsername;
-    }
-  }
-
-  //constrains - what do we want?
-  let constraints = {
-    audio: true,
-    video: true
-  }
-
-  //promp the user for permission to get the stream
-  navigator.mediaDevices.getUserMedia(constraints)
-    .then(function(stream) {
-
-      //attach to our video object
-      video.srcObject = stream;
-
-      //wait for the stream to load enough to play
-      video.onloadedmetadata = function(e) {
-        video.play();
-      };
-    })
-
-    .catch(function(err) {
-      /* handle the error */
-      alert(err);
+    socket.on('connectedUsername', function (user) {
+        otherUser = user;
+        console.log('connected to: ' + otherUser);
+        // removeElements();
+        displayUsername(`You're connected to ${otherUser}`);
     });
 
-  ///////////// VIDEO + DOM SECTION //////////
+    function keyPressedUser(e) {
+        // console.log(e);
+        if (e.keyCode == 13) {
+            console.log('my username: ' + username.value);
+            let myUsername = username.value;
+            socket.emit('username', myUsername);
 
-  //the video element on the page to display the webcam
-  let video = document.getElementById('myvideo');
-
-  let usernameText = document.getElementById('usernameText')
-  let playBttn = document.getElementById('playbttn');
-  let photoBttn = document.getElementById('photobttn');
-  let canvas = document.getElementById('mycanvas');
-  let context = canvas.getContext('2d');
-
-
-  context.fillStyle = "#FF000";
-  context.fillRect(0, 0, canvas.width, canvas.height);
-
-
-  photoBttn.addEventListener('click', function(e) {
-    for (i = 0; i < 10; i++) {
-      setTimeout(function() {
-        context.drawImage(video, 10, 10);
-        gif.push(canvas.toDataURL("image/jpeg"));
-      }, 200 * i);
+            //   inputText = document.getElementById('inputText');
+            //   inputText.style.visibility = "visible";
+            //   inputText.innerHTML = myUsername;
+        }
     }
-    // context.drawImage(video, 10, 10);
-    //console.log(canvas.toDataURL("image/jpeg"));
-    // gif.push(canvas.toDataURL("image/jpeg"));
-  });
 
-  playBttn.addEventListener('click', function(e) {
-    // document.getElementsById('myvideo').src = context;
-    // console.log("gif:" + gif);
-    let v = {
-      image: gif
+    //constrains - what do we want?
+    let constraints = {
+        audio: true,
+        video: true
     }
-    // displayFrames(gif);
-    console.log(v);
-    socket.emit('image', v);
-    // console.log(gif[0]);
-    //v returns array of images
-    gif = [];
-  });
+
+    //promp the user for permission to get the stream
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (stream) {
+
+            //attach to our video object
+            video.srcObject = stream;
+
+            //wait for the stream to load enough to play
+            video.onloadedmetadata = function (e) {
+                video.play();
+            };
+        })
+
+        .catch(function (err) {
+            /* handle the error */
+            alert(err);
+        });
+
+    ///////////// VIDEO + DOM SECTION //////////
+
+    //the video element on the page to display the webcam
+    let video = document.getElementById('myvideo');
+
+    let usernameText = document.getElementById('usernameText')
+    let playBttn = document.getElementById('playbttn');
+    let photoBttn = document.getElementById('photobttn');
+    let canvas = document.getElementById('mycanvas');
+    let context = canvas.getContext('2d');
+
+    //This is just to get the broken image icon to stop freakin showing
+    var otherImg = document.getElementById("otherimage");
+    otherImg.onerror = function () {
+        this.style.display = "none";
+    }
 
 
-  // Listen for img from partners
-  // socket.on('img', function(data) {
-  //   displayImage(data);
-  // });
+    context.fillStyle = "#FF000";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+
+
+    photoBttn.addEventListener('click', function (e) {
+        for (i = 0; i < 10; i++) {
+            setTimeout(function () {
+                context.drawImage(video, 10, 10);
+                gif.push(canvas.toDataURL("image/jpeg"));
+            }, 100 * i);
+        }
+        // context.drawImage(video, 10, 10);
+        //console.log(canvas.toDataURL("image/jpeg"));
+        // gif.push(canvas.toDataURL("image/jpeg"));
+    });
+
+    playBttn.addEventListener('click', function (e) {
+        // document.getElementsById('myvideo').src = context;
+        // console.log("gif:" + gif);
+        let v = {
+            image: gif
+        }
+        // displayFrames(gif);
+        console.log(v);
+        socket.emit('image', v);
+        // console.log(gif[0]);
+        //v returns array of images
+        gif = [];
+    });
+
+
+    // Listen for img from partners
+    // socket.on('img', function(data) {
+    //   displayImage(data);
+    // });
 
 });
 

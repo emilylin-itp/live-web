@@ -6,9 +6,9 @@
   }
   
 @font-face {
-    font-family: 'value-serif';
-    src: url('fonts/value-serif.eot');
-    src: url('fonts/value-serif.ttf');
+    font-family: 'SharpGroteskBold15';
+    src: url('fonts/SharpGroteskBold15.eot');
+    src: url('fonts/SharpGroteskBold15.ttf');
     format('truetype');
 }
 
@@ -18,6 +18,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-sizing: content-box;
     /* height: 100vh; */
 }
 
@@ -28,6 +29,42 @@ body {
     /* border: 1px solid red; */
 }
 
+/*/////////////// HEADER ////////////////*/
+
+/* div{
+    border: 1px red solid;
+} */
+
+#titleHolder{
+    margin-top: 14vh;
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    align-content: center;
+    margin-left: 0 auto;
+}
+
+#title{
+    /* position: absolute;
+    top: 0; */
+    z-index: 6;
+    width: 100%;
+    display: inline-block;
+}
+
+.titleText{
+    font-family: 'SharpGroteskBold15';
+    font-size: 3.75vw;
+    letter-spacing: 0.5pt;
+    color: black;
+    display: inline-block;
+}
+
+#meTitle, #youTitle{
+    display: inline-block;
+    text-align: center;
+    margin-left: 1.5vw;
+}
 
 /*///////// INPUT CONTAINER ///////////*/
 
@@ -44,7 +81,9 @@ body {
     box-sizing: border-box;
     padding: none!important;
     margin: none!important;
-    border: 6px solid black;
+    border: 0.2em solid black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
 }
 
 .box{
@@ -157,8 +196,10 @@ input:focus, textarea:focus, select:focus{
     top: 50%;
     transform: translate(-50%, -45%);
     /* transform: scale(1.5); */
-    width: 80%;
-    height: 80%;
+    width: 78%;
+    height: 78%;
+    /* width: 80%;
+    height: 80%; */
 }
 
 #partner-canvas{
@@ -168,6 +209,8 @@ input:focus, textarea:focus, select:focus{
 #mycanvas{
     /* background-color: white; */
     visibility: hidden;
+    /* width: 500;
+    height: 500; */
 }
 
 /* OTHER CONTAINTER */
@@ -196,17 +239,46 @@ input:focus, textarea:focus, select:focus{
     box-sizing: border-box;
     padding: none!important;
     margin: none!important;
-    border: 6px solid black;
+    border: 0.2em solid black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
 }
 
 #otherimage{
-    width:100%;
-    z-index: -1 !important;
-    /* border: 6px solid black; */
-    box-sizing: border-box;
-    margin-top: 1vh;
-    position: relative;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    /* transform: scale(1.5); */
+    width: 80%;
+    height: 80%;
 }
+
+/*
+#otherimage{
+    width:60%;
+    height: 60%;
+    z-index: -1 !important;
+    border: none;
+    max-height: 80%;
+    max-width: 80%;
+    position: relative;
+    top: 50%;
+    transform: scale(0.5);
+}
+*/
+
+
+/* #otherimage{
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    transform: scale(0.5);
+    width: 100%;
+    height: 100%;
+    border:0 !important;
+} */
+
 
 #inputText{
     background-color: black;
@@ -232,10 +304,20 @@ input:focus, textarea:focus, select:focus{
     padding: none!important;
 } */
 
+#buttonContainer{
+    /* border: red 1px solid; */
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    max-width: 300px;
+    margin: auto;
+}
+
 #buttonDiv{
     position: relative;
     bottom:0vh;
     width: 100%;
+
 }
 
 .bttn{
@@ -246,17 +328,30 @@ input:focus, textarea:focus, select:focus{
     color: white;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 0.9vw;
     font-family: 'MaaxMono-Regular';
     height: 6vh;
-    width: 55%;
+    width: 35%;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+    /* display: block; */
 }
 
 #photobttn, #playbttn{
-    display: block;
+    /* display: block; */
     margin-bottom: 2vh;
+    width: 15vw;
+    vertical-align:middle; 
 }
+
+#photobttn:hover, #playbttn:hover{
+    border: 0.2em solid black !important;
+    background-color: #6BFFFB!important;
+    color: black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+}
+
 
 
 /*/////////////// GRADIENT GENERAL /////////////*/
