@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // get canvas element and create context
-    let canvas = document.getElementById('mycanvas');
+    let canvas = document.getElementById('mycanvasfish');
+    console.log("canvas: " + canvas);
+
     let context = canvas.getContext('2d');
     let width = window.innerWidth;
     let height = window.innerHeight;

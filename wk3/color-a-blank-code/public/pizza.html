@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coloring Book</title>
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+    <!--scripts-->
+    <script src="script.js"></script>
+
+    <!--NAVBAR-->
+    <nav id="navbar-holder" class='row justify-content-between'>
+        <!--ARROW LEFT-->
+        <div id='arrow-left' class="col-2">
+            <a href="pizza.html"><img src="assets/nav/arrow_left.svg" alt="left arrow"></a>
+        </div>
+
+        <!--TITLE-->
+        <div id='title' class="col-8">
+            <p>Color - A - Fish</p>
+        </div>
+
+        <!--ARROW LEFT-->
+        <div id='arrow-right' class="col-2">
+            <a href="index.html"><img src="assets/nav/arrow_right.svg" alt="right arrow"></a>
+        </div>
+    </nav>
+
+    <canvas id="mycanvaspizza" class = 'mycanvas'>
+    </canvas>
+
+    <div id="drawing-tools" class='row justify-content-between'>
+        <!--COLOR PALETTE-->
+        <div id='color-div' class='col-8'>
+            <p id='color-p'>Select Color:
+                <img src="assets/colors/blue.svg" id='blue-circle' class = 'color blue' alt="blue">
+                <img src="assets/colors/purple.svg" id='purple-circle' class = 'color purple' alt="purple">
+                <img src="assets/colors/orange.svg" id='orange-circle' class = 'color orange' alt="orange">
+                <img src="assets/colors/yellow.svg" id='yellow-circle' class = 'color yellow' alt="yellow">
+                <img src="assets/colors/turq.svg" id='turq-circle' class = 'color turq' alt="turq">
+                <img src="assets/colors/magenta.svg" id='magenta-circle' class = 'color magenta' alt="magenta">
+                <img src="assets/colors/green.svg" id='green-circle' class = 'color green' alt="green">
+            </p>
+        </div>
+        <!--REDRAW-->
+        <div id='redraw-div' class='col-2'>
+            <p id='redraw-p'>Redraw</p>
+        </div>
+        <!--SHARE-->
+        <div id='photo-div' class='col-2'>
+            <a href="#" id="photo-download" download="image.png">Save Image</a>
+        </div>
+
+
+        <!--FROM EXAMPLE IN CLASS CODE - JUST TO TEST SOCKETIO-->
+        <!-- <div id="messages">
+            No Messages Yet
+        </div>
+        <div>
+            <input type="text" id="message" name="message">
+            <input type="button" value="message" onclick="sendmessage();">
+            <input type="button" value="other" onclick="sendother();">
+        </div> -->
+
+    </div>
+
+</body>
+</html>

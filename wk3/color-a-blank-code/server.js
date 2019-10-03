@@ -6,11 +6,14 @@ const port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/public'));
 
-function onConnection(socket) {
-    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-}
+/////////// DONT THINK I NEED THIS //////////
+// function onConnection(socket) {
+//     socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+// }
 
 // io.on('connection', onConnection);
+/* ///////////////////////////////////// */
+
 
 //array of all lines drawn
 let lineHistory = [];
@@ -46,9 +49,6 @@ io.on('connection', function (socket) {
 });
 
 // doesn't know which person
-
-
-
 
 http.listen(port, () => console.log('listening on port ' + port));
 
