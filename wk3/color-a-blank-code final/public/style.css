@@ -78,8 +78,8 @@ html, body{
 }
 
 #mycanvas{
-    background-image: url("assets/illos/fish_line.svg");
-    -webkit-background-image: url("assets/illos/fish_line.svg");
+    background-image: url("assets/illos/subwayrat_line.svg");
+    -webkit-background-image: url("assets/illos/subwayrat_line.svg");
     background-size: 65vw;
     /* background-size: 70vw; */
     margin-left: auto;
