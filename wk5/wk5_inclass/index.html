@@ -1,0 +1,74 @@
+<html>
+
+<head>
+    <script src="peerjs.min.js"></script>
+    <script type="text/javascript">
+
+        // THIS IS FOR THE CONNECTION
+        // We'll use a global variable to hold on to our id from PeerJS
+        var peer_id = null;
+
+        // I setup a peer server on a Digital Ocean instance for our use, you can use that with the following constructor:
+        var peer = new Peer({ host: 'liveweb-new.itp.io', port: 9000, path: '/' });
+
+        // Get an ID from the PeerJS server
+        peer.on('open', function (id) {
+            console.log('My peer ID is: ' + id);
+            peer_id = id;
+        });
+
+        peer.on('error', function (err) {
+            console.log(err);
+        });
+
+
+
+        /* Get User Media */
+        let my_stream = null;
+
+        // Constraints - what do we want?
+        let constraints = { audio: false, video: true }
+
+        window.addEventListener('load', function () {
+            // Prompt the user for permission, get the stream
+            //navigator in javascript that navigates the entire browser
+            // passes in constraint objects to select devices
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                /* Use the stream */
+
+                // Attach to our video object // attach stream to our source
+                var videoElement = document.getElementById('myvideo');
+                videoElement.srcObject = stream;
+
+                // Global for stream // have access 
+                my_stream = stream;
+
+                /*
+                // Wait for the stream to load enough to play 
+                //might get error if you don't do that
+                videoElement.onloadedmetadata = function (e) {
+                    videoElement.play();
+                };
+                */
+
+                // the above can also can be this way; better the below way so that you can have more than 1 function
+                videoElement.addEventListener('loadedmetadata', function (e) {
+                    videoElement.play();
+                });
+
+            })
+                //catching any errors
+                .catch(function (err) {
+                    /* Handle the error */
+                    alert(err);
+                });
+        });
+
+    </script>
+</head>
+
+<body>
+    <video id="myvideo"></video>
+</body>
+
+</html>

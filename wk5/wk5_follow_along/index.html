@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <script src="peerjs.min.js"></script>
+    <script type="text/javascript">
+        
+        /////////////* PEER JS CODE *////////
+        // We'll use a global variable to hold on to our id from PeerJS
+        var peer_id = null;
+
+        // I setup a peer server on a Digital Ocean instance for our use, you can use that with the following constructor:
+        var peer = new Peer({ host: 'liveweb-new.itp.io', port: 9000, path: '/' });
+
+        // Get an ID from the PeerJS server
+        peer.on('open', function (id) {
+            console.log('My peer ID is: ' + id);
+            peer_id = id;
+        });
+
+        peer.on('error', function (err) {
+            console.log(err);
+        });
+
+        /////////* GET USER MEDIA *///////////
+        let my_stream = null;
+
+        //Constraints - what do we want?
+        let constraints = {
+            audio: false,
+            video: true
+        }
+        window.addEventListener('load', function () {
+            //prompt the user for permission, get the stream
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                /* use the stream */
+
+                //attach to our video object
+                let videoElement = document.getElementById('myvideo');
+                videoElement.srcObject = stream;
+
+                //Global for stream
+                my_stream = stream;
+
+                //wait for the stream to load enough to play
+                //videoElement.onloadedmetadata = function (e) {
+                //videoElement.play();
+                //};
+
+                //same as above function //wait for the stream to load enough to play
+                videoElement.addEventListener('loadedmetadata', function (e) {
+                    videoElement.play();
+                });
+            })
+                .catch(function (err) {
+                    /* Handle the error */
+                    alert(err);
+                });
+        });
+    </script>
+</head>
+
+<body>
+    <video id='myvideo'></video>
+
+</body>
+
+</html>
