@@ -1,0 +1,378 @@
+@font-face {
+    font-family: 'MaaxMono-Regular';
+    src: url('fonts/MaaxMono-Regular.eot');
+    src: url('fonts/MaaxMono-Regular.ttf');
+    format('truetype');
+  }
+  
+@font-face {
+    font-family: 'SharpGroteskBold15';
+    src: url('fonts/SharpGroteskBold15.eot');
+    src: url('fonts/SharpGroteskBold15.ttf');
+    format('truetype');
+}
+
+
+body {
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: content-box;
+    /* height: 100vh; */
+}
+
+#chatHolder{
+    width: 78vw;
+    height: 55vh;
+    position: absolute;
+    /* border: 1px solid red; */
+}
+
+/*/////////////// HEADER ////////////////*/
+
+/* div{
+    border: 1px red solid;
+} */
+
+#titleHolder{
+    margin-top: 14vh;
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    align-content: center;
+    margin-left: 0 auto;
+}
+
+#title{
+    /* position: absolute;
+    top: 0; */
+    z-index: 6;
+    width: 100%;
+    display: inline-block;
+}
+
+.titleText{
+    font-family: 'SharpGroteskBold15';
+    font-size: 3.75vw;
+    letter-spacing: 0.5pt;
+    color: black;
+    display: inline-block;
+}
+
+#meTitle, #youTitle{
+    display: inline-block;
+    text-align: center;
+    margin-left: 1.5vw;
+}
+
+/*///////// INPUT CONTAINER ///////////*/
+
+#leftSide .col-6{
+    padding: none!important;
+}
+
+#leftSide{
+    /* width: 100%; */
+    position:relative;
+    width: 100%;
+    height: 90%;
+    box-sizing: border-box;
+    padding: none!important;
+    margin: none!important;
+    border: 0.2em solid black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+}
+
+.box{
+    width: 100%;
+    z-index: 6!important; 
+    /* border: 8px solid black; */
+    box-sizing: border-box;
+    height: 25vh;
+    z-index: 5 !important;
+    background-color: black;
+    height: 6vh;
+    float: top;
+    padding: none;
+    text-align: center;
+    border-radius: 0;
+}
+
+
+#username{
+    color: white;
+    font-size:1vw;
+    font-family: 'MaaxMono-Regular';
+    /* outline: solid 4px black;  */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: black;
+    z-index: 5 !important;
+    width: 100%;
+    height: 6vh;
+    top: 0;
+    left: 0;
+    position:absolute;
+    border-style: none;
+}
+
+#username{
+    color: white;
+    background-color: black;
+}
+
+
+
+/* username that appears when person enters in user name */
+
+#usernameText{
+    color: white;
+    font-size:1vw;
+    font-family: 'MaaxMono-Regular';
+    /* outline: solid 4px black;  */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: black;
+    z-index: 5 !important;
+    width: 100%;
+    height: 6vh;
+    top: 0;
+    left: 0;
+    position:absolute;
+    border-style: none;
+    padding-top: 2vh;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none !important;
+}
+
+*:focus {
+    outline: none;
+}
+   
+  #inputText::placeholder {
+    color: black;
+    font-size: 10pt;
+    font-family: 'MaaxMono-Regular';
+  }
+  
+/*   
+  #username::placeholder {
+    color: white;
+    font-size: 9pt;
+    font-family: 'MaaxMono-Regular';
+  } */
+  
+/*//////// VIDEO SECTION //////////*/
+
+#myvideo{
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    /* transform: scale(1.5); */
+    width: 78%;
+    height: 78%;
+    /* width: 80%;
+    height: 80%; */
+}
+/* 
+#partner-canvas{
+    background-color: white;
+} */
+
+#mycanvas{
+    background-color: white;
+    visibility: hidden;
+    bottom: 0;
+    position:fixed;
+    /* width: 500;
+    height: 500; */
+}
+
+/* OTHER CONTAINTER */
+/* RIGHT SIDE IMAGE GOES HERE */
+
+#yourBox{
+    font-family: 'MaaxMono-Regular';
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin:none!important;
+    padding-left: none!important;
+    padding-right: none !important;
+}
+
+.col-6{
+    padding-left: none !important;
+    padding-right: none !important;
+}
+
+#rightSide{
+    /* width: 100%; */
+    position:relative;
+    width: 100%;
+    height:90%;
+    box-sizing: border-box;
+    padding: none!important;
+    margin: none!important;
+    border: 0.2em solid black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+}
+
+#otherimage{
+    width: 50%    !important;
+    height: auto   !important;
+    /* margin: 0 auto; */
+    margin-left: 5vw;
+    position: relative;
+    margin-top: 8vh;
+    /* transform: translate(-50%, -45%); */
+    z-index: 10 !important; 
+    /* transform: scale(1.5); */
+    /* width: 60%;
+    height: 60%; */
+    /* width: 500px; */
+}
+
+#inputText{
+    background-color: black;
+    width: 100%;
+    font-size: 9pt;
+    font-family: 'MaaxMono-Regular';
+    color: white;
+    background-color: black;
+    height: 6vh;
+    float: top;
+    float: left;
+    padding: none;
+    text-align: center;
+    border-radius: 0;
+    visibility: hidden;
+}
+
+
+/*BUTTON */
+/* #buttonContainer{
+    position:fixed;
+    bottom: 0;
+    padding: none!important;
+} */
+
+#buttonContainer{
+    /* border: red 1px solid; */
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    max-width: 300px;
+    margin: auto;
+}
+
+#buttonDiv{
+    position: relative;
+    bottom:0vh;
+    width: 100%;
+
+}
+
+.bttn{
+    position: relative;
+    text-align: center;
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9vw;
+    font-family: 'MaaxMono-Regular';
+    height: 6vh;
+    width: 35%;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+    /* display: block; */
+}
+
+#photobttn, #playbttn{
+    /* display: block; */
+    margin-bottom: 2vh;
+    width: 15vw;
+    vertical-align:middle; 
+}
+
+#photobttn:hover, #playbttn:hover{
+    border: 0.2em solid black !important;
+    background-color: #6BFFFB!important;
+    color: black;
+    box-shadow: inset 0px 0px 0px 1px black;
+    box-sizing: border-box; 
+}
+
+
+
+/*/////////////// GRADIENT GENERAL /////////////*/
+@-webkit-keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 87%
+    }
+  
+    50% {
+      background-position: 100% 14%
+    }
+  
+    100% {
+      background-position: 0% 87%
+    }
+  }
+  
+  /*/////////////// GRADIENT CONTAINER/////////////*/
+  .gradientContainer {
+    width: calc(100vw);
+    height: calc(100vh);
+  }
+  
+  /*/////////////// GRADIENT CONTAINER/////////////*/
+  .gradientContainer {
+    background: linear-gradient(60deg, #D8D8D8, #6BFFFB, #FFFDB7, #ADF0EB, #6BFFFB);
+    background-size: 500% 500%;
+    -webkit-animation: AnimationName 12s ease infinite;
+    -moz-animation: AnimationName 12s ease infinite;
+    -o-animation: AnimationName 12s ease infinite;
+    animation: AnimationName 12s ease infinite;
+  }
+  
+  video {
+    width: 300px   !important;
+    height: auto   !important;
+  }
