@@ -6,7 +6,7 @@
     <script src="/socket.io/socket.io.js"></script>
 
 
-    <!--not using this right now; put in client.js-->
+    <!--put in client.js-->
     <script type="text/javascript">
         //socket.on()
 
@@ -32,6 +32,7 @@
             console.log(err);
         });
 
+        // ANSWER CALL
         peer.on('call', function (incoming_call) {
             console.log("Got a call!");
             incoming_call.answer(my_stream); // Answer the call with our stream from getUserMedia
@@ -47,6 +48,8 @@
             });
         });
 
+       /* DONT NEED THIS HERE, MOVED TO SOCKET SECTION 
+        // calls other peer id
         function makeCall(idToCall) {
             var call = peer.call(idToCall, my_stream);
 
@@ -60,6 +63,7 @@
                 document.body.appendChild(ovideoElement);
             });
         }
+        */
 
         /* Get User Media */
         let my_stream = null;
@@ -71,6 +75,8 @@
             let socket = io.connect();
 
             ////////* STREAM PORTION *////////
+
+            // MAKE CALL
             // Prompt the user for permission, get the stream
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 /* Use the stream */
@@ -102,7 +108,7 @@
             socket.on('connect', function () {
                 console.log("Connected");
             });
-            
+
             //when submitbutton is pressed, perform sendPeerId function
             submitbutton = document.getElementById('submit');
             submitbutton.addEventListener('click', sendPeerID)
@@ -114,14 +120,45 @@
 
                 //send the peer id to server (perform sendPeerID function on server side)
                 socket.emit('sendPeerId', mypeerid);
+
+                //perform makeCall pass in my peerid
+                // function makeCall(mypeerid);
             }
 
-            // receive other peer id, then display in div
+            // 1. receive other peer id, then display in div
+            // 2. make call to other peerid
             socket.on('otherPeerId', function (data) {
                 let otherDiv = document.getElementById('otherid-div');
-                otherDiv.innerHTML += data;
+
+                //display peer id in div
+                otherDiv.innerHTML += data + "<br />";
                 console.log("other peer id is received: " + data);
-            })
+
+                //call the function
+                makeCall(data);
+
+                // function makes call. passing in data which is other peer id
+                function makeCall(data) {
+                    let call = peer.call(data, my_stream);
+
+                    call.on('stream', function (remoteStream) {
+                        console.log("Got remote stream");
+                        // get video div to put videos in
+                        let ovideoDiv = document.getElementById('other-video-div');
+
+                        //create video element
+                        let ovideoElement = document.createElement('video'); 
+
+                        //src of video element is the stream                       
+                        ovideoElement.srcObject = remoteStream;
+                        // ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+                        ovideoElement.setAttribute("autoplay", "true");
+                        ovideoElement.play();
+                        ovideoDiv.appendChild(ovideoElement);
+                        console.log(ovideoElement);
+                    });
+                }
+            });
 
         });
     </script>
@@ -131,10 +168,19 @@
             background-color: pink;
             height: 5vh;
         }
-        
-        div{
+
+        div {
             background-color: yellow;
+            height: 10vh;
         }
+
+        #other-video-div{
+            border: black solid 4px;
+            bottom: 0;
+            right: 0;
+            height: 50vh;
+        }
+
     </style>
 </head>
 
@@ -147,7 +193,12 @@
     <button id="connect">connect</button>
 
     <video id="myvideo"></video>
-    <video id="othervideo"></video>
+
+    <div id = 'other-video-div'>
+        <video id="othervideo-1"></video>
+        <video id="othervideo-2"></video>
+    </div>
+    
 </body>
 
 </html>

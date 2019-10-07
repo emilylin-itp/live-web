@@ -60,7 +60,8 @@ io.sockets.on('connection',
         console.log("server received peer id: " + data);
 
         // To all clients, on io.sockets instead
-        io.sockets.emit('otherPeerId', data);
+        // io.sockets.emit('otherPeerId', data); //works but going to try another thing
+        socket.broadcast.emit('otherPeerId', data);
       }
     );
 
