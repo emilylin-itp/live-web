@@ -36,9 +36,9 @@ function handleIt(req, res) {
 }
 
 var httpServer = https.createServer(options, handleIt);
-httpServer.listen(8081);
+httpServer.listen(8084);
 
-console.log('Server listening on port 8081');
+console.log('Server listening on port 8084');
 
 
 //////*  WEB SOCKET PORTION *///////

@@ -32,38 +32,40 @@
             console.log(err);
         });
 
-        // ANSWER CALL
+        // ANSWER CALL        
         peer.on('call', function (incoming_call) {
             console.log("Got a call!");
             incoming_call.answer(my_stream); // Answer the call with our stream from getUserMedia
             incoming_call.on('stream', function (remoteStream) {  // we receive a getUserMedia stream from the remote caller
-                // And attach it to a video object
-                var ovideoElement = document.createElement('video');
-                // ovideoElemnt.id = "something";
-                ovideoElement.srcObject = remoteStream;
-                //ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-                ovideoElement.setAttribute("autoplay", "true");
-                ovideoElement.play();
-                document.body.appendChild(ovideoElement);
+
+                console.log('answer call! supposed to display stream from teh remote caller');
+                // // And attach it to a video object
+                // var ovideoElement = document.createElement('video');
+                // // ovideoElemnt.id = "something";
+                // ovideoElement.srcObject = remoteStream;
+                // //ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+                // ovideoElement.setAttribute("autoplay", "true");
+                // ovideoElement.play();
+                // document.body.appendChild(ovideoElement);
             });
         });
 
-       /* DONT NEED THIS HERE, MOVED TO SOCKET SECTION 
-        // calls other peer id
-        function makeCall(idToCall) {
-            var call = peer.call(idToCall, my_stream);
-
-            call.on('stream', function (remoteStream) {
-                console.log("Got remote stream");
-                var ovideoElement = document.createElement('video');
-                ovideoElement.srcObject = remoteStream;
-                // ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-                ovideoElement.setAttribute("autoplay", "true");
-                ovideoElement.play();
-                document.body.appendChild(ovideoElement);
-            });
-        }
-        */
+        /* DONT NEED THIS HERE, MOVED TO SOCKET SECTION 
+         // calls other peer id
+         function makeCall(idToCall) {
+             var call = peer.call(idToCall, my_stream);
+ 
+             call.on('stream', function (remoteStream) {
+                 console.log("Got remote stream");
+                 var ovideoElement = document.createElement('video');
+                 ovideoElement.srcObject = remoteStream;
+                 // ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+                 ovideoElement.setAttribute("autoplay", "true");
+                 ovideoElement.play();
+                 document.body.appendChild(ovideoElement);
+             });
+         }
+         */
 
         /* Get User Media */
         let my_stream = null;
@@ -103,7 +105,6 @@
                     alert(err);
                 });
 
-
             ////////* SOCKET CLIENT PORTION *////////
             socket.on('connect', function () {
                 console.log("Connected");
@@ -134,6 +135,7 @@
                 otherDiv.innerHTML += data + "<br />";
                 console.log("other peer id is received: " + data);
 
+                
                 //call the function
                 makeCall(data);
 
@@ -143,21 +145,16 @@
 
                     call.on('stream', function (remoteStream) {
                         console.log("Got remote stream");
-                        // get video div to put videos in
-                        let ovideoDiv = document.getElementById('other-video-div');
 
-                        //create video element
-                        let ovideoElement = document.createElement('video'); 
-
-                        //src of video element is the stream                       
-                        ovideoElement.srcObject = remoteStream;
-                        // ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+                        let ovideoElement = document.createElement('video'); //create video element                 
+                        ovideoElement.srcObject = remoteStream; //src of video element is the stream      
                         ovideoElement.setAttribute("autoplay", "true");
                         ovideoElement.play();
-                        ovideoDiv.appendChild(ovideoElement);
+                        document.body.appendChild(ovideoElement);
                         console.log(ovideoElement);
                     });
                 }
+                
             });
 
         });
@@ -174,13 +171,12 @@
             height: 10vh;
         }
 
-        #other-video-div{
+        #other-video-div {
             border: black solid 4px;
             bottom: 0;
             right: 0;
             height: 50vh;
         }
-
     </style>
 </head>
 
@@ -194,11 +190,10 @@
 
     <video id="myvideo"></video>
 
-    <div id = 'other-video-div'>
+    <div id='other-video-div'>
         <video id="othervideo-1"></video>
-        <video id="othervideo-2"></video>
     </div>
-    
+
 </body>
 
 </html>
