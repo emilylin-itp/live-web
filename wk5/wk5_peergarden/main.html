@@ -1,0 +1,272 @@
+<html>
+
+<head>
+    <script src="peer.min.js"></script>
+    <script src="client.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <!--CLIENT SIDE JS-->
+    <!-- <script src="client.js"></script> -->
+
+    <!--CLIENT SIDE JS-->
+    <script type="text/javascript">
+        //socket.on()
+
+        // We'll use a global variable to hold on to our id from PeerJS
+        var peer_id = null;
+
+        // I setup a peer server on a Digital Ocean instance for our use, you can use that with the following constructor:
+        var peer = new Peer({ host: 'liveweb-new.itp.io', port: 9000, path: '/' });
+
+
+        // Get an ID from the PeerJS server
+        peer.on('open', function (id) {
+            console.log('My peer ID is: ' + id);
+            peer_id = id;
+
+            //get my id text area, display my peer id in the text area
+            let myid_text = document.getElementById('mypeerid');
+            myid_text.innerHTML = peer_id;
+            //console.log('peer_id: ' + peer_id);
+        });
+
+        peer.on('error', function (err) {
+            console.log(err);
+        });
+
+        // ANSWER CALL        
+        peer.on('call', function (incoming_call) {
+            console.log("Got a call!");
+            incoming_call.answer(my_stream); // Answer the call with our stream from getUserMedia
+            incoming_call.on('stream', function (remoteStream) {  // we receive a getUserMedia stream from the remote caller
+
+                console.log('answer call! supposed to display stream from the remote caller');
+
+
+                let ovideoElement = document.createElement('video'); //create video element     
+
+                //get stream + set attributes
+                ovideoElement.srcObject = remoteStream; //src of video element is the stream      
+                ovideoElement.setAttribute("autoplay", "true");
+                ovideoElement.add("ovideoStyle");
+                ovideoElement.play();
+
+                //add video
+                document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
+
+                console.log(ovideoElement);
+                console.log("gvideoContainer: " + gvideoContainer);
+
+                /*
+                //THIS WAS APPENDING OTHER PEOPLE'S VIDEOS WHEN USER CALLS 
+                // And attach it to a video object
+                var ovideoElement = document.createElement('video');
+                // ovideoElemnt.id = "something";
+                ovideoElement.srcObject = remoteStream;
+                //ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
+                ovideoElement.setAttribute("autoplay", "true");
+                ovideoElement.play();
+                document.body.appendChild(ovideoElement);
+                */
+            });
+        });
+
+        /* Get User Media */
+        let my_stream = null;
+
+        // Constraints - what do we want?
+        let constraints = { audio: false, video: true }
+
+        window.addEventListener('load', function () {
+
+            ///////* WEB SOCKET PORTION *//////
+            let socket = io.connect();
+
+            ////////* STREAM PORTION *////////
+
+            // MAKE CALL
+            // Prompt the user for permission, get the stream
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                /* Use the stream */
+
+                // Attach to our video object
+                var videoElement = document.getElementById('myvideo');
+                videoElement.srcObject = stream;
+
+                // Global for stream
+                my_stream = stream;
+
+                // Old way to write. Wait for the stream to load enough to play
+                // videoElement.onloadedmetadata = function(e) {
+                //     videoElement.play();
+                // };
+
+                videoElement.addEventListener('loadedmetadata', function (e) {
+                    videoElement.play();
+                });
+            })
+                .catch(function (err) {
+                    /* Handle the error */
+                    alert(err);
+                });
+
+            ////////* SOCKET CLIENT PORTION *////////
+            socket.on('connect', function () {
+                console.log("Connected");
+            });
+
+            //when submitbutton is pressed, perform sendPeerId function
+            submitbutton = document.getElementById('submit');
+            submitbutton.addEventListener('click', () => {
+                sendPeerID();
+                disableSubmit();
+            });
+
+            //disable editing for text area 
+            document.getElementsByTagName(textarea).disabled = true;
+
+
+            //send my peer id
+            function sendPeerID() {
+                let mypeerid = document.getElementById('mypeerid').value;
+                console.log("sending: " + mypeerid);
+
+                //send the peer id to server (perform sendPeerID function on server side)
+                socket.emit('sendPeerId', mypeerid);
+
+                //perform makeCall pass in my peerid
+                // function makeCall(mypeerid);
+            }
+
+            // 1. receive other peer id, then display in div
+            // 2. make call to other peerid
+            socket.on('otherPeerId', function (data) {
+                let otherDiv = document.getElementById('otherid-div');
+
+                //display peer id in div
+                otherDiv.innerHTML += data + "<br />";
+                console.log("other peer id is received: " + data);
+
+                //call the function
+                makeCall(data);
+
+                // function makes call. passing in data which is other peer id
+                function makeCall(data) {
+                    let call = peer.call(data, my_stream);
+
+                    call.on('stream', function (remoteStream) {
+
+                        //STREAM
+                        console.log("Got remote stream");
+
+                        let ovideoElement = document.createElement('video'); //create video element     
+
+                        //get stream + set attributes
+                        ovideoElement.srcObject = remoteStream; //src of video element is the stream      
+                        ovideoElement.setAttribute("autoplay", "true");
+                        ovideoElement.setAttribute("style", "margin: 2vw");
+                        ovideoElement.style.marginTop: '2vw';
+                        ovideoElement.style.marginBottom: '2vh';
+                        // ovideoElement.className('ovideoStyle');
+                        ovideoElement.add("ovideoStyle");
+
+
+                        //add video
+                        document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
+
+                        console.log(ovideoElement);
+                        console.log("gvideoContainer: " + gvideoContainer);
+                    });
+                }
+            });
+
+            //disable submit button after 1 click
+            function disableSubmit() {
+                let submitButton = document.getElementById("submit");
+                submitButton.disabled = true;
+            }
+        });
+
+    </script>
+
+
+    <!--LAYOUT SECTION -->
+    <!--ID CONTAINER-->
+    <div id='id-container'>
+        <!--TITLE-->
+        <div id='title-div'>
+            <h2 id='id-title'>Peer Garden!</h2>
+        </div>
+
+        <!--MY PEER ID-->
+        <div id='myid-div'>
+            <p id='myid-label' class='id-label'>My Id: </p>
+
+            <!--TEXT AREA-->
+            <div id='textarea-div'>
+                <textarea disabled id="mypeerid"></textarea>
+            </div>
+
+            <!--SUBMIT-->
+            <div id='submit-div'>
+                <input type="submit" id='submit' value="Join">
+            </div>
+
+            <div id='myvideo-container'>
+                <video id="myvideo"></video>
+            </div>
+        </div>
+
+        <div id = 'otherid-container'>
+            <p id='otherid-label'class='id-label'>PEERS</p>
+        </div>
+
+        <div id="otherid-div">
+
+        </div>
+    </div>
+
+    <!--GARDEN VID CONTAINER-->
+    <div id='garden-container'>
+    </div>
+
+</body>
+
+</html>
+
+
+<!--DUMPSTER CODE
+
+//random position for video
+// let xy = getRandomPosition(ovideoElement);
+// ovideoElement.style.top = xy[0] + 'px';
+// ovideoElement.style.right = xy[1] + 'px';
+
+// ovideoElement.play();
+
+function getRandomPosition(element) {
+	var x = document.body.offsetHeight-element.clientHeight;
+	var y = document.body.offsetWidth-element.clientWidth;
+	var randomX = Math.floor(Math.random()*x);
+	var randomY = Math.floor(Math.random()*y);
+	return [randomX,randomY];
+}
+window.onload = function() {
+	var img = document.createElement('img');
+	img.setAttribute("style", "position:absolute;");
+	img.setAttribute("src", "some-image.jpg");
+	document.body.appendChild(img);
+	var xy = getRandomPosition(img);
+	img.style.top = xy[0] + 'px';
+	img.style.left = xy[1] + 'px';
+}
+
+
+
+-->

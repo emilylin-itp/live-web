@@ -1,0 +1,202 @@
+/* textarea {
+    background-color: pink;
+    height: 5vh;
+}
+
+div {
+  background-color: yellow;
+  height: 10vh;
+} */
+
+@font-face {
+  font-family:'Platform-Bold';
+  src: url('assets/fonts/Platform-Bold.eot');
+  src: url('assets/fonts/Platform-Bold.ttf');
+  format('truetype');
+}
+
+@font-face {
+  font-family:'MaaxMono-Regular';
+  src: url('assets/fonts/MaaxMono-Regular.eot');
+  src: url('assets/fonts/MaaxMono-Regular.ttf');
+  format('truetype');
+}
+
+/* 
+div{
+  border: 1px red solid;
+} */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html{
+  background-image: url('assets/peergarden_bkg_300ppi.png');
+  background-repeat: repeat; 
+  width: 100%;
+  height: 100%;
+  background-color: #72EF06;
+}
+
+/* ID DIV CONTAINER */
+#id-container{
+  margin: 4vh 4vw;
+  top: 0px;
+  left: 0px;
+  background-color: #FFCE00;
+  width: 28vw;
+  padding: 3vw;
+  height: 100vh;
+  float: left;
+  position: relative;
+  /* transform: translateX(-2%);
+  transform: translateY(-2%) */
+  display: inline-block;
+  z-index: 1;
+}
+
+#title-div{
+  margin-bottom: 8vh;
+}
+
+#id-title{
+  font-family: 'Platform-Bold';
+  font-size: 4.35vw;
+  letter-spacing: 0.01em;
+  line-height: 2vh;
+  color: black;
+}
+
+.id-label{
+  font-family: 'Platform-Bold';
+  font-size: 2vw;
+  text-transform: uppercase;
+  color: black;
+  letter-spacing: 0.025pt;
+}
+
+textarea {
+  outline: none;
+  width: 18vw;
+  height: 4vh;
+  color: black;
+  background-color: #72EF06;
+  font-family: 'MaaxMono-Regular';
+  font-size: 0.9vw;
+  resize: none;
+  padding:  3vh 0 4vh 1vw;
+  overflow: hidden;
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+#textarea-div{
+  display: inline-block;
+}
+
+#myvideo{
+  width: 24.5vw;
+  height: auto;
+  float: right !important;
+  padding: none !important;
+  margin: none !important;
+}
+
+#myvideo-container{
+  padding: 3vh 0 3vh 0;
+  float: center !important;
+  padding: none !important;
+  margin: none !important;
+}
+
+#submit{
+  width: 8vw;
+  height: 4vh;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 3vh 0 4vh;
+  text-decoration: none;
+  cursor: pointer;
+  text-align:center;
+  font-size: 0.9vw;
+  font-family:'MaaxMono-Regular';
+}
+
+#submit-div{
+  display: inline-block;
+  float: right;
+}
+
+#submit:hover{
+  background-color: #DBDCDD;
+  color: black;
+}
+
+#otherid-container{
+  margin-top: 5vh;
+}
+
+#otherid-div{
+  width: 27vw;
+  height: 10vh;
+  color: black;
+  background-color: #72EF06;
+  font-family: 'MaaxMono-Regular';
+  font-size: 0.9vw;
+  resize: none;
+  padding:  3vh 0 4vh 1vw;
+  overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1.5vw;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /*box-shadow: inset 0 0 5px white; */
+  background:#DBDCDD;
+  /* border-radius: 10px; */
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #FFCE00; 
+  /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black; 
+}
+
+/* GARDEN DIV CONTAINER */
+#garden-container{
+  float: right;
+  width: 55vw;
+  height: 100vh;
+  position: absolute;
+  top: 5vh;
+  right: 5vw;
+}
+
+.ovideoStyle{
+  width: 50%;
+  height: auto;
+  float: right;
+}
+
+video{
+  width: 13.5vw;
+  height: auto;
+  float: right;
+  position: relative; 
+  margin: 4vh 2vw;
+}
