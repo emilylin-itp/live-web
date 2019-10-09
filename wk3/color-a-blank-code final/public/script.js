@@ -1,9 +1,3 @@
-// Steps from Code and Coffee
-
-//client side needs:
-//1. resize the canvas to users screen
-//2. connect to the server and raw lines for the "drawLine" messages
-//3. on click the client should send a "drawLine" message to the server when we are moving the mouse.
 
 document.addEventListener("DOMContentLoaded", function () {
 
