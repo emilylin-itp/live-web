@@ -48,32 +48,19 @@
 
                 console.log('answer call! supposed to display stream from the remote caller');
 
-
                 let ovideoElement = document.createElement('video'); //create video element     
 
                 //get stream + set attributes
-                ovideoElement.srcObject = remoteStream; //src of video element is the stream      
+                ovideoElement.srcObject = remoteStream; //src of video element is the stream   
                 ovideoElement.setAttribute("autoplay", "true");
-                ovideoElement.add("ovideoStyle");
+                //ovideoElement.add("ovideoStyle"); //not working
                 ovideoElement.play();
 
                 //add video
-                document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
+                document.body.appendChild(ovideoElement);
+                // document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
 
                 console.log(ovideoElement);
-                console.log("gvideoContainer: " + gvideoContainer);
-
-                /*
-                //THIS WAS APPENDING OTHER PEOPLE'S VIDEOS WHEN USER CALLS 
-                // And attach it to a video object
-                var ovideoElement = document.createElement('video');
-                // ovideoElemnt.id = "something";
-                ovideoElement.srcObject = remoteStream;
-                //ovideoElement.src = window.URL.createObjectURL(remoteStream) || remoteStream;
-                ovideoElement.setAttribute("autoplay", "true");
-                ovideoElement.play();
-                document.body.appendChild(ovideoElement);
-                */
             });
         });
 
@@ -101,11 +88,6 @@
 
                 // Global for stream
                 my_stream = stream;
-
-                // Old way to write. Wait for the stream to load enough to play
-                // videoElement.onloadedmetadata = function(e) {
-                //     videoElement.play();
-                // };
 
                 videoElement.addEventListener('loadedmetadata', function (e) {
                     videoElement.play();
@@ -138,7 +120,7 @@
                 console.log("sending: " + mypeerid);
 
                 //send the peer id to server (perform sendPeerID function on server side)
-                socket.emit('sendPeerId', mypeerid);
+                socket.emit('sendPeerId', mypeerid); //changed from socket.emit('sendPeerId', mypeerid)
 
                 //perform makeCall pass in my peerid
                 // function makeCall(mypeerid);
@@ -152,7 +134,7 @@
                 //display peer id in div
                 otherDiv.innerHTML += data + "<br />";
                 console.log("other peer id is received: " + data);
-
+                
                 //call the function
                 makeCall(data);
 
@@ -165,23 +147,22 @@
                         //STREAM
                         console.log("Got remote stream");
 
+                        let ovideoDiv = document.getElementById('garden-container');
                         let ovideoElement = document.createElement('video'); //create video element     
 
                         //get stream + set attributes
                         ovideoElement.srcObject = remoteStream; //src of video element is the stream      
                         ovideoElement.setAttribute("autoplay", "true");
                         ovideoElement.setAttribute("style", "margin: 2vw");
-                        ovideoElement.style.marginTop: '2vw';
-                        ovideoElement.style.marginBottom: '2vh';
-                        // ovideoElement.className('ovideoStyle');
                         ovideoElement.add("ovideoStyle");
+                        // ovideoElement.style.marginTop: '2vw';
+                        // ovideoElement.style.marginBottom: '2vh';
+                        // ovideoElement.className('ovideoStyle');
 
-
-                        //add video
-                        document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
-
+                        //add video and class for style but style is not working
+                        // document.gvideoContainer.appendChild(ovideoElement, 'ovideoStyle');
+                        ovideoDiv.appendChild(ovideoElement);
                         console.log(ovideoElement);
-                        console.log("gvideoContainer: " + gvideoContainer);
                     });
                 }
             });
@@ -218,13 +199,15 @@
                 <input type="submit" id='submit' value="Join">
             </div>
 
+            <!--MY VIDEO-->
             <div id='myvideo-container'>
                 <video id="myvideo"></video>
             </div>
         </div>
 
-        <div id = 'otherid-container'>
-            <p id='otherid-label'class='id-label'>PEERS</p>
+        <!--PEERS ID-->
+        <div id='otherid-container'>
+            <p id='otherid-label' class='id-label'>PEERS:</p>
         </div>
 
         <div id="otherid-div">
@@ -233,8 +216,11 @@
     </div>
 
     <!--GARDEN VID CONTAINER-->
-    <div id='garden-container'>
+    <div id='other-video-div'>
+        <video id="othervideo-1"></video>
     </div>
+
+    <!--VIDEOS BEING APPENDED HERE-->
 
 </body>
 
@@ -267,6 +253,11 @@ window.onload = function() {
 	img.style.left = xy[1] + 'px';
 }
 
+
+                // Old way to write. Wait for the stream to load enough to play
+                // videoElement.onloadedmetadata = function(e) {
+                //     videoElement.play();
+                // };
 
 
 -->
