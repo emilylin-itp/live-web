@@ -61,7 +61,7 @@ io.sockets.on('connection',
 
         // To all clients, on io.sockets instead
         // io.sockets.emit('otherPeerId', data); //works but going to try another thing
-        socket.broadcast.emit('otherPeerId', data);
+        socket.emit('otherPeerId', data);
       }
     );
 
