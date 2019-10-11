@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sine Ex</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        window.addEventListener('load', init);
+
+        let step = -4;;
+
+        function plotSine(ctx, xOffset, yOffset, amplitude, frequency, col) {
+            let width = ctx.canvas.width;
+            let height = ctx.canvas.height;
+            let scale = 20;
+            
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+            // ctx.strokeStyle = "rgb(66,44,255)"; 
+            ctx.strokeStyle = col; //var to alter
+            // console.log("Drawing point...");
+            // drawPoint(ctx, yOffset+step);
+
+            let x = 4;
+            let y = 0;
+            //let amplitude = 20; //var to change based on color choice
+            //let frequency = 5; //var to change based on color choice
+            let amp = amplitude; //var to change based on color choice
+            let freq = frequency; //var to change based on color choice 
+
+            //ctx.moveTo(x, y);
+            ctx.moveTo(x, 50); // why 50???
+            while (x < width) {
+                y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
+                ctx.lineTo(x, y); 
+                x++;
+                // console.log("x="+x+" y="+y);
+            }
+
+            ctx.stroke();
+            ctx.save();
+            console.log("Drawing point at y=" + y);
+            drawPoint(ctx, y);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function draw() {
+            let canvas = document.getElementById("canvas");
+            let context = canvas.getContext("2d");
+            context.clearRect(0, 0, 500, 500);
+            //showAxes(context);
+            context.save();
+
+            plotSine(context, step, 50);
+            context.restore();
+
+            step += 4;
+            window.requestAnimationFrame(draw);
+        }
+
+        function spirograph() {
+            var canvas2 = document.getElementById("canvas2");
+            var context = canvas2.getContext("2d");
+
+            //showAxes(context);
+            context.save();
+            // var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var step = 4;
+            for (var i = -4; i < canvas.height; i += step) {
+                // context.putImageData(imageData, 0, 0);
+                plotSine(context, i, 54 + i, 20, 5, 'rgb(66,44,255)'); //function plotSine(ctx, xOffset, yOffset, amp, freq, col) 
+                plotSine(context, i, 54 + i, 20, 5, 'rgb(66,44,255)'); //function plotSine(ctx, xOffset, yOffset, amp, freq, col) 
+            }
+        }
+
+        function init() {
+            window.requestAnimationFrame(draw);
+            spirograph();
+        }
+
+
+    </script>
+
+    <div>
+        <canvas id="canvas" width="500" height=" 100"></canvas>
+        <canvas id="canvas2" width="500" height=" 100"></canvas>
+
+    </div>
+
+</body>
+
+
+</html>

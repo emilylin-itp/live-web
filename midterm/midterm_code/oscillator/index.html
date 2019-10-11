@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+
+        /* CSS-Tricks - Running an oscillator */
+
+        //Create the oscillator node inside that context
+        let context = new (window.AudioContext || window.webkitAudioContex)();
+        let oscillator = context.createOscillator();
+
+        oscillator.type = 'sine'; //waveform type
+        oscillator.frequency.value = 440; //set frequency
+        oscillator.connect(context.destination); //Connect oscillator to the destination
+        oscillator.start(); //start
+
+        let gain = context.createGain();
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+
+        // oscillator.start(0) = plays immediately
+        let now = context.currentTime;
+        gain.gain.setValueAtTime(1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        oscillator.start(now);
+        oscillator.stop(now + 0.5);
+
+        oscillator.frequency.setValueAtTime(261.6, context.currentTime + 1);
+
+        gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 1);
+
+        class Sound {
+            constructor(context) {
+                this.context = context;
+            }
+
+            init() {
+                this.oscillator = this.context.createOscillator();
+                this.gainNode = this.context.createGain();
+
+                this.oscillator.connect(this.gainNode);
+                this.gainNode.connect(this.context.destination);
+                this.oscillator.type = 'sine';
+            }
+
+            play(value, time) {
+                this.init();
+
+                this.oscillator.frequency.value = value;
+                this.gainNode.gain.setValueAtTime(1, this.context.currentTime);
+
+                this.oscillator.start(time);
+                this.stop(time);
+
+            }
+
+            stop(time) {
+                this.gainNode.gain.exponentialRampToValueAtTime(0.001, time + 1);
+                this.oscillator.stop(time + 1);
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

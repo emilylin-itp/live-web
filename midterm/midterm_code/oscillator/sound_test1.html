@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--JS-->
+    <script type="text/javascript">
+        //ref: https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+
+        //let audioCtx = new webkitAudioContext(); //create audio container w/ webkit 
+        // let context = window.AudioContext || window.webkitAudioContext;
+        // let audioCtx = new AudioContext();
+
+        // let oscillator, gain;
+
+        //start function
+        //create function that routes an OsscillatorNode through a GainNode and then to the output
+
+        //gain node? https://developer.mozilla.org/en-US/docs/Web/API/GainNode 
+        //gain is kinda like volume; increases amplitude of the wave
+
+        // startOsc(440);
+
+        //frequency is passed to this function from input button
+        function startOsc(frequency) {
+            // create web audio api context
+            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // create Oscillator node
+            var oscillator = audioCtx.createOscillator();
+
+            oscillator.type = 'square'; //this can't be sine for some reason
+            oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz
+            oscillator.start(0);
+
+            // Create GainNode	
+            gain = audioCtx.createGain(); // Create gain node
+            gain.gain.value = 1; // Set gain to full volume
+
+            // Connect the Nodes
+            oscillator.connect(gain); // Connect oscillator to gain
+            gain.connect(audioCtx.destination); // Connect gain to output
+        }
+
+        //for turning off the oscillator
+        function off() {
+            oscillator.stop(0); //stop oscillator after 0 seconds
+            oscillator.disconnect();  // disconnect oscillator
+        }
+
+        window.addEventListener('load', init);
+
+        let playBttn;
+
+        function init() {
+            //when play bttn clicked --> startOsc
+            playBttn = document.getElementById('play-button');
+
+            playBttn.addEventListener('click', function () {
+                startOsc(440);
+                console.log('clicked!');
+            });
+
+        }
+
+
+        // //when stopbttn clicked --> off
+        // let stopBttn = document.getElementById('stop-button');
+
+        stopBttn.addEventListener('click', function () {
+            off();
+        });
+    </script>
+
+    <div>
+
+        <!-- <div id="play-button">play</div>
+        <div id="stop-button">stop</div> -->
+
+        <button id="play-button" type="button">Play</button>
+        <button id="stop-button" type="button">Stop</button>
+    </div>
+
+</body>
+
+</html>
+
+<!--- DUMPSTER CODE
+            // // Create OscillatorNode
+            // oscillator = audioCtx.createOscillator(); // Create sound source
+            // oscillator.type = "sine"; // Sine wave
+            // oscillator.frequency.value = frequency; // Frequency in hertz (passed from input button)
+
+
+        // if (stop) {
+        //     stop.addEventListener('click', function () {
+        //         off();
+        //     });
+        // }
+
+                // if (play) {
+        //     play.addEventListener('click', function () {
+        //         startOsc(440);
+        //     });
+        // }
+
+-->
