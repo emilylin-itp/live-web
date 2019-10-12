@@ -6,7 +6,7 @@
     <script type="text/javascript">
 
         ///////////////////* SINE SECTION *////////////////////
-        //add in var amplitude, frequency, color so that we can make multiple color sine waves
+        //add in var amplitude, frequency, color so that it can make multiple color sine waves
         function plotSine(ctx, xOffset, yOffset, amplitude, frequency, color) {
             var width = ctx.canvas.width;
             var height = ctx.canvas.height;
@@ -137,15 +137,16 @@
             window.requestAnimationFrame(drawRed);
         }
 
-
         ///////////////////* SOUND SECTION *////////////////////
+        
+        // create web audio api context
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // create Oscillator node
+        var oscillator = audioCtx.createOscillator();
+
         //frequency is passed to this function from input button
         function startOsc(frequency) {
-            // create web audio api context
-            var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-            // create Oscillator node
-            var oscillator = audioCtx.createOscillator();
 
             oscillator.type = 'square'; //this can't be sine for some reason
             oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz
@@ -162,8 +163,9 @@
 
         //for turning off the oscillator
         function off() {
-            oscillator.stop(0); //stop oscillator after 0 seconds
+            oscillator.stop(); //stop oscillator after 0 seconds
             oscillator.disconnect();  // disconnect oscillator
+            console.log('off function called!')
         }
 
         window.addEventListener('load', init);
@@ -178,7 +180,6 @@
 
             let canvasRed = document.getElementById('canvas-red');
             canvasRed.addEventListener('click', function () {
-
                 let colorR = 255;
                 let colorG = 0;
                 let colorB = 0;
@@ -188,17 +189,18 @@
                 console.log('clicked!');
             });
 
-            //next step: a.) when user hovers over a sine wave, play that color's pitch
-            //get elements
+            let stopBttn = document.getElementById('stop-button');
+            stopBttn.addEventListener('click', off);
         }
         var step = -1;
-
-
 
     </script>
 </head>
 
 <body>
+    <!-- <button id="play-button" type="button">Play</button> -->
+    <button id="stop-button" type="button">Stop</button>
+
     <!--PURPLE-->
     <h3>
         <font face="arial"> Purple Oscillating Sine Wave</font>
