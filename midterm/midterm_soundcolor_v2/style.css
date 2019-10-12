@@ -63,11 +63,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    z-index: -1;
+    /* z-index: -1; */
+    position:relative;
+
 }
 
 #red-div{
     background-color: #FD4F4F;
+    /* z-index: 4; */
 }
 
 #orange-div{
@@ -106,11 +109,43 @@ body{
     position: relative;
     margin: 0 auto;
     bottom: -32vh;
-    z-index: 3;
+    /* z-index: 3; */
 }
 
 .canvas-frequency{
     z-index: 1;
     position: absolute;
     /* border: 1px solid blue; */
+}
+
+#canvas-red{
+   visibility: hidden;
+}
+
+#canvas-orange{
+    visibility: hidden;
+}
+
+#canvas-yellow{
+    visibility: hidden;
+}
+
+#canvas-green{
+    visibility: hidden;
+}
+
+#canvas-cyan{
+    visibility: hidden;
+}
+
+#canvas-blue{
+    visibility: hidden;
+}
+
+#canvas-purple{
+    visibility: hidden;
+}
+
+.hide-canvas{
+    visibility: hidden;
 }
