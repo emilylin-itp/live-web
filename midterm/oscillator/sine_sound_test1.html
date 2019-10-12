@@ -26,8 +26,6 @@
             // var amplitude = 40;
             // var frequency = 20;
 
-            //ctx.moveTo(x, y);
-            // ctx.moveTo(x, 50);
             while (x < width) {
                 y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
                 ctx.lineTo(x, y);
@@ -35,22 +33,23 @@
                 // console.log("x="+x+" y="+y);
             }
             ctx.stroke();
-            ctx.save();
+            ctx.save(); //push
             //console.log("Drawing point at y=" + y);
             // drawPoint(ctx, y);
             ctx.stroke();
-            ctx.restore();
+            ctx.restore(); //pop
         }
 
         function drawPurple() {
-            var canvas = document.getElementById("canvas-purple");
-            var context = canvas.getContext("2d");
+            let canvas = document.getElementById("canvas-purple");
+            let context = canvas.getContext("2d");
+
 
             //plot sine for purple
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
-            plotSine(context, step, 50, 40, 8, "rgb(148, 3, 252)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+            plotSine(context, step, 50, 40, 5, "rgb(148, 3, 252)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
             context.restore(); //pop
             step += 1; //changes the speed, like frame rate
@@ -58,19 +57,35 @@
         }
 
         function drawBlue() {
-            //plot sine for blue
+            //make canvas
             var canvas = document.getElementById("canvas-blue");
             var context = canvas.getContext("2d");
 
             //plot sine for blue
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
-            plotSine(context, step, 50, 40, 16, "rgb(0, 26, 255)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+            plotSine(context, step, 50, 40, 10, "rgb(0, 26, 255)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
             context.restore();//pop
             step += 1; //changes the speed, like frame rate
             window.requestAnimationFrame(drawBlue);
+        }
+
+        function drawCyan() {
+            //make canvas
+            var canvas = document.getElementById("canvas-cyan");
+            var context = canvas.getContext("2d");
+
+            //plot sine
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 40, 20, "rgb(30, 223, 90)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawCyan);
         }
 
         function drawGreen() {
@@ -80,9 +95,9 @@
 
             //plot sine for blue
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
-            plotSine(context, step, 50, 30, 24, "rgb(69, 245, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+            plotSine(context, step, 50, 30, 30, "rgb(182, 232, 54)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
             context.restore();//pop
             step += 1; //changes the speed, like frame rate
@@ -96,7 +111,7 @@
 
             //draw canvas
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
             plotSine(context, step, 50, 30, 40, "rgb(255,255, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
@@ -112,9 +127,9 @@
 
             //draw canvas
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
-            plotSine(context, step, 50, 30, 48, "rgb(255, 132, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+            plotSine(context, step, 50, 30, 50, "rgb(255, 132, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
             context.restore();//pop
             step += 1; //changes the speed, like frame rate
@@ -128,9 +143,9 @@
 
             //draw canvas
             context.save(); //push
-            context.clearRect(0, 0, 500, 500);
+            context.clearRect(0, 0, 1024, 500);
 
-            plotSine(context, step, 50, 30, 56, "rgb(255, 0, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+            plotSine(context, step, 50, 30, 60, "rgb(255, 0, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
             context.restore();//pop
             step += 1; //changes the speed, like frame rate
@@ -138,7 +153,7 @@
         }
 
         ///////////////////* SOUND SECTION *////////////////////
-        
+
         // create web audio api context
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -172,6 +187,7 @@
 
         function init() {
             window.requestAnimationFrame(drawPurple);
+            window.requestAnimationFrame(drawCyan);
             window.requestAnimationFrame(drawBlue);
             window.requestAnimationFrame(drawGreen);
             window.requestAnimationFrame(drawYellow);
@@ -205,37 +221,43 @@
     <h3>
         <font face="arial"> Purple Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-purple" width="500" height="100"></canvas>
+    <canvas id="canvas-purple" width="1024" height="100"></canvas>
 
     <!--BLUE-->
     <h3>
         <font face="arial"> Blue Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-blue" width="500" height="100"></canvas>
+    <canvas id="canvas-blue" width="1024" height="100"></canvas>
+
+    <!--CYAN-->
+    <h3>
+        <font face="arial"> Cyan Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-cyan" width="1024" height="100"></canvas>
 
     <!--GREEN-->
     <h3>
         <font face="arial">Green Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-green" width="500" height="100"></canvas>
+    <canvas id="canvas-green" width="1024" height="100"></canvas>
 
     <!--Yellow-->
     <h3>
         <font face="arial">Yellow Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-yellow" width="500" height="100"></canvas>
+    <canvas id="canvas-yellow" width="1024" height="100"></canvas>
 
     <!--Orange-->
     <h3>
         <font face="arial">Orange Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-orange" width="500" height="100"></canvas>
+    <canvas id="canvas-orange" width="1024" height="100"></canvas>
 
     <!--Red-->
     <h3>
         <font face="arial">Red Oscillating Sine Wave</font>
     </h3>
-    <canvas id="canvas-red" width="500" height="100"></canvas>
+    <canvas id="canvas-red" width="1024" height="100"></canvas>
 
     <!-- <h3>Multiple Sine Waves</h3>
     <canvas id="canvas2" width="500" height="100"></canvas> -->
