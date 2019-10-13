@@ -164,8 +164,11 @@
         function startOsc(frequency) {
 
             oscillator.type = 'square'; //this can't be sine for some reason
-            oscillator.frequency.value = 196;
-            // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz
+            oscillator.frequency.value = frequency; //red, low frequency
+            // oscillator.frequency.value = 4000; //purple, high frequency
+
+            // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
+
             oscillator.start(0);
 
             // Create GainNode	
@@ -184,6 +187,26 @@
             console.log('off function called!')
         }
 
+        //map for color
+        // linearly maps value from the range (a..b) to (c..d)
+        function mapRange(value, low1, high1, low2, high2) {
+            let freqPitch = low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+            return freqPitch;
+            //console.log(freqDrawValue);
+        }
+
+        ///////////////////* MAP SECTION *////////////////////
+        //map for color
+        // linearly maps value from the range (a..b) to (c..d)
+
+        /*
+        function mapPitchToColor(value, lowPitchFreq, highPitchFreq, lowColFreq, highColFreq) {
+            let freqPitch = lowColFreq + (highColFreq - lowColFreq) * (value - lowPitchFreq) / (highPitchFreq - lowPitchFreq);
+            return freqPitch;
+            console.log(freqPitch);
+        }
+        */
+
         window.addEventListener('load', init);
 
         function init() {
@@ -195,18 +218,98 @@
             window.requestAnimationFrame(drawOrange);
             window.requestAnimationFrame(drawRed);
 
+            //SET UP VARIABLES
+            let lowColFreq = 400;
+            let highColFreq = 789;
+            let lowPitchFreq = 0;
+            let highPitchFreq = 1400;
+
+            //WHEN RED IS CLICKED
             let canvasRed = document.getElementById('canvas-red');
             canvasRed.addEventListener('click', function () {
-                //SHAWN WROTE THE BELOW:
+                /* PROF SHAWN WROTE THIS:
                 // let colorR = 255;
                 // let colorG = 0;
                 // let colorB = 0;
-
                 // let freq = colorR / 255 * 440 + colorG / 255 + colorB / 255;
-                startOsc();
+                */
+
+                //map color red (avg col freq: 442) to pitch freq
+                let rFreqPitch = mapRange(442, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("red freq pitch: " + rFreqPitch);
+
+                startOsc(rFreqPitch);
                 console.log('clicked!');
             });
 
+            // ORANGE 
+            let canvasOrange = document.getElementById('canvas-orange');
+            canvasOrange.addEventListener('click', function () {
+                //map color orange (avg col freq: 496) to pitch freq
+                let oFreqPitch = mapRange(496, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("orange freq pitch: " + oFreqPitch);
+
+                startOsc(oFreqPitch);
+                console.log('clicked!');
+            });
+
+            // YELLOW
+            let canvasYellow = document.getElementById('canvas-yellow');
+            canvasYellow.addEventListener('click', function () {
+                //map color yellow (avg col freq: 517) to pitch freq
+                let yFreqPitch = mapRange(517, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("yellow freq pitch: " + yFreqPitch);
+
+                startOsc(yFreqPitch);
+                console.log('clicked!');
+            });
+
+            // GREEN
+            let canvasGreen = document.getElementById('canvas-green');
+            canvasGreen.addEventListener('click', function () {
+                //map color green (avg col freq: 566) to pitch freq
+                let gFreqPitch = mapRange(566, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("green freq pitch: " + gFreqPitch);
+
+                startOsc(gFreqPitch);
+                console.log('clicked!');
+            });
+
+            // CYAN
+            let canvasCyan = document.getElementById('canvas-cyan');
+            canvasCyan.addEventListener('click', function () {
+                //map color cyan (avg col freq: 618) to pitch freq
+                let cFreqPitch = mapRange(618, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("cyanfreq pitch: " + cFreqPitch);
+
+                startOsc(cFreqPitch);
+                console.log('clicked!');
+            });
+
+            // BLUE
+            let canvasBlue = document.getElementById('canvas-blue');
+            canvasBlue.addEventListener('click', function () {
+                //map color blue (avg col freq: 649.5) to pitch freq
+                let bFreqPitch = mapRange(649.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("blue freq pitch: " + bFreqPitch);
+
+                startOsc(bFreqPitch);
+                console.log('clicked!');
+            });
+
+            // PURPLE
+            let canvasPurple = document.getElementById('canvas-purple');
+            canvasPurple.addEventListener('click', function () {
+                //map color purple (avg col freq: 678.5) to pitch freq
+                let pFreqPitch = mapRange(678.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("purple freq pitch: " + pFreqPitch);
+
+                startOsc(pFreqPitch);
+                console.log('clicked!');
+            });
+
+
+            //STOP BUTTON
             let stopBttn = document.getElementById('stop-button');
             stopBttn.addEventListener('click', off);
         }
