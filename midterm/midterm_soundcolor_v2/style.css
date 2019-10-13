@@ -26,6 +26,8 @@ body{
 
 #navbar{
     margin: 3vh 3vw;
+    position:relative;
+    z-index: 3!important;
 }
 
 .nav-text{
@@ -63,14 +65,11 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* z-index: -1; */
     position:relative;
-
 }
 
 #red-div{
     background-color: #FD4F4F;
-    /* z-index: 4; */
 }
 
 #orange-div{
@@ -93,7 +92,7 @@ body{
     background-color: #29ACFF;
 }
 
-#violet-div{
+#purple-div{
     background-color: #685CFF;
 }
 
@@ -101,20 +100,21 @@ body{
     font-family: 'Platform-Bold';
     color: black;
     font-size: 1.5vw;
-    line-height: 2.65vh;
+    line-height: 2.75vh;
     letter-spacing: 0.55pt;
     width: 50%;
     display: inline-block;
     text-align: center;
-    position: relative;
-    margin: 0 auto;
-    bottom: -32vh;
-    /* z-index: 3; */
+    position: absolute;
+    /* margin: 0 auto; */
+    bottom: 15vh;
+    margin-left: 3.5vw;
+    margin-right: 3.5vw;
+    z-index: 6!important;
+    /* border: 1px solid blue; */
 }
 
 .canvas-frequency{
-    z-index: 1;
-    position: absolute;
     /* border: 1px solid blue; */
 }
 

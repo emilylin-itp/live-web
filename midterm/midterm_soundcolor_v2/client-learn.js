@@ -68,175 +68,217 @@ function mapRange(value, low1, high1, low2, high2) {
     //console.log(freqDrawValue);
 }
 
+///////////////////* TOGGLE *////////////////////
+
+//TOGGLE ON
+function toggleOn(div, canvas) {
+    div.addEventListener('mouseover', function () {
+        console.log('mouse on!');
+        canvas.style.visibility = 'visible';
+    });
+}
+
+//TOGGLE OFF
+function toggleOff(div, canvas) {
+    div.addEventListener('mouseout', function () {
+        console.log('mouse out!');
+        canvas.style.visibility = 'hidden';
+    });
+}
+
 ///////////////////* LOAD SECTION *////////////////////
 window.addEventListener('load', init);
 
-/// FUNCTION INIT //
+
+///////////////////* FUNCTION INIT *////////////////////
 function init() {
 
+    //draw the frequency waves!
     drawFrequency();
 
-    //when mouse on color div, make visible
     let redDiv = document.getElementById("red-div");
     let redCanvas = document.getElementById("canvas-red");
+    let orangeDiv = document.getElementById("orange-div");
+    let orangeCanvas = document.getElementById("canvas-orange");
+    let yellowDiv = document.getElementById("yellow-div");
+    let yellowCanvas = document.getElementById("canvas-yellow");
+    let greenDiv = document.getElementById("green-div");
+    let greenCanvas = document.getElementById("canvas-green");
+    let cyanDiv = document.getElementById("cyan-div");
+    let cyanCanvas = document.getElementById("canvas-cyan");
+    let blueDiv = document.getElementById("blue-div");
+    let blueCanvas = document.getElementById("canvas-blue");
+    let purpleDiv = document.getElementById("purple-div");
+    let purpleCanvas = document.getElementById("canvas-purple");
 
-    redDiv.addEventListener('click', function(){
-        console.log('mouse on red!');
-        redCanvas.style.visibility = 'visible';
-    });
+    //when mouse on color div - toggle on. when mouse out - toggle off
+    redDiv.addEventListener('mouseover', toggleOn(redDiv, redCanvas));
+    redDiv.addEventListener('mouseout', toggleOff(redDiv, redCanvas));
+    orangeDiv.addEventListener('mouseover', toggleOn(orangeDiv, orangeCanvas));
+    orangeDiv.addEventListener('mouseout', toggleOff(orangeDiv, orangeCanvas));
+    yellowDiv.addEventListener('mouseover', toggleOn(yellowDiv, yellowCanvas));
+    yellowDiv.addEventListener('mouseout', toggleOff(yellowDiv, yellowCanvas));
+    greenDiv.addEventListener('mouseover', toggleOn(greenDiv, greenCanvas));
+    greenDiv.addEventListener('mouseout', toggleOff(greenDiv, greenCanvas));
+    cyanDiv.addEventListener('mouseover', toggleOn(cyanDiv, cyanCanvas));
+    cyanDiv.addEventListener('mouseout', toggleOff(cyanDiv, cyanCanvas));
+    blueDiv.addEventListener('mouseover', toggleOn(blueDiv, blueCanvas));
+    blueDiv.addEventListener('mouseout', toggleOff(blueDiv, blueCanvas));
+    purpleDiv.addEventListener('mouseover', toggleOn(purpleDiv, purpleCanvas));
+    purpleDiv.addEventListener('mouseout', toggleOff(purpleDiv, purpleCanvas));
 
 
+    // need this function in here, so it will animate???
     function drawFrequency() {
-            //GET ALL CANVAS IDS
-            let rcanvas = document.getElementById("canvas-red");
-            let rcontext = rcanvas.getContext("2d");
-            let ocanvas = document.getElementById("canvas-orange");
-            let ocontext = ocanvas.getContext("2d");
-            let ycanvas = document.getElementById("canvas-yellow");
-            let ycontext = ycanvas.getContext("2d");
-            let gcanvas = document.getElementById("canvas-green");
-            let gcontext = gcanvas.getContext("2d");
-            let ccanvas = document.getElementById("canvas-cyan");
-            let ccontext = ccanvas.getContext("2d");
-            let bcanvas = document.getElementById("canvas-blue");
-            let bcontext = bcanvas.getContext("2d");
-            let pcanvas = document.getElementById("canvas-purple");
-            let pcontext = pcanvas.getContext("2d");
+        //GET ALL CANVAS IDS
+        let rcanvas = document.getElementById("canvas-red");
+        let rcontext = rcanvas.getContext("2d");
+        let ocanvas = document.getElementById("canvas-orange");
+        let ocontext = ocanvas.getContext("2d");
+        let ycanvas = document.getElementById("canvas-yellow");
+        let ycontext = ycanvas.getContext("2d");
+        let gcanvas = document.getElementById("canvas-green");
+        let gcontext = gcanvas.getContext("2d");
+        let ccanvas = document.getElementById("canvas-cyan");
+        let ccontext = ccanvas.getContext("2d");
+        let bcanvas = document.getElementById("canvas-blue");
+        let bcontext = bcanvas.getContext("2d");
+        let pcanvas = document.getElementById("canvas-purple");
+        let pcontext = pcanvas.getContext("2d");
 
-            //SET UP VARIABLES
-            let lowFreq = 400;
-            let highFreq = 789;
-            let drawLowFreq = -5;
-            let drawHighFreq = 50;
+        //SET UP VARIABLES
+        let lowFreq = 400;
+        let highFreq = 789;
+        let drawLowFreq = -10;
+        let drawHighFreq = 60;
 
-            //////////////////// RED FREQUENCY //////////////////
-            rcontext.clearRect(0, 0, rcanvas.width, rcanvas.height);
-            rcontext.imageSmoothingEnabled = true;
+        //////////////////// RED FREQUENCY //////////////////
+        rcontext.clearRect(0, 0, rcanvas.width, rcanvas.height);
+        rcontext.imageSmoothingEnabled = true;
 
-            //plot sine for red
-            rcontext.save(); //push
-            rcontext.translate(rcanvas.width / 2 + rcanvas.width * 1.2, 0); //translate 
-            rcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for red
+        rcontext.save(); //push
+        rcontext.translate(rcanvas.width / 2 + rcanvas.width * 1.275, 0); //translate 
+        rcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //avg frequency for red: 442
-            //map yellow
-            let rfreq = mapRange(442, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+        //avg frequency for red: 442
+        //map yellow
+        let rfreq = mapRange(442, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-            // WHEN MOUSE ON RED CANVAS, PLOT SINE
-            //rcanvas.addEventListener
-            plotSine(rcontext, step, 30, 30, rfreq, "rgb(255,255,255)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            rcontext.restore(); //pop
+        // WHEN MOUSE ON RED CANVAS, PLOT SINE
+        //rcanvas.addEventListener
+        plotSine(rcontext, step, 30, 30, rfreq, "rgb(255,255,255)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        rcontext.restore(); //pop
 
-            //////////////////// ORANGE FREQUENCY //////////////////
-            ocontext.clearRect(0, 0, ocanvas.width, ocanvas.height);
-            ocontext.imageSmoothingEnabled = true;
+        //////////////////// ORANGE FREQUENCY //////////////////
+        ocontext.clearRect(0, 0, ocanvas.width, ocanvas.height);
+        ocontext.imageSmoothingEnabled = true;
 
-            //plot sine for orange
-            ocontext.save(); //push
-            ocontext.translate(ocanvas.width / 2 + ocanvas.width * 1.18, 0); //translate 
-            ocontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for orange
+        ocontext.save(); //push
+        ocontext.translate(ocanvas.width / 2 + ocanvas.width * 1.18, 0); //translate 
+        ocontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //avg frequency for orange: 496
-            //map orange
-            let ofreq = mapRange(496, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+        //avg frequency for orange: 496
+        //map orange
+        let ofreq = mapRange(496, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(ocontext, step, 30, 30, ofreq, "rgb(255,255,255)");
-            ocontext.restore(); //pop
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(ocontext, step, 30, 30, ofreq, "rgb(255,255,255)");
+        ocontext.restore(); //pop
 
-            //////////////////// YELLOW FREQUENCY //////////////////
-            ycontext.clearRect(0, 0, ycanvas.width, ycanvas.height);
-            ycontext.imageSmoothingEnabled = true;
+        //////////////////// YELLOW FREQUENCY //////////////////
+        ycontext.clearRect(0, 0, ycanvas.width, ycanvas.height);
+        ycontext.imageSmoothingEnabled = true;
 
-            //plot sine for yellow
-            ycontext.save(); //push
-            ycontext.translate(ycanvas.width / 2 + ycanvas.width * 1.18, 0); //translate 
-            ycontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for yellow
+        ycontext.save(); //push
+        ycontext.translate(ycanvas.width / 2 + ycanvas.width * 1.18, 0); //translate 
+        ycontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //avg frequency for yellow: 517
-            //map yellow
-            let yfreq = mapRange(517, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+        //avg frequency for yellow: 517
+        //map yellow
+        let yfreq = mapRange(517, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(ycontext, step, 30, 30, yfreq, "rgb(255,255,255)");
-            ycontext.restore(); //pop
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(ycontext, step, 30, 30, yfreq, "rgb(255,255,255)");
+        ycontext.restore(); //pop
 
-            //////////////////// GREEN FREQUENCY //////////////////
-            gcontext.clearRect(0, 0, gcanvas.width, gcanvas.height);
-            gcontext.imageSmoothingEnabled = true;
+        //////////////////// GREEN FREQUENCY //////////////////
+        gcontext.clearRect(0, 0, gcanvas.width, gcanvas.height);
+        gcontext.imageSmoothingEnabled = true;
 
-            //plot sine for green
-            gcontext.save(); //push
-            gcontext.translate(gcanvas.width / 2 + gcanvas.width * 1.18, 0); //translate 
-            gcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for green
+        gcontext.save(); //push
+        gcontext.translate(gcanvas.width / 2 + gcanvas.width * 1.18, 0); //translate 
+        gcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //step += 2; //changes the speed, like frame rate
+        //step += 2; //changes the speed, like frame rate
 
-            //avg frequency for green: 566
-            let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);;
+        //avg frequency for green: 566
+        let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);;
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(gcontext, step, 30, 30, gfreq, "rgb(255,255,255)");
-            gcontext.restore(); //pop
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(gcontext, step, 30, 30, gfreq, "rgb(255,255,255)");
+        gcontext.restore(); //pop
 
-            //////////////////// CYAN FREQUENCY //////////////////
-            ccontext.clearRect(0, 0, ccanvas.width, ccanvas.height);
-            ccontext.imageSmoothingEnabled = true;
+        //////////////////// CYAN FREQUENCY //////////////////
+        ccontext.clearRect(0, 0, ccanvas.width, ccanvas.height);
+        ccontext.imageSmoothingEnabled = true;
 
-            //plot sine for blue
-            ccontext.save(); //push
-            ccontext.translate(ccanvas.width / 2 + ccanvas.width * 1.18, 0); //translate 
-            ccontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for blue
+        ccontext.save(); //push
+        ccontext.translate(ccanvas.width / 2 + ccanvas.width * 1.18, 0); //translate 
+        ccontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //step += 2; //changes the speed, like frame rate
+        //step += 2; //changes the speed, like frame rate
 
-            //avg frequency for cyan: 618
-            let cfreq = mapRange(618, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+        //avg frequency for cyan: 618
+        let cfreq = mapRange(618, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(ccontext, step, 30, 30, cfreq, "rgb(255,255,255)");
-            ccontext.restore(); //pop
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(ccontext, step, 30, 30, cfreq, "rgb(255,255,255)");
+        ccontext.restore(); //pop
 
-            //////////////////// BLUE FREQUENCY //////////////////
-            bcontext.clearRect(0, 0, bcanvas.width, bcanvas.height);
-            bcontext.imageSmoothingEnabled = true;
+        //////////////////// BLUE FREQUENCY //////////////////
+        bcontext.clearRect(0, 0, bcanvas.width, bcanvas.height);
+        bcontext.imageSmoothingEnabled = true;
 
-            //plot sine for blue
-            bcontext.save(); //push
-            bcontext.translate(bcanvas.width / 2 + bcanvas.width * 1.18, 0); //translate 
-            bcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        //plot sine for blue
+        bcontext.save(); //push
+        bcontext.translate(bcanvas.width / 2 + bcanvas.width * 1.18, 0); //translate 
+        bcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //step += 2; //changes the speed, like frame rate
+        //step += 2; //changes the speed, like frame rate
 
-            //avg frequency for blue: 649.5
-            let bfreq = mapRange(649.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);;
+        //avg frequency for blue: 649.5
+        let bfreq = mapRange(649.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);;
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(bcontext, step, 30, 30, bfreq, "rgb(255,255,255)");
-            bcontext.restore(); //pop
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(bcontext, step, 30, 30, bfreq, "rgb(255,255,255)");
+        bcontext.restore(); //pop
 
+        //////////////////// PURPLE FREQUENCY ////////////////
+        pcontext.clearRect(0, 0, bcanvas.width, bcanvas.height);
+        pcontext.imageSmoothingEnabled = true;
 
-            //////////////////// PURPLE FREQUENCY ////////////////
-            pcontext.clearRect(0, 0, bcanvas.width, bcanvas.height);
-            pcontext.imageSmoothingEnabled = true;
+        //plot sine for blue
+        pcontext.save(); //push
+        pcontext.translate(pcanvas.width / 0.575, 0); //translate 
+        pcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-            //plot sine for blue
-            pcontext.save(); //push
-            pcontext.translate(pcanvas.width / 0.575, pcanvas.height / 20); //translate 
-            pcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
+        step += 2; //changes the speed, like frame rate
 
-            step += 2; //changes the speed, like frame rate
+        //avg frequency for violet: 678.5
+        let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-            //avg frequency for violet: 678.5
-            let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(pcontext, step, 30, 30, pfreq, "rgb(255,255,255)");
 
-            //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
-            plotSine(pcontext, step, 30, 30, pfreq, "rgb(255,255,255)");
+        pcontext.restore(); //pop
 
-            pcontext.restore(); //pop
-
-            window.requestAnimationFrame(drawFrequency);
-        }
+        window.requestAnimationFrame(drawFrequency);
+    }
 }
 var step = -2;
 
@@ -288,3 +330,53 @@ var step = -2;
 //     // step += 1; //changes the speed, like frame rate
 //     window.requestAnimationFrame(drawFrequency);
 // }
+
+
+// if(document.getElementById('selectid').value == "val1") {
+//     //Do something
+// }
+
+// function toggleCanvas(divSelected, canvasToShow) {
+//     if (divSelected.addEventListener('mouseover'), function(){
+//         console.log('mouse over this div!');
+//         canvasToShow.style.visibility = 'visible';
+//     }) else {
+//         console.log('mouse over this div!');
+//         canvasToShow.style.visibility = 'hidden';
+//     }
+// }
+
+// function toggleCanvas(x) {
+//     if (x.style.visibility === "hidden") {
+//         x.style.visibility = "visible";
+//     } else {
+//         x.style.visibility = "hidden";
+//     }
+// }
+
+// function toggleOn(divSelected, canvasToShow) {
+//     divSelected.addEventListener('mouseover', function () {
+//         console.log('mouse over this div!');
+//         canvasToShow.style.visibility = 'visible';
+//     });
+// }
+
+// function toggleOff(divSelected, canvasToHide) {
+//     divSelected.addEventListener('mouseover', function () {
+//         console.log('mouse not on this div!');
+//         canvasToHide.style.visibility = 'hidden';
+//     });
+// }
+    // redDiv.addEventListener('mouseover', function () {
+    //     console.log('mouse on red!');
+    //     redCanvas.style.visibility = 'visible';
+    // });
+
+    // redDiv.addEventListener('mouseout', function () {
+    //     console.log('mouse on red!');
+    //     redCanvas.style.visibility = 'hidden';
+    // });
+
+
+
+
