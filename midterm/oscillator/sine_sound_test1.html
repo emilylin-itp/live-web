@@ -164,7 +164,8 @@
         function startOsc(frequency) {
 
             oscillator.type = 'square'; //this can't be sine for some reason
-            oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz
+            oscillator.frequency.value = 196;
+            // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz
             oscillator.start(0);
 
             // Create GainNode	
@@ -196,12 +197,13 @@
 
             let canvasRed = document.getElementById('canvas-red');
             canvasRed.addEventListener('click', function () {
-                let colorR = 255;
-                let colorG = 0;
-                let colorB = 0;
+                //SHAWN WROTE THE BELOW:
+                // let colorR = 255;
+                // let colorG = 0;
+                // let colorB = 0;
 
-                let freq = colorR / 255 * 440 + colorG / 255 + colorB / 255;
-                startOsc(freq);
+                // let freq = colorR / 255 * 440 + colorG / 255 + colorB / 255;
+                startOsc();
                 console.log('clicked!');
             });
 
