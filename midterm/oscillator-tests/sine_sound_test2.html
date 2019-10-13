@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sine Wave</title>
+    <script type="text/javascript">
+
+        ///////////////////* SINE SECTION *////////////////////
+        //add in var amplitude, frequency, color so that it can make multiple color sine waves
+        function plotSine(ctx, xOffset, yOffset, amplitude, frequency, color) {
+            var width = ctx.canvas.width;
+            var height = ctx.canvas.height;
+            // var scale = 120; //not sure where this is used
+            ctx.beginPath();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = color;
+
+            // ctx.strokeStyle = "rgb(66,44,255)";
+            // console.log("Drawing point...");
+            // drawPoint(ctx, yOffset+step);
+
+            var x = 0;
+            var y = 0;
+            var amplitude = amplitude;
+            var frequency = frequency;
+            // var amplitude = 40;
+            // var frequency = 20;
+
+            while (x < width) {
+                y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
+                ctx.lineTo(x, y);
+                x++;
+                // console.log("x="+x+" y="+y);
+            }
+            ctx.stroke();
+            ctx.save(); //push
+            //console.log("Drawing point at y=" + y);
+            // drawPoint(ctx, y);
+            ctx.stroke();
+            ctx.restore(); //pop
+        }
+
+        function drawPurple() {
+            let canvas = document.getElementById("canvas-purple");
+            let context = canvas.getContext("2d");
+
+
+            //plot sine for purple
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 40, 5, "rgb(148, 3, 252)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore(); //pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawPurple);
+        }
+
+        function drawBlue() {
+            //make canvas
+            var canvas = document.getElementById("canvas-blue");
+            var context = canvas.getContext("2d");
+
+            //plot sine for blue
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 40, 10, "rgb(0, 26, 255)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawBlue);
+        }
+
+        function drawCyan() {
+            //make canvas
+            var canvas = document.getElementById("canvas-cyan");
+            var context = canvas.getContext("2d");
+
+            //plot sine
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 40, 20, "rgb(30, 223, 90)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawCyan);
+        }
+
+        function drawGreen() {
+            //plot sine for green
+            var canvas = document.getElementById("canvas-green");
+            var context = canvas.getContext("2d");
+
+            //plot sine for blue
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 30, 30, "rgb(182, 232, 54)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawGreen);
+        }
+
+        function drawYellow() {
+            //plot sine 
+            var canvas = document.getElementById("canvas-yellow");
+            var context = canvas.getContext("2d");
+
+            //draw canvas
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 30, 40, "rgb(255,255, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawYellow);
+        }
+
+        function drawOrange() {
+            //plot sine 
+            var canvas = document.getElementById("canvas-orange");
+            var context = canvas.getContext("2d");
+
+            //draw canvas
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 30, 50, "rgb(255, 132, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawOrange);
+        }
+
+        function drawRed() {
+            //plot sine 
+            var canvas = document.getElementById("canvas-red");
+            var context = canvas.getContext("2d");
+
+            //draw canvas
+            context.save(); //push
+            context.clearRect(0, 0, 1024, 500);
+
+            plotSine(context, step, 50, 30, 60, "rgb(255, 0, 0)"); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+            context.restore();//pop
+            step += 1; //changes the speed, like frame rate
+            window.requestAnimationFrame(drawRed);
+        }
+
+        ///////////////////* SOUND SECTION *////////////////////
+
+        // //this will work!
+        // let context = new AudioContext(),
+        //     oscillator;
+
+        // function playOscillator(startTime, endTime) {
+        //     oscillator = context.createOscillator();
+        //     oscillator.connect(context.destination);
+        //     oscillator.start(startTime);
+        //     oscillator.stop(endTime);
+        // }
+
+        // playOscillator(context.currentTime, context.currentTime + 0.5);
+        // playOscillator(context.currentTime + 1, context.currentTime + 1.5);
+
+        // create web audio api context
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var oscillator = audioCtx.createOscillator();
+        let now = audioCtx.currentTime;
+
+        // // create Oscillator node
+        // var oscillator = audioCtx.createOscillator();
+
+        //frequency is passed to this function from input button
+        function startOsc(frequency, startTime, endTime) {
+            oscillator.type = 'square'; //this can't be sine for some reason
+            oscillator.frequency.value = frequency; //red, low frequency
+
+            oscillator.start(0);
+
+            // Create GainNode	
+            gain = audioCtx.createGain(); // Create gain node
+            gain.gain.value = 1; // Set gain to full volume
+
+            // Connect the Nodes
+            oscillator.connect(gain); // Connect oscillator to gain
+            gain.connect(audioCtx.destination); // Connect gain to output
+
+            const duration = 2;
+
+            gainNode.gain.linearRampToValueAtTime(0.0001, context.currentTime + duration);
+
+            oscillator.start(startTime);
+        }
+
+        //for turning off the oscillator
+        function off() {
+            oscillator.stop(); //stop oscillator after 0 seconds
+            oscillator.disconnect();  // disconnect oscillator
+            console.log('off function called!')
+        }
+
+        //map for color
+        // linearly maps value from the range (a..b) to (c..d)
+        function mapRange(value, low1, high1, low2, high2) {
+            let freqPitch = low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+            return freqPitch;
+            //console.log(freqDrawValue);
+        }
+
+
+        ///////////////////* MAP SECTION *////////////////////
+        //map for color
+        // linearly maps value from the range (a..b) to (c..d)
+
+        /*
+        function mapPitchToColor(value, lowPitchFreq, highPitchFreq, lowColFreq, highColFreq) {
+            let freqPitch = lowColFreq + (highColFreq - lowColFreq) * (value - lowPitchFreq) / (highPitchFreq - lowPitchFreq);
+            return freqPitch;
+            console.log(freqPitch);
+        }
+        */
+
+        window.addEventListener('load', init);
+
+        function init() {
+            window.requestAnimationFrame(drawPurple);
+            window.requestAnimationFrame(drawCyan);
+            window.requestAnimationFrame(drawBlue);
+            window.requestAnimationFrame(drawGreen);
+            window.requestAnimationFrame(drawYellow);
+            window.requestAnimationFrame(drawOrange);
+            window.requestAnimationFrame(drawRed);
+
+            //SET UP COL + PITCH MAPPING VARIABLES
+            let lowColFreq = 400;
+            let highColFreq = 789;
+            let lowPitchFreq = 0;
+            let highPitchFreq = 1400;
+
+            //WHEN RED IS CLICKED
+            let canvasRed = document.getElementById('canvas-red');
+            canvasRed.addEventListener('click', function () {
+                /* PROF SHAWN WROTE THIS:
+                // let colorR = 255;
+                // let colorG = 0;
+                // let colorB = 0;
+                // let freq = colorR / 255 * 440 + colorG / 255 + colorB / 255;
+                */
+
+                //map color red (avg col freq: 442) to pitch freq
+                let rFreqPitch = mapRange(442, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("red freq pitch: " + rFreqPitch);
+
+                startOsc(rFreqPitch);
+                console.log('clicked!');
+            });
+
+            // ORANGE 
+            let canvasOrange = document.getElementById('canvas-orange');
+            canvasOrange.addEventListener('click', function () {
+                //map color orange (avg col freq: 496) to pitch freq
+                let oFreqPitch = mapRange(496, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("orange freq pitch: " + oFreqPitch);
+
+                startOsc(oFreqPitch, now, now + 0.5);
+                //startOsc(oFreqPitch, now + 1, now + 1.5);
+                console.log('clicked!');
+            });
+
+            // YELLOW
+            let canvasYellow = document.getElementById('canvas-yellow');
+            canvasYellow.addEventListener('click', function () {
+                //map color yellow (avg col freq: 517) to pitch freq
+                let yFreqPitch = mapRange(517, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("yellow freq pitch: " + yFreqPitch);
+
+                startOsc(yFreqPitch);
+                console.log('clicked!');
+            });
+
+            // GREEN
+            let canvasGreen = document.getElementById('canvas-green');
+            canvasGreen.addEventListener('click', function () {
+                //map color green (avg col freq: 566) to pitch freq
+                let gFreqPitch = mapRange(566, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("green freq pitch: " + gFreqPitch);
+
+                startOsc(gFreqPitch);
+                console.log('clicked!');
+            });
+
+            // CYAN
+            let canvasCyan = document.getElementById('canvas-cyan');
+            canvasCyan.addEventListener('click', function () {
+                //map color cyan (avg col freq: 618) to pitch freq
+                let cFreqPitch = mapRange(618, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("cyanfreq pitch: " + cFreqPitch);
+
+                startOsc(cFreqPitch);
+                console.log('clicked!');
+            });
+
+            // BLUE
+            let canvasBlue = document.getElementById('canvas-blue');
+            canvasBlue.addEventListener('click', function () {
+                //map color blue (avg col freq: 649.5) to pitch freq
+                let bFreqPitch = mapRange(649.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("blue freq pitch: " + bFreqPitch);
+
+                startOsc(bFreqPitch);
+                console.log('clicked!');
+            });
+
+            // PURPLE
+            let canvasPurple = document.getElementById('canvas-purple');
+            canvasPurple.addEventListener('click', function () {
+                //map color purple (avg col freq: 678.5) to pitch freq
+                let pFreqPitch = mapRange(678.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+                console.log("purple freq pitch: " + pFreqPitch);
+
+                startOsc(pFreqPitch);
+                console.log('clicked!');
+            });
+
+
+            //STOP BUTTON
+            let stopBttn = document.getElementById('stop-button');
+            stopBttn.addEventListener('click', off);
+        }
+        var step = -1;
+
+    </script>
+</head>
+
+<body>
+    <!-- <button id="play-button" type="button">Play</button> -->
+    <button id="stop-button" type="button">Stop</button>
+
+    <!--PURPLE-->
+    <h3>
+        <font face="arial"> Purple Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-purple" width="1024" height="100"></canvas>
+
+    <!--BLUE-->
+    <h3>
+        <font face="arial"> Blue Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-blue" width="1024" height="100"></canvas>
+
+    <!--CYAN-->
+    <h3>
+        <font face="arial"> Cyan Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-cyan" width="1024" height="100"></canvas>
+
+    <!--GREEN-->
+    <h3>
+        <font face="arial">Green Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-green" width="1024" height="100"></canvas>
+
+    <!--Yellow-->
+    <h3>
+        <font face="arial">Yellow Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-yellow" width="1024" height="100"></canvas>
+
+    <!--Orange-->
+    <h3>
+        <font face="arial">Orange Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-orange" width="1024" height="100"></canvas>
+
+    <!--Red-->
+    <h3>
+        <font face="arial">Red Oscillating Sine Wave</font>
+    </h3>
+    <canvas id="canvas-red" width="1024" height="100"></canvas>
+
+    <!-- <h3>Multiple Sine Waves</h3>
+    <canvas id="canvas2" width="500" height="100"></canvas> -->
+</body>
+
+</html>
+
+
+<!--DUMPSTER CODE-->
+
+<!--
+                    // plotSine(context, step, 50); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
+
+        // function showAxes(ctx, axes) {
+        //     var width = ctx.canvas.width;
+        //     var height = ctx.canvas.height;
+        //     var xMin = 0;
+
+        //     ctx.beginPath();
+        //     ctx.strokeStyle = "rgb(128,128,128)";
+
+        //     // X-Axis
+        //     ctx.moveTo(xMin, height / 2);
+        //     ctx.lineTo(width, height / 2);
+
+        //     // Y-Axis
+        //     ctx.moveTo(width / 2, 0);
+        //     ctx.lineTo(width / 2, height);
+        //     // Starting line
+        //     ctx.moveTo(0, 0);
+        //     ctx.lineTo(0, height);
+
+        //     ctx.stroke();
+        // }
+
+        // function drawPoint(ctx, y) {
+        //     var radius = 3;
+        //     ctx.beginPath();
+        //     // Hold x constant at 4 so the point only moves up and down.
+        //     ctx.arc(4, y, radius, 0, 2 * Math.PI, false);
+        //     ctx.fillStyle = 'red';
+        //     ctx.fill();
+        //     ctx.lineWidth = 1;
+        //     ctx.stroke();
+        // }
+
+                
+        /*
+        function spirograph() {
+            var canvas2 = document.getElementById("canvas2");
+            var context = canvas2.getContext("2d");
+
+            showAxes(context);
+            context.save();
+            // var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var step = 4;
+            for (var i = -4; i < canvas.height; i += step) {
+                // context.putImageData(imageData, 0, 0);
+                plotSine(context, i, 54 + i);
+            }
+        }
+        */
+
+                // // //example of class/constructor in javascript
+        // // unnamed
+        // let Rectangle = class {
+        //     constructor(height, width) {
+        //         this.height = height;
+        //         this.width = width;
+        //     }
+        // };
+        // console.log(Rectangle.name);
+        // // output: "Rectangle"
+
+        // // named
+        // let Rectangle = class Rectangle2 {
+        //     constructor(height, width) {
+        //         this.height = height;
+        //         this.width = width;
+        //     }
+        // };
+
+
+
+
+-->

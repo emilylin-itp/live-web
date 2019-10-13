@@ -15,10 +15,6 @@
             ctx.lineWidth = 3;
             ctx.strokeStyle = color;
 
-            // ctx.strokeStyle = "rgb(66,44,255)";
-            // console.log("Drawing point...");
-            // drawPoint(ctx, yOffset+step);
-
             var x = 0;
             var y = 0;
             var amplitude = amplitude;
@@ -153,39 +149,45 @@
         }
 
         ///////////////////* SOUND SECTION *////////////////////
-
         // create web audio api context
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // let oscillator = audioCtx.createOscillator();
+        // let now = audioCtx.currentTime;
 
-        // create Oscillator node
-        var oscillator = audioCtx.createOscillator();
-
-        //frequency is passed to this function from input button
-        function startOsc(frequency) {
-
-            oscillator.type = 'square'; //this can't be sine for some reason
-            oscillator.frequency.value = frequency; //red, low frequency
-            // oscillator.frequency.value = 4000; //purple, high frequency
-
-            // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
-
-            oscillator.start(0);
-
-            // Create GainNode	
-            gain = audioCtx.createGain(); // Create gain node
-            gain.gain.value = 1; // Set gain to full volume
-
-            // Connect the Nodes
-            oscillator.connect(gain); // Connect oscillator to gain
-            gain.connect(audioCtx.destination); // Connect gain to output
+        function playOsc(frequency) {
+            let oscillator = context.createOscillator();
+            oscillator.frequency.value = 440;
+            oscillator.connect(context.destination);
+            let currentTime = context.currentTime;
+            oscillator.start(currentTime);
+            oscillator.stop(currentTime + 1);
         }
 
-        //for turning off the oscillator
-        function off() {
-            oscillator.stop(); //stop oscillator after 0 seconds
-            oscillator.disconnect();  // disconnect oscillator
-            console.log('off function called!')
-        }
+        // //frequency is passed to this function from input button
+        // function startOsc(frequency) {
+        //     oscillator.type = 'square'; //this can't be sine for some reason
+        //     oscillator.frequency.value = frequency; //red, low frequency
+
+        //     // Create GainNode	
+        //     gain = audioCtx.createGain(); // Create gain node
+        //     gain.gain.value = 1; // Set gain to full volume
+
+        //     // Connect the Nodes
+        //     oscillator.connect(gain); // Connect oscillator to gain
+        //     gain.connect(audioCtx.destination); // Connect gain to output
+        //     // const duration = 2;
+        //     // gainNode.gain.linearRampToValueAtTime(0.0001, context.currentTime + duration);
+
+        //     oscillator.start(now);
+        // }
+
+        // //for turning off the oscillator
+        // function stopOsc() {
+        //     oscillator.stop(now + 0.5);
+        //     // oscillator.stop(); //stop oscillator after 0 seconds
+        //     // oscillator.disconnect();  // disconnect oscillator
+        //     console.log('off function called!')
+        // }
 
         //map for color
         // linearly maps value from the range (a..b) to (c..d)
@@ -195,17 +197,8 @@
             //console.log(freqDrawValue);
         }
 
-        ///////////////////* MAP SECTION *////////////////////
-        //map for color
-        // linearly maps value from the range (a..b) to (c..d)
 
-        /*
-        function mapPitchToColor(value, lowPitchFreq, highPitchFreq, lowColFreq, highColFreq) {
-            let freqPitch = lowColFreq + (highColFreq - lowColFreq) * (value - lowPitchFreq) / (highPitchFreq - lowPitchFreq);
-            return freqPitch;
-            console.log(freqPitch);
-        }
-        */
+        ///////////////////* MAP SECTION *////////////////////
 
         window.addEventListener('load', init);
 
@@ -218,44 +211,72 @@
             window.requestAnimationFrame(drawOrange);
             window.requestAnimationFrame(drawRed);
 
-            //SET UP VARIABLES
+            //SET UP COL + PITCH MAPPING VARIABLES
             let lowColFreq = 400;
             let highColFreq = 789;
             let lowPitchFreq = 0;
             let highPitchFreq = 1400;
 
-            //WHEN RED IS CLICKED
-            let canvasRed = document.getElementById('canvas-red');
-            canvasRed.addEventListener('click', function () {
-                /* PROF SHAWN WROTE THIS:
+            /* PROF SHAWN WROTE THIS:
                 // let colorR = 255;
                 // let colorG = 0;
                 // let colorB = 0;
                 // let freq = colorR / 255 * 440 + colorG / 255 + colorB / 255;
-                */
+             */
 
-                //map color red (avg col freq: 442) to pitch freq
+
+            //WHEN RED IS CLICKED
+            // document.getElementById("element").addEventListener("mouseenter", function () { isOnDiv = true; });
+            // document.getElementById("element").addEventListener("mouseout", function () { isOnDiv = false; });
+
+            let canvasRed = document.getElementById('canvas-red');
+            let isOnDiv;
+
+            //canvas red = mouse on
+            canvasRed.addEventListener('mouseenter', function () {
+                isOnDiv = true;
                 let rFreqPitch = mapRange(442, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
-                console.log("red freq pitch: " + rFreqPitch);
-
-                startOsc(rFreqPitch);
-                console.log('clicked!');
+                // console.log("red freq pitch: " + rFreqPitch);
+                playOsc(rFreqPitch);
+                console.log('mouse enter!');
             });
+
+            //canvas red = mouse out
+            canvasRed.addEventListener('mouseout', function () {
+                isOnDiv = false;
+                stopOsc();
+                console.log('mouse out!');
+            });
+
+
+            //WHEN NOT ON ANY OF THE COLOR DIV, STOP SOUND
+            // if (isOnDiv === true) {
+            //     //map color red (avg col freq: 442) to pitch freq
+            //     let rFreqPitch = mapRange(442, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
+            //     console.log("red freq pitch: " + rFreqPitch);
+            //     //play pitch for red
+            //     playOsc(rFreqPitch);
+            // } else {
+            //     stopOsc();
+            //     console.log('mouse out!');
+            // }
+
 
             // ORANGE 
             let canvasOrange = document.getElementById('canvas-orange');
-            canvasOrange.addEventListener('click', function () {
+            canvasOrange.addEventListener('mouseon', function () {
                 //map color orange (avg col freq: 496) to pitch freq
                 let oFreqPitch = mapRange(496, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("orange freq pitch: " + oFreqPitch);
 
-                startOsc(oFreqPitch);
+                startOsc(oFreqPitch, now, now + 0.5);
+                //startOsc(oFreqPitch, now + 1, now + 1.5);
                 console.log('clicked!');
             });
 
             // YELLOW
             let canvasYellow = document.getElementById('canvas-yellow');
-            canvasYellow.addEventListener('click', function () {
+            canvasYellow.addEventListener('mouseon', function () {
                 //map color yellow (avg col freq: 517) to pitch freq
                 let yFreqPitch = mapRange(517, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("yellow freq pitch: " + yFreqPitch);
@@ -266,7 +287,7 @@
 
             // GREEN
             let canvasGreen = document.getElementById('canvas-green');
-            canvasGreen.addEventListener('click', function () {
+            canvasGreen.addEventListener('mouseon', function () {
                 //map color green (avg col freq: 566) to pitch freq
                 let gFreqPitch = mapRange(566, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("green freq pitch: " + gFreqPitch);
@@ -277,7 +298,7 @@
 
             // CYAN
             let canvasCyan = document.getElementById('canvas-cyan');
-            canvasCyan.addEventListener('click', function () {
+            canvasCyan.addEventListener('mouseon', function () {
                 //map color cyan (avg col freq: 618) to pitch freq
                 let cFreqPitch = mapRange(618, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("cyanfreq pitch: " + cFreqPitch);
@@ -288,7 +309,7 @@
 
             // BLUE
             let canvasBlue = document.getElementById('canvas-blue');
-            canvasBlue.addEventListener('click', function () {
+            canvasBlue.addEventListener('mouseon', function () {
                 //map color blue (avg col freq: 649.5) to pitch freq
                 let bFreqPitch = mapRange(649.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("blue freq pitch: " + bFreqPitch);
@@ -299,7 +320,7 @@
 
             // PURPLE
             let canvasPurple = document.getElementById('canvas-purple');
-            canvasPurple.addEventListener('click', function () {
+            canvasPurple.addEventListener('mouseon', function () {
                 //map color purple (avg col freq: 678.5) to pitch freq
                 let pFreqPitch = mapRange(678.5, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq);
                 console.log("purple freq pitch: " + pFreqPitch);
@@ -310,8 +331,8 @@
 
 
             //STOP BUTTON
-            let stopBttn = document.getElementById('stop-button');
-            stopBttn.addEventListener('click', off);
+            // let stopBttn = document.getElementById('stop-button');
+            // stopBttn.addEventListener('click', off);
         }
         var step = -1;
 
@@ -374,6 +395,34 @@
 <!--DUMPSTER CODE-->
 
 <!--
+            //map for color
+        // linearly maps value from the range (a..b) to (c..d)
+
+        /*
+        function mapPitchToColor(value, lowPitchFreq, highPitchFreq, lowColFreq, highColFreq) {
+            let freqPitch = lowColFreq + (highColFreq - lowColFreq) * (value - lowPitchFreq) / (highPitchFreq - lowPitchFreq);
+            return freqPitch;
+            console.log(freqPitch);
+        }
+        */
+                // ctx.strokeStyle = "rgb(66,44,255)";
+            // console.log("Drawing point...");
+            // drawPoint(ctx, yOffset+step);
+
+        // //this will work!
+        // let context = new AudioContext(),
+        //     oscillator;
+
+        // function playOscillator(startTime, endTime) {
+        //     oscillator = context.createOscillator();
+        //     oscillator.connect(context.destination);
+        //     oscillator.start(startTime);
+        //     oscillator.stop(endTime);
+        // }
+
+        // playOscillator(context.currentTime, context.currentTime + 0.5);
+        // playOscillator(context.currentTime + 1, context.currentTime + 1.5);
+
                     // plotSine(context, step, 50); //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color)
 
         // function showAxes(ctx, axes) {
