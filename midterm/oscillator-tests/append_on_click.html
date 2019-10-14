@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>append on click test</title>
+    <style>
+        html {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // Listen for click events on the <body> element
+        document.documentElement.addEventListener("click", function (event) {
+
+            // Create an element to hold out "o", and some styles
+            var element = document.createElement("span"),
+                elStyle = {
+                    position: "absolute",
+                    top: event.clientY + "px",
+                    left: event.clientX + "px",
+                };
+
+            // Apply styles to the element
+            Object.keys(elStyle).forEach(function (property) {
+                element.style[property] = elStyle[property];
+            });
+
+            // Set the innerHTML of the element, and insert it into the <body>
+            element.innerHTML = "o";
+            document.body.appendChild(element);
+
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>
