@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sine Ex</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+
+        window.addEventListener('load', init);
+
+        function plotSine(ctx, xOffset, yOffset, amplitude, frequency, col) {
+            let width = ctx.canvas.width;
+            let height = ctx.canvas.height;
+
+            ctx.save(); //push
+            ctx.beginPath();
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = col; //var to alter
+
+            let x = 15; //var to alter
+            let y = 0;//var to alter 
+            
+            let amp = amplitude; //var to change based on color choice
+            let freq = frequency; //var to change based on color choice 
+
+            while (x < 250) {
+                y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
+                ctx.lineTo(x, y); 
+                x++;
+                // console.log("x="+x+" y="+y);
+            }
+            ctx.stroke();
+            ctx.restore();//pop
+        }
+
+        function drawPurpleSine() {
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            context.save();
+            plotSine(context, 0, 54, 20, 5, 'rgb(66,44,255)'); //function plotSine(ctx, xOffset, yOffset, amp, freq, col)
+        }
+
+        function init() {
+            drawPurpleSine();
+        }
+
+
+    </script>
+
+    <div>
+        <canvas id="canvas" width="500" height=" 100"></canvas>
+
+    </div>
+
+</body>
+
+
+</html>

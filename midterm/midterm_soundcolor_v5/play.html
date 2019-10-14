@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sound of Color</title>
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--scripts-->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+</head>
+
+
+<body id='play-body'>
+    <!--SCRIPT-->
+    <script src="client-play.js"></script>
+
+    <!--NAVBAR-->
+    <nav id='navbar' class='row justify-content-between'>
+        <!--NAV HOME/ABOUT-->
+        <div id='nav-about' class="col-2">
+            <a class='nav-text' href="index.html">Sound of Color</a>
+        </div>
+
+        <!--NAV TITLE-->
+        <div id='nav-title' class="col-8">
+            <h2 id='nav-h2'>Click Color to Draw</h2>
+        </div>
+
+        <!--NAV LEARN-->
+        <div id='nav-learn' class="col-1">
+            <a class='nav-text' href="learn.html">Learn</a>
+        </div>
+
+        <!--NAV PLAY-->
+        <div id='nav-play' class="col-1">
+            <a class='nav-text' href="play.html">Play</a>
+        </div>
+    </nav>
+
+    <!--CANVAS-->
+    <!-- <canvas id='bkg-canvas'></canvas> -->
+    <canvas id='draw-canvas'></canvas>
+
+    <!--CONTAINER FOR ALL COLORS-->
+    <div id='palette-container' class='row align-items-center'>
+        <!--RED-->
+        <div id='red-div' class='palette-div'>
+            <canvas id="red-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--ORANGE-->
+        <div id='orange-div' class='palette-div'>
+            <canvas id="orange-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--YELLOW-->
+        <div id='yellow-div' class='palette-div'>
+            <canvas id="yellow-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--GREEN-->
+        <div id='green-div' class='palette-div'>
+            <canvas id="green-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--CYAN-->
+        <div id='cyan-div' class='palette-div'>
+            <canvas id="cyan-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--BLUE-->
+        <div id='blue-div' class='palette-div'>
+            <canvas id="blue-palette" class="canvas-palette"></canvas>
+        </div>
+
+        <!--VIOLET-->
+        <div id='purple-div' class='palette-div'>
+            <canvas id="purple-palette" class="canvas-palette"></canvas>
+        </div>
+</body>
+
+</html>
