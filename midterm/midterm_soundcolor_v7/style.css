@@ -1,0 +1,210 @@
+@font-face {
+    font-family:'PlantinMTInfant-Regular';
+    src: url('assets/fonts/PlantinMTInfant-Regular.eot');
+    src: url('assets/fonts/PlantinMTInfant-Regular.ttf');
+    format('truetype');
+}
+
+@font-face {
+    font-family:'Platform-Bold';
+    src: url('assets/fonts/Platform-Bold.eot');
+    src: url('assets/fonts/Platform-Bold.ttf');
+    format('truetype');
+}
+
+/* div{
+    border: 1px red solid;
+} */
+
+/* EVERGREEN STYLE */
+html {
+    box-sizing: border-box;
+  }
+  
+body{
+    overflow: hidden;
+}
+
+#navbar{
+    margin: 4vh 3vw;
+    position:relative;
+    z-index: 3!important;
+}
+
+.nav-text{
+    font-family: 'PlantinMTInfant-Regular';
+    font-size: 1.85vw;
+    color: black;
+    display: flex;
+    padding-top: 1vh;
+}
+
+.nav-text:hover{
+    color: rgba(0,0,0,0.25); 
+    cursor: pointer;
+    text-decoration:none;
+}
+
+#nav-play, #nav-learn{
+    display: block;
+    text-align: right;
+}
+
+#nav-h2{
+    text-align: center;
+    font-family: 'Platform-Bold';
+    font-size: 2.5vw;
+    letter-spacing: 0.052vw;
+    padding-top: 0.5vh;
+}
+
+
+/* LEARN PAGE */
+.color-div{
+    width: 14.45vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position:relative;
+    left: 0.75vw;
+}
+
+#red-div{
+    background-color: #FD4F4F;
+}
+
+#orange-div{
+    background-color: #FF9D41;
+}
+
+#yellow-div{
+    background-color: #FBE11F;
+}
+
+#green-div{
+    background-color: #B6E836;
+}
+
+#cyan-div{
+    background-color: #1EDFBE;
+}
+
+#blue-div{
+    background-color: #29ACFF;
+}
+
+#purple-div{
+    background-color: #685CFF;
+}
+
+.text-thz{
+    font-family: 'Platform-Bold';
+    color: black;
+    font-size: 1.5vw;
+    line-height: 2.75vh;
+    letter-spacing: 0.55pt;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    position: absolute;
+    /* margin: 0 auto; */
+    bottom: 15vh;
+    margin-left: 3.5vw;
+    margin-right: 3.5vw;
+    z-index: 6!important;
+    /* border: 1px solid blue; */
+}
+
+.canvas-frequency{
+    /* border: 1px solid blue; */
+    top: -5vh;
+    position:relative;
+}
+
+#canvas-red{
+   visibility: hidden;
+}
+
+#canvas-orange{
+    visibility: hidden;
+}
+
+#canvas-yellow{
+    visibility: hidden;
+}
+
+#canvas-green{
+    visibility: hidden;
+}
+
+#canvas-cyan{
+    visibility: hidden;
+}
+
+#canvas-blue{
+    visibility: hidden;
+}
+
+#canvas-purple{
+    visibility: hidden;
+}
+
+.hide-canvas{
+    visibility: hidden;
+}
+
+
+/* PLAY PAGE */
+#draw-canvas{
+    cursor: pointer;
+    position: absolute;
+    /* border: 1px solid blue; */
+    /* width: 100vw;
+    height: 100vh; */
+    top: 0;
+    background-color: none; 
+    z-index: 1;
+}
+
+.palette-div{
+    width: 14.5vw;
+    height: 18vh;
+    display: flex;
+    /* flex-direction: column;
+    justify-content: center; */
+    position:relative;
+    top: 77vh;
+    left: 0.5vw;
+    z-index: 4;
+    cursor: pointer;
+}
+
+#red-play-div{
+    background-color: #FD4F4F;
+}
+
+#orange-play-div{
+    background-color: #FF9D41;
+}
+
+#yellow-play-div{
+    background-color: #FBE11F;
+}
+
+#green-play-div{
+    background-color: #B6E836;
+}
+
+#cyan-play-div{
+    background-color: #1EDFBE;
+}
+
+#blue-play-div{
+    background-color: #29ACFF;
+}
+
+#purple-play-div{
+    background-color: #685CFF;
+}
+
