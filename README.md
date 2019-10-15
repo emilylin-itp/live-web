@@ -13,4 +13,10 @@
 
 **Week 3**<br>
   * Coloring Book (v.1): https://github.com/emilylin-itp/live-web/tree/gh-pages/wk3/wk3_wig <br>
-  * Coloring Book (v.2): http://el3015.itp.io:8080/
+  * Coloring Book (v.2): http://el3015.itp.io:8080/<br> 
+
+**Week 4**<br>
+  * Gif Chat: https://el3015.itp.io:8083/index.html<br>
+  
+**Week 5**<br>
+  * Gif Chat: https://el3015.itp.io:8085/main.html
