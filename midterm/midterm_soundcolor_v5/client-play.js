@@ -43,26 +43,41 @@ function init() {
     canvas.height = window.innerHeight;
 
     // canvas background color
-    ctx.fillStyle = "rgba(0, 0, 0, 0)"; //placeholder pink
+    ctx.fillStyle = "rgba(255, 255, 255, 0)"; //placeholder pink
 
     //canvas size 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    //draw sine on click test
-    // canvas.addEventListener('click', () => {
-    //     window.requestAnimationFrame(drawPurple);
-    // });
-
+    //select element by id, then draw sine wave
     let redSelect = document.getElementById('red-div');
     redSelect.addEventListener('mouseover', () => {
         window.requestAnimationFrame(drawRedSine);
         console.log('mouse over red!')
     });
 
+    let orangeSelect = document.getElementById('orange-div');
+    orangeSelect.addEventListener('mouseover', () => {
+        window.requestAnimationFrame(drawOrangeSine);
+    });
 
     let yellowSelect = document.getElementById('yellow-div');
     yellowSelect.addEventListener('mouseover', () => {
         window.requestAnimationFrame(drawYellowSine);
+    });
+
+    let greenSelect = document.getElementById('green-div');
+    greenSelect.addEventListener('mouseover', () => {
+        window.requestAnimationFrame(drawGreenSine);
+    });
+
+    let cyanSelect = document.getElementById('cyan-div');
+    cyanSelect.addEventListener('mouseover', () => {
+        window.requestAnimationFrame(drawCyanSine);
+    });
+
+    let blueSelect = document.getElementById('blue-div');
+    blueSelect.addEventListener('mouseover', () => {
+        window.requestAnimationFrame(drawBlueSine);
     });
 
     let purpleSelect = document.getElementById('purple-div');
@@ -72,8 +87,8 @@ function init() {
 
     ///////////////////* SINE SECTION *////////////////////
     //mouse location (but not sure how to use it yet)
-    let xLoc = event.pageX - canvas.offsetLeft;
-    let yLoc = event.pageY - canvas.offsetTop;
+    // let xLoc = event.pageX - canvas.offsetLeft;
+    // let yLoc = event.pageY - canvas.offsetTop;
 
     //add in var amplitude, frequency, color so that it can make multiple color sine waves
     function plotSine(length, xOffset, yOffset, amplitude, frequency, color) {
@@ -83,6 +98,7 @@ function init() {
         //draw line begins here
         ctx.save(); //push
         ctx.beginPath();
+        ctx.translate(canvas.width / 6, 0); //translate
         ctx.lineWidth = 4;
         ctx.strokeStyle = color;
         ctx.lineCap = 'round';
@@ -103,7 +119,7 @@ function init() {
         ctx.restore(); //pop
     }
 
-    //map for color
+    //map for color wavelengths
     // linearly maps value from the range (a..b) to (c..d)
     function mapRange(value, low1, high1, low2, high2) {
         let freqDrawValue = low2 + (high2 - low2) * (value - low1) / (high1 - low1);
@@ -117,26 +133,72 @@ function init() {
     let drawLowFreq = -20;
     let drawHighFreq = 80;
 
+    let wavelength = canvas.width/1.25;
+    let amplitudeSine = 40;
+
     //avg light spectrum frequency for red: 442
     //map red freq to wavelength to draw
     let rfreq = mapRange(442, lowFreq, highFreq, drawHighFreq, drawLowFreq);
-    console.log('red freq:  ' + rfreq);
+
+    //avg frequency for orange: 496
+    //map orange
+    let ofreq = mapRange(496, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+
+    //avg frequency for yellow: 517
+    //map yellow
+    let yfreq = mapRange(517, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+
+    //avg frequency for green: 566
+    //map green
+    let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+
+    //avg frequency for cyan: 618
+    //map cyan
+    let cfreq = mapRange(618, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+
+    //avg frequency for blue: 649.5
+    //map blue
+    let bfreq = mapRange(649.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+
+    //avg frequency for purple: 678.5
+    //map purple
+    let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
     function drawRedSine() {
-        plotSine(500, 0, 2, 5, rfreq, "#FD4F4F");
-        //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+        plotSine(wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color) 
+    }
+
+    function drawOrangeSine() {
+        plotSine(wavelength, 0, 0, amplitudeSine, ofreq, "#FF9D41");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color) 
+    }
+
+    function drawYellowSine() {
+        plotSine(wavelength, 0, 0, amplitudeSine, yfreq, "#FBE11F");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
+    }
+
+    function drawGreenSine() {
+        plotSine(wavelength, 0, 0, amplitudeSine, gfreq, "#B6E836");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
+    }
+
+    function drawCyanSine() {
+        plotSine(wavelength, 0, 0, amplitudeSine, cfreq, "#1EDFBE");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
+    }
+
+    function drawBlueSine() {
+        plotSine(wavelength, 0, 0, amplitudeSine, bfreq, "#29ACFF");
+        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
     }
 
     function drawPurpleSine() {
-        plotSine(100, 0, 2, 15, 5, "#685CFF");
+        plotSine(wavelength, 0, 0, amplitudeSine, pfreq, "#685CFF");
         //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
     }
 
-
-    function drawYellowSine() {
-        plotSine(300, 0, 1, 5, 35, "#FBE11F");
-        //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    }
 }
 
 
