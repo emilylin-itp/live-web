@@ -69,7 +69,6 @@ function startOsc(frequency) {
 //     source.start(context.currentTime); // play the source immediately
 // }
 
-
 //for turning off the oscillator
 function stopOsc() {
     oscillator.stop(); // stop 2 seconds after the current time
@@ -316,7 +315,7 @@ function init() {
         //step += 2; //changes the speed, like frame rate
 
         //avg frequency for green: 566
-        let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);;
+        let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
         //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
         plotSine(gcontext, step, 30, 30, gfreq, "rgb(255,255,255)");

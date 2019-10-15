@@ -7,40 +7,20 @@
 //default color if none seleted
 let currentColor = '#000'; //default color
 
-//////// * EXAMPLE CODE FOR DRWING CIRCLE */////
-/*
-function drawCircle(event) {
-
-    //2 canvases needed: 1.) drawing animations, 2.) clearing the canvas
-    //canvas for drawing animations
-    let canvas = document.getElementById("draw-canvas");
-    let ctx = canvas.getContext("2d");
-    let rect = canvas.getBoundingClientRect();
-
-    //get x and y coord when user clicks on canvas
-    let x = event.clientX - rect.left;
-    let y = event.clientY - rect.top;
-
-    console.log("x: " + x);
-    console.log("y: " + y);
-
-    //draw the circle
-    ctx.fillStyle = 'hsl(' + 360 * Math.random() + ', 50%, 50%)';
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, 2 * Math.PI);
-    ctx.fill();
-}
-*/
 
 //////////////////* FUNCTION DRAW WITH LOOP *///////////////
 function init() {
     // canvas
     var canvas = document.getElementById("draw-canvas");
     var ctx = canvas.getContext("2d");
+    //let rect = canvas.getBoundingClientRect();
 
     //resize canvas to be window width + height
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    //
+    canvas.addEventListener('click', drawRedSine);
 
     // canvas background color
     ctx.fillStyle = "rgba(255, 255, 255, 0)"; //placeholder pink
@@ -52,7 +32,8 @@ function init() {
     let redSelect = document.getElementById('red-div');
     redSelect.addEventListener('mouseover', () => {
         window.requestAnimationFrame(drawRedSine);
-        console.log('mouse over red!')
+        currentColor = '#FD4F4F';
+        console.log(currentColor);
     });
 
     let orangeSelect = document.getElementById('orange-div');
@@ -90,30 +71,53 @@ function init() {
     // let xLoc = event.pageX - canvas.offsetLeft;
     // let yLoc = event.pageY - canvas.offsetTop;
 
+    /*
+    /* DRAW BALL EXAMPLE
+    function drawBall(event) {
+        var x = event.pageX - canvas.offsetLeft;
+        var y = event.pageY - canvas.offsetTop;
+
+        console.log("x: " + x);
+        console.log("y: " + y);
+
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, 2 * 3.14);
+        ctx.fill();
+    }
+    */
+
     //add in var amplitude, frequency, color so that it can make multiple color sine waves
-    function plotSine(length, xOffset, yOffset, amplitude, frequency, color) {
+    function plotSine(event, length, xOffset, yOffset, amplitude, frequency, color) {
         let width = ctx.canvas.width;
         let height = ctx.canvas.height;
+        
+        //mousex mousey
+       let x = event.pageX - canvas.offsetLeft;
+       let y = event.pageY - canvas.offsetTop;
+
+        // console.log("x: " + x);
+        // console.log("y: " + y);
 
         //draw line begins here
         ctx.save(); //push
         ctx.beginPath();
-        ctx.translate(canvas.width / 6, 0); //translate
+        //ctx.translate(canvas.width / 6, 0); //translate
         ctx.lineWidth = 4;
         ctx.strokeStyle = color;
         ctx.lineCap = 'round';
 
-        var x = 0;
-        var y = 0;
+        // var x = 0;
+        // var y = 0;
         var amplitude = amplitude;
         var frequency = frequency;
 
         //while x is a certain length, draw the sine wave
         while (x < length) {
-            y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
-            ctx.lineTo(x, y);
+            z = y + amplitude * Math.sin((x + xOffset) / frequency);
+            ctx.lineTo(x, z);
             x++;
-            // console.log("x="+x+" y="+y);
+            console.log("x=" + x + " z=" + z);
         }
         ctx.stroke();
         ctx.restore(); //pop
@@ -133,7 +137,7 @@ function init() {
     let drawLowFreq = -20;
     let drawHighFreq = 80;
 
-    let wavelength = canvas.width/1.25;
+    let wavelength = canvas.width / 0.25;
     let amplitudeSine = 40;
 
     //avg light spectrum frequency for red: 442
@@ -164,8 +168,8 @@ function init() {
     //map purple
     let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-    function drawRedSine() {
-        plotSine(wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F");
+    function drawRedSine(event) {
+        plotSine(event, wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F");
         //function plotSine(length, xOffset, yOffset,amplitude, frequency, color) 
     }
 
@@ -313,5 +317,24 @@ canvas.addEventListener('click', drawBall);
 
 
 
-*/
+    /* DRAW BALL EXAMPLE
+    function drawBall(event) {
+        var x = event.pageX - canvas.offsetLeft;
+        var y = event.pageY - canvas.offsetTop;
+
+        console.log("x: " + x);
+        console.log("y: " + y);
+
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(x, y, 10, 0, 2 * 3.14);
+        ctx.fill();
+    }
+
+    // //draw ball ex
+    // canvas.addEventListener('click', drawBall);
+    */
+
+
+
 
