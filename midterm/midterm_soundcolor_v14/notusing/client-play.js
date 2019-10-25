@@ -31,7 +31,7 @@ function startOsc(frequency) {
 function init() {
 
     // x mark in bottom container
-    let bottomX = document.getElementById('bottom-x');
+    let bottomX = document.getElementById('bottom-div-x');
     bottomX.addEventListener('click',() => {
         closeBottom();
         console.log('x clicked!');

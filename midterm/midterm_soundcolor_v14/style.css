@@ -159,7 +159,7 @@ body{
 /* PLAY PAGE */
 
 #bottom-container{
-    bottom: -63vh;
+    bottom: -64vh;
     width: 120vw;
     height: 25vh;
     /* top: 65vh; */
@@ -188,9 +188,9 @@ body{
     /* border: 1px red solid; */
     display: inline-block;
     position: absolute;
-    width: 25vw;
+    width: 30vw;
     left: 5vw;
-    padding-top: 2vh;
+    padding-top: 2.5vh;
 }
 
 #bottom-div-x{
@@ -205,26 +205,37 @@ body{
 }
 
 #bottom-x{
+    position:absolute;
+    top: 2vh;
     width: 2.25vw;
+    visibility: visible;
 }
 
-.bottom-instruction-text{
+#bottom-plus{
+    position:absolute;
+    top: 1vh;
+    right: 4vw;
+    width: 3vw;
+    visibility: hidden;
+}
+
+#bottom-instruction-text{
     font-family: 'Platform-Bold';
     color: #D5D5D5;
-    padding-top: 1vh;
-    font-size: 2.125vw;
-    line-height: 2.5vw;
-    letter-spacing: 0.15pt;
+    padding-top: 0.9vh;
+    font-size: 2.5vw;
+    line-height: 3vw;
+    letter-spacing: 0.25pt;
 }
 
 #bottom-palette-container{
     margin-top: 2vh;
     /* border: 1px red solid; */
     position: absolute;
-    width: 60vw;
-    height: vh;    
+    width: 60vw;  
     right: 32vw;
     z-index: 2;
+    visibility: visible;
     /* float: right; */
 }
 
