@@ -271,7 +271,6 @@ function init() {
     let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
 
-
     ////////////////* FUNCTION FOR DRAWING EACH COLOR SINE *///////////
     function drawRedSine(event) {
         plotSine(event, wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F");//function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
@@ -307,7 +306,6 @@ function init() {
         plotSine(event, wavelength, 0, 0, amplitudeSine, pfreq, "#685CFF"); //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
         playPurpleFreq(); //play purple sound  
     }
-
 
 
     //////////////////////* PLAY PITCH  *///////////////////////////

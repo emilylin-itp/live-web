@@ -211,12 +211,21 @@ body{
     visibility: visible;
 }
 
+#bottom-x:hover{
+    opacity: 0.375;
+}
+
 #bottom-plus{
     position:absolute;
     top: 1vh;
     right: 4vw;
     width: 3vw;
     visibility: hidden;
+}
+
+
+#bottom-plus:hover{
+    opacity: 0.375;
 }
 
 #bottom-instruction-text{

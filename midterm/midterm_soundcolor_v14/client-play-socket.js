@@ -37,14 +37,7 @@ function init() {
         console.log('x clicked!');
     });
 
-    // // plus mark in bottom container
-    // let bottomPlus = document.getElementById('bottom-plus');
-    // bottomPlus.addEventListener('click', () => {
-    //     toggleButton();
-    //     console.log('x clicked!');
-    // });
-
-    // shrink/close the bottom palette bar
+    // toggle the bottom palette bar
     function toggleBottom() {
 
         let bottomContainer = document.getElementById('bottom-container');
@@ -69,18 +62,6 @@ function init() {
             console.log('hide x and color palette')
         }
     };
-
-    // open the bottom palette bar
-    function openBottom() {
-        //move container for palette up again
-        let bottomContainer = document.getElementById('bottom-container');
-        bottomContainer.style.bottom = '-64vh';
-
-        //hide the x
-        let bottomX = document.getElementById('bottom-x');
-        bottomX.style.visibility = 'visible';
-
-    }
 
     //////// canvas//////
     var canvas = document.getElementById("draw-canvas");
