@@ -35,9 +35,9 @@ function handleIt(req, res) {
 }
 
 var httpServer = https.createServer(options, handleIt);
-httpServer.listen(8093);
+httpServer.listen(8094);
 
-console.log('Server listening on port 8093');
+console.log('Server listening on port 8094');
 
 
 ////////////////*  WEB SOCKET PORTION *////////////////
@@ -65,41 +65,41 @@ io.sockets.on('connection',
             console.log('server received red data: ' + data);
         });
 
-        //listen for orange Data, then emit orange Data
-        socket.on('sendOrangeData', function (data) {
-            io.sockets.emit('sendOrangeData', data);
-            console.log('server received orange data: ' + data);
-        });
+        // //listen for orange Data, then emit orange Data
+        // socket.on('sendOrangeData', function (data) {
+        //     io.sockets.emit('sendOrangeData', data);
+        //     console.log('server received orange data: ' + data);
+        // });
 
-        //listen for yellow Data, then emit yellow Data
-        socket.on('sendYellowData', function (data) {
-            io.sockets.emit('sendYellowData', data);
-            console.log('server received yellow data: ' + data);
-        });
+        // //listen for yellow Data, then emit yellow Data
+        // socket.on('sendYellowData', function (data) {
+        //     io.sockets.emit('sendYellowData', data);
+        //     console.log('server received yellow data: ' + data);
+        // });
 
-        //listen for green Data, then emit green Data
-        socket.on('sendGreenData', function (data) {
-            io.sockets.emit('sendGreenData', data);
-            console.log('server received green data: ' + data);
-        });
+        // //listen for green Data, then emit green Data
+        // socket.on('sendGreenData', function (data) {
+        //     io.sockets.emit('sendGreenData', data);
+        //     console.log('server received green data: ' + data);
+        // });
 
-        //listen for cyan Data, then emit cyan Data
-        socket.on('sendCyanData', function (data) {
-            io.sockets.emit('sendCyanData', data);
-            console.log('server received cyan data: ' + data);
-        });
+        // //listen for cyan Data, then emit cyan Data
+        // socket.on('sendCyanData', function (data) {
+        //     io.sockets.emit('sendCyanData', data);
+        //     console.log('server received cyan data: ' + data);
+        // });
 
-        //listen for blue Data, then emit blue Data
-        socket.on('sendBlueData', function (data) {
-            io.sockets.emit('sendBlueData', data);
-            console.log('server received blue data: ' + data);
-        });
+        // //listen for blue Data, then emit blue Data
+        // socket.on('sendBlueData', function (data) {
+        //     io.sockets.emit('sendBlueData', data);
+        //     console.log('server received blue data: ' + data);
+        // });
 
-        //listen for purple Data, then emit blue Data
-        socket.on('sendPurpleData', function (data) {
-            io.sockets.emit('sendPurpleData', data);
-            console.log('server received purple data: ' + data);
-        });
+        // //listen for purple Data, then emit blue Data
+        // socket.on('sendPurpleData', function (data) {
+        //     io.sockets.emit('sendPurpleData', data);
+        //     console.log('server received purple data: ' + data);
+        // });
 
 
         // clear lineHistory array when clear function is called on client side!

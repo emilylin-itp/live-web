@@ -30,6 +30,15 @@ function startOsc(frequency) {
 ////////////////////////////MAIN FUNCTION////////////////////////////
 function init() {
 
+    ///////////////////////CONNECT TO SOCKET//////////////////
+    //socket connection
+    var socket = io.connect();
+
+    socket.on('connect', function () {
+        console.log("Connected");
+    });
+
+
     // x mark in bottom container
     let bottomX = document.getElementById('bottom-div-x');
     bottomX.addEventListener('click', () => {
@@ -63,7 +72,7 @@ function init() {
         }
     };
 
-    //////// canvas//////
+    //////// set up canvas canvas //////
     var canvas = document.getElementById("draw-canvas");
     var ctx = canvas.getContext("2d");
     //let rect = canvas.getBoundingClientRect();
@@ -72,24 +81,27 @@ function init() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
+    // canvas background color
+    ctx.fillStyle = "rgba(255, 255, 255, 100)"; //opaque white
+    //canvas size 
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 
     ///////////////// CLICK EVENT TO DRAW SINE WAVES ///////////////
     // canvas background color
-    ctx.fillStyle = "rgba(255, 255, 255, 0)"; //placeholder pink
+    ctx.fillStyle = "rgba(255, 255, 255, 100)"; //opaque white
 
     //canvas size 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     //set local and global current color variable
-    let currentColor;
     //let globalColor;
+
+    let currentColor;
     let evl = null;
 
-
-    // function drawRedSine(event) {
-    //     plotSine(event.pageX, event.pageY, wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F", lineWidth);//function plotSine(mouseX, mouseY, length, xOffset, yOffset,amplitude, frequency, color)
-    //     playRedFreq(); //play red sound         
-    // }
 
     // function plotSine(event, length, xOffset, yOffset, amplitude, frequency, color, lineWidth)
 
@@ -112,6 +124,7 @@ function init() {
         });
     });
 
+    /*
     let orangeSelect = document.getElementById('orange-play-div');
     orangeSelect.addEventListener('click', () => {
         // colorToDraw('orange');
@@ -226,16 +239,7 @@ function init() {
         });
         //canvas.addEventListener('click', drawPurpleSine);
     });
-
-
-
-    ///////////////////////SOCKET PORTION//////////////////
-    //socket connection
-    var socket = io.connect();
-
-    socket.on('connect', function () {
-        console.log("Connected");
-    });
+*/
 
     //function to clear canvas
     function emitAndCanvas(data) {
@@ -270,12 +274,12 @@ function init() {
     // plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F", lineWidth);
     // plotSine(e.pageX, e.pageY, wavelength, 0, 0, 40, rfreq, "#FD4F4F", 12);
 
-    function plotSine(mouseX, mouseY, wavelength, xOffset, yOffset, amplitudeSine, frequency, color, lineWidth) {
+    function plotSine(ctx, mouseX, mouseY, wavelength, xOffset, yOffset, amplitudeSine, frequency, color, lineWidth) {
 
-        //let width = ctx.canvas.width;
-        //let height = ctx.canvas.height;
+        let width = ctx.canvas.width;
+        let height = ctx.canvas.height;
 
-        wavelength = canvas.width / 0.25;
+        wavelength = width / 0.25;
         amplitudeSine = 40;
         lineWidth = 12;
 
@@ -285,8 +289,8 @@ function init() {
 
         let x = mouseX - canvas.offsetLeft;
         let y = mouseY - canvas.offsetTop;
-        console.log("x: " + x);
-        console.log("y: " + y);
+        // console.log("x: " + x);
+        // console.log("y: " + y);
 
         //length = wavelength;
         //amplitudeSine = amplitudeSine;
@@ -295,12 +299,16 @@ function init() {
         // console.log("y: " + y);
 
         //draw line begins here
+        ctx.stroke();
         ctx.save(); //push
         ctx.beginPath();
+        ctx.lineWidth = 9;
         //ctx.translate(canvas.width / 6, 0); //translate
         ctx.strokeStyle = color;
         ctx.lineCap = 'round';
         ctx.lineWidth = lineWidth;
+
+        // let xOffset = 2;
 
         //while x is a certain length, draw the sine wave
         while (x < wavelength) {
@@ -338,6 +346,7 @@ function init() {
     //map red freq to wavelength to draw
     let rfreq = mapRange(442, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
+    /*
     //avg frequency for orange: 496
     //map orange
     let ofreq = mapRange(496, lowFreq, highFreq, drawHighFreq, drawLowFreq);
@@ -361,6 +370,7 @@ function init() {
     //avg frequency for purple: 678.5
     //map purple
     let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
+    */
 
 
     /////////////* SOCKET FOR RECEIVING DATA */////////
@@ -369,90 +379,117 @@ function init() {
         console.log("Got: " + data);
     });
 
-    socket.on('sendOrangeData', function (data) {
-        drawOrangeSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendOrangeData', function (data) {
+    //     drawOrangeSine(data);
+    //     console.log("Got: " + data);
+    // });
 
-    socket.on('sendYellowData', function (data) {
-        drawYellowSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendYellowData', function (data) {
+    //     drawYellowSine(data);
+    //     console.log("Got: " + data);
+    // });
 
-    socket.on('sendGreenData', function (data) {
-        drawGreenSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendGreenData', function (data) {
+    //     drawGreenSine(data);
+    //     console.log("Got: " + data);
+    // });
 
-    socket.on('sendCyanData', function (data) {
-        drawCyanSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendCyanData', function (data) {
+    //     drawCyanSine(data);
+    //     console.log("Got: " + data);
+    // });
 
-    socket.on('sendBlueData', function (data) {
-        drawBlueSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendBlueData', function (data) {
+    //     drawBlueSine(data);
+    //     console.log("Got: " + data);
+    // });
 
-    socket.on('sendPurpleData', function (data) {
-        drawPurpleSine(data);
-        console.log("Got: " + data);
-    });
+    // socket.on('sendPurpleData', function (data) {
+    //     drawPurpleSine(data);
+    //     console.log("Got: " + data);
+    // });
 
 
 
     ////////////////* FUNCTION FOR DRAWING EACH COLOR SINE *///////////
     // function plotSine(mouseX, mouseY, length, xOffset, yOffset, amplitudeSine, frequency, color, lineWidth)
 
-    //only red change
-    function drawRedSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, rfreq, "#FD4F4F", lineWidth);
-        playRedFreq(); //play red sound         
-    }
+    ///// REFERENCE CODE //////
+    //////////////////// PURPLE FREQUENCY ////////////////
+    // pcontext.clearRect(0, 0, bcanvas.width, bcanvas.height);
+    // pcontext.imageSmoothingEnabled = true;
 
-    function drawOrangeSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, ofreq, "#FF9D41", lineWidth);
-        playOrangeFreq(); //play red sound         
-    }
+    // //plot sine for blue
+    // pcontext.save(); //push
+    // pcontext.translate(pcanvas.width / 0.575, 0); //translate 
+    // pcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-    function drawYellowSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, yfreq, "#FBE11F", lineWidth);
-        playYellowFreq(); //play yellow sound         
-    }
+    // //avg frequency for violet: 678.5
+    // let pfreq = mapRange(678.5, lowFreq, highFreq, drawHighFreq, drawLowFreq);
 
-    function drawGreenSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, gfreq, "#B6E836", lineWidth);
-        playGreenFreq(); //play yellow sound         
-    }
+    // //function plotSine(ctx, xOffset, yOffset,amplitude, frequency, color) 
+    // plotSine(pcontext, step, 30, 30, pfreq, "rgb(255,255,255)");
 
-    function drawCyanSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, cfreq, "#1EDFBE", lineWidth);
-        playCyanFreq(); //play yellow sound         
-    }
+    // pcontext.restore(); //pop
 
-    function drawBlueSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, bfreq, "#29ACFF", lineWidth);
-        playBlueFreq(); //play yellow sound         
-    }
+    // step += 2; //changes the speed, like animating in p5
+    // window.requestAnimationFrame(drawFrequency);
 
-    function drawPurpleSine(data) {
-        console.log('e.pageX: ' + data.x);
-        console.log('e.pageY: ' + data.y);
-        plotSine(data.x, data.y, wavelength, 0, 0, amplitudeSine, pfreq, "#685CFF", lineWidth);
-        playPurpleFreq(); //play yellow sound         
-    }
+
+
+    // function drawOrangeSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, ofreq, "#FF9D41", lineWidth);
+    //     playOrangeFreq(); //play o sound
+    //     console.log('orange step: ' + step);
+    //     window.requestAnimationFrame(drawOrangeSine);
+    //     console.log('orange xOffset: ' + xOffset);
+    // }
+
+    // function drawYellowSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, yfreq, "#FBE11F", lineWidth);
+    //     playYellowFreq(); //play y sound   
+
+    //     window.requestAnimationFrame(drawFrequency);
+    // }
+
+    // function drawGreenSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, gfreq, "#B6E836", lineWidth);
+    //     playGreenFreq(); //play g sound 
+    //     window.requestAnimationFrame(drawFrequency);
+    // }
+
+    // function drawCyanSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, cfreq, "#1EDFBE", lineWidth);
+    //     playCyanFreq(); //play cyan sound   
+    //     window.requestAnimationFrame(drawFrequency);
+    // }
+
+    // function drawBlueSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, bfreq, "#29ACFF", lineWidth);
+    //     playBlueFreq(); //play blue sound  
+    //     window.requestAnimationFrame(drawFrequency);
+    // }
+
+    // function drawPurpleSine(data) {
+    //     console.log('e.pageX: ' + data.x);
+    //     console.log('e.pageY: ' + data.y);
+    //     plotSine(data.x, data.y, wavelength, xOffset, 0, amplitudeSine, pfreq, "#685CFF", lineWidth);
+    //     playPurpleFreq(); //play purple sound
+    //     window.requestAnimationFrame(drawFrequency);
+    // }
+
+
+    // function plotSine(mouseX, mouseY, wavelength, xOffset, yOffset, amplitudeSine, frequency, color, lineWidth)
 
 
     //////////////////////* PLAY PITCH  *///////////////////////////
@@ -515,69 +552,29 @@ function init() {
 }
 
 
+///////////////// CLICK EVENT TO DRAW SINE WAVES ///////////////
+
+//adding in step to try to get it to animate
+function drawRedSine(data) {
+    let canvas = document.getElementById("draw-canvas");
+    let ctx = canvas.getContext("2d");
+
+    ctx.save(); //push
+
+    console.log('e.pageX: ' + data.x);
+    console.log('e.pageY: ' + data.y);
+    plotSine(ctx, data.x, data.y, wavelength, xOffset, 0, amplitudeSine, rfreq, "#FD4F4F", lineWidth);
+    //playRedFreq(); //play red sound         
+    console.log('red xOffset: ' + xOffset);
+    ctx.restore(); //pop
+
+    xOffset += 2;
+    window.requestAnimationFrame(drawRedSine);
+}
+
+let xOffset = -2;
+
+
+
 //////////////////* LOAD *///////////////
 window.addEventListener('load', init);
-
-
-
-/////////////* DUMPSTER *////////////////
-
-    // function drawOrangeSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, ofreq, "#FF9D41", lineWidth);
-    //     playOrangeFreq(); //play orange sound   
-    // }
-
-    // function drawYellowSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, yfreq, "#FBE11F", lineWidth); //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    //     playYellowFreq(); //play yellow sound  
-    // }
-
-    // function drawGreenSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, gfreq, "#B6E836", lineWidth); //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    //     playGreenFreq(); //play green sound  
-    // }
-
-    // function drawCyanSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, cfreq, "#1EDFBE", lineWidth);//function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    //     playCyanFreq(); //play cyan sound  
-    // }
-
-    // function drawBlueSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, bfreq, "#29ACFF", lineWidth);//function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    //     playBlueFreq(); //play blue sound  
-    // }
-
-    // function drawPurpleSine(e) {
-    //     plotSine(e.pageX, e.pageY, wavelength, 0, 0, amplitudeSine, pfreq, "#685CFF", lineWidth); //function plotSine(length, xOffset, yOffset,amplitude, frequency, color)
-    //     playPurpleFreq(); //play purple sound  
-    // }
-
-    // socket.on("position", function (data) {
-    //     console.log(data);
-    // });
-
-    // //send to server data
-    // socket.emit('drawLine', function (data) {
-    //     console.log('message that drawLine emit is working');
-    // });
-
-    //
-    // let colorToDraw = function (choice) {
-    //     if (choice === 'red') {
-    //         currentColor = 'redColor';
-    //     } else if (choice === 'orange') {
-    //         currentColor = 'orangeColor';
-    //     } else if (choice === 'yellow') {
-    //         currentColor = 'yellowColor';
-    //     } else if (choice === 'green') {
-    //         currentColor = 'greenColor';
-    //     } else if (choice === 'cyan') {
-    //         currentColor = 'cyanColor';
-    //     } else if (choice === 'blue') {
-    //         currentColor = 'blueColor';
-    //     } else if (choice === 'purple') {
-    //         currentColor = 'purpleColor';
-    //     }
-    //     // let newColor = currentColor;
-    //     return currentColor;
-    // }
