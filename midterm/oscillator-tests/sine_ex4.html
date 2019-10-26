@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sine Wave</title>
+    <script type="text/javascript">
+
+        function plotSine(ctx, xOffset, yOffset) {
+            let width = ctx.canvas.width;
+            let height = ctx.canvas.height;
+
+            let r = 66;
+            let g = 44;
+            let b = 255;
+            let alpha =
+
+                ctx.beginPath();
+            ctx.lineWidth = 8;
+            ctx.strokeStyle = "rgba(66,44,255)";
+            ctx.lineCap = 'round';
+
+
+            var x = 15;
+            var y = 0;
+            var amplitude = 40;
+            var frequency = 20;
+
+            let lineAlpha = ctx.globalAlpha;
+            lineAlpha = 1;
+
+            while (x < 300) {
+                y = height / 2 + amplitude * Math.sin((x + xOffset) / frequency);
+                ctx.lineTo(x, y);
+                x++;
+                fadeOutEffect();
+                // console.log("x="+x+" y="+y);
+            }
+            ctx.stroke();
+        }
+
+
+        function fadeOutEffect() {
+            var fadeTarget = document.getElementById("canvas");
+            var fadeEffect = setInterval(function () {
+                if (!fadeTarget.style.opacity) {
+                    fadeTarget.style.opacity = 1;
+                }
+                if (fadeTarget.style.opacity > 0) {
+                    fadeTarget.style.opacity -= 0.025;
+                } else {
+                    clearInterval(fadeEffect);
+                }
+            }, 1000);
+        }
+
+        function draw() {
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            // console.log('canvas width: ' + canvas.width);
+            // console.log('canvas height: ' + canvas.height);
+            // showAxes(context);
+            context.save();
+
+            plotSine(context, step, 50);
+            context.restore();
+
+            step += 4; //changes the speed
+            window.requestAnimationFrame(draw);
+        }
+
+
+        function init() {
+            window.requestAnimationFrame(draw);
+        }
+
+        var step = -4;
+    </script>
+</head>
+
+<body onload="init()">
+    <h3>Oscillating Sine Wave</h3>
+    <canvas id="canvas"></canvas>
+
+    <!-- <h3>Multiple Sine Waves</h3>
+    <canvas id="canvas2" width="500" height="100"></canvas> -->
+</body>
+
+</html>
