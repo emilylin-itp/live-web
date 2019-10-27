@@ -293,7 +293,6 @@ function init() {
         gcontext.translate(gcanvas.width / 0.575, 0); //translate 
         gcontext.rotate(Math.PI / 2); // rotate 90 degrees clockwise
 
-        //step += 2; //changes the speed, like frame rate
 
         //avg frequency for green: 566
         let gfreq = mapRange(566, lowFreq, highFreq, drawHighFreq, drawLowFreq);
@@ -351,7 +350,7 @@ function init() {
 
         pcontext.restore(); //pop
 
-        step += 2; //changes the speed, like frame rate
+        step += 2; //changes the speed, like animating in p5
         window.requestAnimationFrame(drawFrequency);
     }
 }
