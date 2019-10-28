@@ -7,15 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Live Web Wk 8 In Class Tutorial- Pixel Manipulation</title>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type='text/javascript'>
 
+    <script type='text/javascript'>
         let video;
         let canvas;
         let context;
         let mouseX = 0;
         let mouseY = 0;
 
+        // This array will contain "chunks" of the video captured by the MediaRecorder
+        let chunks = [];
+        let mediaRecorder;
+
+
         let socket = io.connect();
+        socket.on('connect', function () {
+            console.log("we're connected!");
+        });
 
         window.addEventListener('load', function () {
             video = document.getElementById('thevideo');
@@ -28,6 +36,10 @@
             // promise is a fancier callback
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 /* Use the stream */
+
+                // Give the MediaRecorder the stream to record
+                // mediaRecorder = new MediaRecorder(stream);
+                // setupMediaRecorder();
 
                 // Attach to our video object
                 video.srcObject = stream;
@@ -48,6 +60,11 @@
 
         function setupCanvas() {
             context = canvas.getContext('2d');
+
+            let canvasStream = canvas.captureStream(10);
+            mediaRecorder = new MediaRecorder(canvasStream);
+            setupMediaRecorder();
+
 
             canvas.addEventListener('mousemove', function (e) {
                 mouseX = e.clientX;
@@ -78,10 +95,10 @@
                 var alpha = imageData.data[i + 3];
 
                 // Set new pixel data
-                imageData.data[i + 1] = 10;
-                imageData.data[i + 2] = 150;
-                imageData.data[i + 3] = 255;
-                // imageData.data[i + 4] = 0.15;
+                imageData.data[i + 1] = 230;
+                imageData.data[i + 2] = 180;
+                imageData.data[i + 3] = 205;
+                // imageData.data[i + 4] = 1;
             }
             context.putImageData(imageData, 0, 0);
 
@@ -89,11 +106,59 @@
             requestAnimationFrame(drawCanvas);
         }
 
-        window.addEventListener('click', function(e){
+        window.addEventListener('click', function (e) {
             // 7 is compression data
-            let theData = canvas.toDataURL('image/jpeg', 7);
+            let theData = canvas.toDataURL('image/jpeg', 0.7);
             console.log(theData);
+            socket.emit('imagedata', theData);
+
+            console.log("starting recording!");
+
+            // Start the MediaRecorder
+            mediaRecorder.start();
+
+            // After 2 seconds, stop the MediaRecorder
+            setTimeout(function () {
+                mediaRecorder.stop();
+            }, 5000);
+
+            console.log("recording stop!");
         });
+
+
+        function setupMediaRecorder() {
+            // This is an event listener for the "stop" event on the MediaRecorder
+            // Probably should write it:
+            // mediaRecorder.addEventListener('stop', function(e) { ... });    
+            mediaRecorder.onstop = function (e) {
+                console.log("stop");
+
+                // Create a new video element on the page
+                var video = document.createElement('video');
+                video.controls = true;
+
+                // Create a blob - Binary Large Object of type video/webm
+                var blob = new Blob(chunks, { 'type': 'video/webm' });
+                // Generate a URL for the blob
+                var videoURL = window.URL.createObjectURL(blob);
+                // Make the video element source point to that URL
+                video.src = videoURL;
+
+                // Put the video element on the page
+                document.body.appendChild(video);
+
+                //blob is binary data
+                socket.emit('video', blob);
+            };
+
+            // Another callback/event listener - "dataavailable"
+            mediaRecorder.ondataavailable = function (e) {
+                // console.log("data");
+                // Whenever data is available from the MediaRecorder put it in the array
+                chunks.push(e.data);
+            };
+        }
+
 
     </script>
 </head>
