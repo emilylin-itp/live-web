@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type='text/javascript'>
+
+        let video;
+        let canvas;
+        let context;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let socket = io.connect();
+        socket.on('connect', function(){
+            console.log('we r connected!');
+        })
+
+        window.addEventListener('load', function () {
+            video = document.getElementById('thevideo');
+            canvas = document.getElementById('thecanvas');
+
+            let constraints = {
+                audio: false,
+                video: true
+            }
+
+            // Prompt the user for permission, get the stream
+            //promise: when this occurs then perform this function. "then" ==> do this then do video
+            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+                /* Use the stream */
+
+                // Attach to our video object
+                //stream is an object rather than a file
+                video.srcObject = stream;
+
+                // Wait for the stream to load enough to play
+                //on is usually listening, same thing as listening for event listener
+                video.onloadedmetadata = function (e) {
+                    console.log(e);
+                    video.play();
+                    setupCanvas();
+                };
+            });
+        });
+
+
+        function setupCanvas() {
+            context = canvas.getContext('2d');
+
+            canvas.addEventListener('mousemove', function (e) {
+                mouseX = e.clientX; //need to minus by offset to get position of x
+                mouseY = e.clientY - e.offsetY;
+                console.log(mouseX, mouseY);
+                console.log(e); 
+            });
+            drawCanvas();
+        }
+
+
+        // this is where we can start doing pixel manipulation
+        function drawCanvas() {
+            context.drawImage(video, 0, 0, video.width * mouseX/1200, video.height * mouseY/1200, 0, 0, canvas.width, canvas.height);
+            //javascript functions are variables that you can pass in; otherwise it would call drawCanvas
+            //context.drawImage(0,0);
+
+            // Get at pixel data			
+            var imageData = context.getImageData(0, 0, 600, 400); //similar to p5js loadPixel
+
+            // iterate over all pixels
+            for (var i = 0, n = imageData.data.length; i < n; i += 4) {
+
+                // Get existing pixel data
+                var red = imageData.data[i];
+                var green = imageData.data[i + 1];
+                var blue = imageData.data[i + 2];
+                var alpha = imageData.data[i + 3];
+
+                // Set new pixel data
+                imageData.data[i + 1] = red;
+                imageData.data[i + 2] = red;
+                imageData.data[i + 3] = 0;
+            }
+            context.putImageData(imageData, 0, 0);
+            requestAnimationFrame(drawCanvas);
+        }
+
+        window.addEventListener('click', function(e){
+            //2nd parameter - 0-10 for compression , 7 is a good compression number
+            let thedata = canvas.toDataURL("image/jpeg", 7);
+            console.log(thedata)
+            socket.emit('imagedata', thedata);
+
+        })
+
+    </script>
+</head>
+
+<body>
+    <video id='thevideo' width='600' height='400'></video>
+    <canvas id='thecanvas' width='600' height='400'></canvas>
+</body>
+
+</html>
