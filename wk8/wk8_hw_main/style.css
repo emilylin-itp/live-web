@@ -1,0 +1,110 @@
+@font-face {
+    font-family:'GT-Walsheim-Ultra-Bold';
+    src: url('assets/fonts/GT-Walsheim-Ultra-Bold.ttf');
+    src: url('assets/fonts/GT-Walsheim-Ultra-Bold.WOFF');
+    format('truetype');
+}
+
+
+/* GRID STUFF */
+* {
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+    padding:0;
+}
+
+[class*="col-"] {
+    float: left;
+}
+
+div{
+    /* border: 1px solid red; */
+}
+
+/* GRID - COLUMN */
+.col-12{
+    width: 100%;
+}
+
+.col-6{
+    width: 50%;
+}
+
+.col-30{
+    width: 3.3333%;
+    height: 12.5vh;
+}
+
+.left-col{
+    position:relative;
+    display: block;
+    height: 12.5vh;
+}
+
+/* TOP STRIPES */
+.white-stripes{
+    background-color:white;
+}
+
+.gray-stripes{
+    background-color: #C4C4C5;
+}
+
+/* TEXT */
+.header{
+    background-color: black;
+    font-family: 'GT-Walsheim-Ultra-Bold';
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+    font-size: 1.25rem;
+    text-align: center;
+    line-height: 13vh;
+}
+
+
+/* MY VIDEO */
+#myvideo{
+    height: 100vh;
+    width: 50%;
+    float: right;
+    background-color: pink;
+}
+
+
+/* SLIDER */
+/*-- our cleafix hack -- */ 
+/*-- floats elments in container */
+.rangeslider{ 
+    width: 100%; 
+    height: 100%;
+} 
+  
+.myslider { 
+    -webkit-appearance: none; 
+    background: white; 
+    width: 100%; 
+    height: 100%;
+    /* opacity: 2;  */
+   } 
+  
+  
+.myslider::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    cursor: pointer; 
+    background: #C4C4C5; 
+    width: 6.6666%; 
+    height: 12.5vh; 
+} 
+  
+.myslider:hover { 
+    opacity: 1; 
+} 
+
+/* RECORD */
+#rec-h2:hover{
+    cursor: pointer;
+    color: #C4C4C5;
+}
+
