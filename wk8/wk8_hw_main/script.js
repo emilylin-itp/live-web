@@ -150,7 +150,7 @@ function drawCanvas() {
 
 function startRecord() {
     recText = document.getElementById('rec-h2');
-    recText.style.fill = '#FF0000';
+    recText.style.color = 'red';
     recText.innerHTML = 'STOP';
 
     // circleButton = document.getElementById('circle-svg');
@@ -174,7 +174,7 @@ function setupMediaRecorder() {
 
         //change inner text 
         recText.innerHTML = 'RECORD';
-        recText.style.fill = '#FFF';
+        recText.style.color = '#FFF';
 
         // svg.style.fill = "#FFF";
 
@@ -197,7 +197,7 @@ function setupMediaRecorder() {
         console.log(theData);
 
 
-        let myWindow = window.open("", "MsgWindow", "width=500,height=500");//new window
+        let myWindow = window.open("", "MsgWindow", "width=900,height=900");//new window
         myWindow.document.write('<img src="'+theData+'"/>'); //writes the data to the window
 
         //window.location.href = theData; //save locally doesn't work
