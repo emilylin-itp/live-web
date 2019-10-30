@@ -103,7 +103,7 @@ div{
     -webkit-appearance: none; 
     cursor: grab;
     cursor: -webkit-grab;
-    background: rgb(150, 150, 150); 
+    background:#999999; 
     width: 6.6666%; 
     height: 12.5vh; 
 } 
