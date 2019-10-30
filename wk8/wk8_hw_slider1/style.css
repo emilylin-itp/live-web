@@ -1,0 +1,50 @@
+/* GRID STUFF */
+* {
+    box-sizing: border-box;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 0px;
+}
+
+div{
+    border: 1px solid red;
+}
+
+.col-12{
+    width: 100%;
+}
+
+.col-6{
+    width: 50%;
+}
+
+
+/* SLIDER */
+.rangeslider{ 
+    width: 50%; 
+} 
+  
+.myslider { 
+    -webkit-appearance: none; 
+    background: #FCF3CF  ; 
+    width: 50%; 
+    height: 20px; 
+    opacity: 2; 
+   } 
+  
+  
+.myslider::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    cursor: pointer; 
+    background: #34495E  ; 
+    width: 5%; 
+    height: 20px; 
+} 
+  
+  
+.myslider:hover { 
+    opacity: 1; 
+} 
+
