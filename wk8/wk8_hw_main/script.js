@@ -77,7 +77,7 @@ function setupCanvas() {
 function drawCanvas() {
     //draw image onto canvas
     //syntax: void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-    context.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, video.width, video.height, -300, 0, canvas.width*1.85, canvas.height*1.85);
 
 
     // //get values for each slider
