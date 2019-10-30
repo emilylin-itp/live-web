@@ -20,3 +20,9 @@
   
 **Week 5**<br>
   * Peer Garden: https://el3015.itp.io:8085/main.html
+  
+**Week 6 Midterms**<br>
+  * Sound of Color (WIP): https://el3015.itp.io:8092/index.html<br>
+  
+**Week 8**<br>
+  * Pixel Manipulation: https://el3015.itp.io:8103/index.html
