@@ -92,14 +92,25 @@ div{
   
 .myslider::-webkit-slider-thumb { 
     -webkit-appearance: none; 
-    cursor: pointer; 
+    cursor: grab;
+    cursor: -webkit-grab;
     background: #C4C4C5; 
     width: 6.6666%; 
     height: 12.5vh; 
 } 
   
-.myslider:hover { 
-    opacity: 1; 
+.myslider::-webkit-slider-thumb:hover { 
+    -webkit-appearance: none; 
+    cursor: grab;
+    cursor: -webkit-grab;
+    background: rgb(150, 150, 150); 
+    width: 6.6666%; 
+    height: 12.5vh; 
+} 
+
+.myslider:hover{
+    cursor: grab;
+    cursor: -webkit-grab;
 } 
 
 /* RECORD */
@@ -108,3 +119,15 @@ div{
     color: #C4C4C5;
 }
 
+/* THE VIDEO */
+#thevideo{
+    height: auto;
+    width: 100%;
+    visibility: hidden;
+}
+
+/* THE CANVAS */
+#thecanvas{
+    width: 1080px;
+    height: 1920px;
+}
