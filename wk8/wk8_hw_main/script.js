@@ -10,6 +10,7 @@ let mouseX = 0;
 let mouseY = 0;
 let rangeValueRed;
 let rangeValueBlue;
+let rangeValueThreshold;
 
 // this array will contain "chunks" of the video captured by the MediaRecorder
 let chunks = [];
@@ -67,7 +68,7 @@ function setupCanvas() {
 
     let canvasStream = canvas.captureStream(10);
     mediaRecorder = new MediaRecorder(canvasStream);
-    setupMediaRecorder(); 
+    setupMediaRecorder();
 
     drawCanvas();
 }
@@ -77,15 +78,18 @@ function setupCanvas() {
 function drawCanvas() {
     //draw image onto canvas
     //syntax: void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-    context.drawImage(video, 0, 0, video.width, video.height, -300, 0, canvas.width*1.85, canvas.height*1.85);
+    context.drawImage(video, 0, 0, video.width, video.height, -300, 0, canvas.width * 2.5, canvas.height * 2.5);
 
 
     // //get values for each slider
     rangeValueRed = document.getElementById('sliderRangeRed').value;
     // console.log('range value red: '+ rangeValueRed);
-    
+
     rangeValueBlue = document.getElementById('sliderRangeBlue').value;
     // console.log('range value blue: '+ rangeValueBlue);
+
+    rangeValueThreshold = document.getElementById('sliderRangeThreshold').value;
+    // console.log('range value threshold: '+ rangeValueThreshold);
 
     // Get at pixel data   // p5js load pixel			
     var imageData = context.getImageData(0, 0, 1920, 1920);
@@ -100,11 +104,26 @@ function drawCanvas() {
         var alpha = imageData.data[i + 3];
 
         // Set new pixel data
-        // imageData.data[i] = rangeValueRed; //slider controls red value
-        imageData.data[i] = rangeValueRed; //slider controls green value
+        // imageData.data[i] = rangeValueRed; //slider controls green value
+        imageData.data[i] = rangeValueRed; //slider controls red value
         imageData.data[i + 2] = rangeValueBlue; //slider controls blue value
         imageData.data[i + 3] = 255;
         // imageData.data[i + 4] = 1;
+
+        // set up brightness value
+        let bright = (red + green + blue) / 3;
+
+        // set up threshold value
+        let threshold = rangeValueThreshold;
+
+        /* if brightness, then make green pixels be more prominent */
+        if (bright > threshold) {
+            // imageData.data[i] = rangeValueThreshold*5;
+            imageData.data[i + 1] = rangeValueThreshold * 5;
+            // imageData.data[i + 2] = rangeValueThreshold*5;
+            // imageData.data[i + 3] = rangeValueThreshold*5;
+            // imageData.data[i + 2] = 0;
+        }
     }
 
     context.putImageData(imageData, 0, 0);

@@ -20,7 +20,7 @@
         let mouseX = 0;
         let mouseY = 0;
         let rangeSlider;
-        // let rangeValueRed;
+        let rangeValueRed;
         let rangeValueBlue;
         let rangeValueGreen;
 
@@ -92,7 +92,7 @@
             context.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, canvas.height);
 
             //get values for each slider
-            //rangeValueRed = document.getElementById('sliderRangeRed').value;
+            rangeValueRed = document.getElementById('sliderRangeRed').value;
             rangeValueGreen = document.getElementById('sliderRangeGreen').value;
             rangeValueBlue = document.getElementById('sliderRangeBlue').value;
             console.log("green: " + rangeValueGreen + " blue: " + rangeValueBlue);
@@ -112,11 +112,11 @@
                 var alpha = imageData.data[i + 3];
 
                 // Set new pixel data
-                // imageData.data[i] = rangeValueRed; //slider controls red value
+                imageData.data[i] = rangeValueRed; //slider controls red value
                 imageData.data[i + 1] = rangeValueGreen; //slider controls green value
                 imageData.data[i + 2] = rangeValueBlue; //slider controls blue value
                 imageData.data[i + 3] = 255;
-                // imageData.data[i + 4] = 1;
+                imageData.data[i + 4] = 1;
             }
 
             context.putImageData(imageData, 0, 0);
