@@ -23,6 +23,7 @@
   
 **Week 6 Midterms**<br>
   * Sound of Color (WIP): https://el3015.itp.io:8092/index.html<br>
+  * Sound of Color (working, but no sockets): https://el3015.itp.io:8087/index.html<br>
   
 **Week 8**<br>
   * Pixel Manipulation: https://el3015.itp.io:8103/index.html
