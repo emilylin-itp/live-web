@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+
+	var r = 255 * Math.random();
+	var g = 255 * Math.random();
+	var b = 255 * Math.random();
+	// rgb(255, 0, 0)
+	var color = "rgb(" + Math.floor(r) + "," + Math.floor(g) + "," + Math.floor(b) + ")";
+	console.log("Color: " + color);
+
+	// CHANGE TO YOUR SERVER ADDRESS
+	var socket = io.connect('http://localhost:1025/');
+
+	socket.on('connect', function() {
+		console.log("Connected");
+	});
+
+	var context;
+	var count = 0;
+
+	socket.on('sensor', function(data) {
+		console.log(data);
+		context.clearRect(0,0,600,600);
+		context.fillRect(100, 100, data, data);
+	});
+	
+	function init() {
+		var canvas = document.getElementById('mycanvas');
+		context = canvas.getContext('2d');
+		document.body.addEventListener('click', clicked);
+	}
+
+	function clicked() {
+		console.log("Clicked");
+		socket.emit('click',null);
+	}
+
+
+	window.addEventListener('load', init);
+</script>
+	</head>
+
+
+<body >
+	<canvas width="600" height="600" id="mycanvas" />
+</body>
+
+</html>
+
