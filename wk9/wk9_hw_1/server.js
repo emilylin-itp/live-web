@@ -6,7 +6,9 @@ var db = new Datastore({filename: "data.db", autoload: true});
 var http = require('http');
 var fs = require('fs'); // Using the filesystem module
 var httpServer = http.createServer(requestHandler);
-httpServer.listen(8089);
+httpServer.listen(8091);
+
+console.log('listening on port 8091');
 
 function requestHandler(req, res) {
 	// Read index.html

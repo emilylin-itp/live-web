@@ -1,42 +1,155 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>snail</title>
 
-		var socket = io.connect();
+    <style>
+        @font-face {
+            font-family: 'MonostenA';
+            src: url('assets/fonts/MonostenA.eot');
+            src: url('assets/fonts/MonostenA.woff');
+            format('truetype');
+        }
 
-		socket.on('connect', function () {
-			console.log("Connected");
+        /* GRID STUFF */
+        * {
+            box-sizing: border-box;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-			// Once we are connected, request the history
-			socket.emit('history', null);
-		});
+        html {
+            background-color: #F9FEF2;
+            font-family: 'MonostenA';
+            font-size: 0.75em;
+        }
 
-		// // Receive from any event
-		// socket.on('chatmessage', function (data) {
-		// 	document.getElementById('messages').innerHTML = "" + data + "\n<br />"
-		// 		+ "" + document.getElementById('messages').innerHTML;
-		// });
+        [class*="col-"] {
+            float: left;
+        }
 
-		// Receive from any event
-		socket.on('chatmessage', function (data) {
-			document.getElementById('messages').innerHTML = "" + data + "\n<br />"
-				+ "" + document.getElementById('messages').innerHTML;
-		});
+        /* div {
+            border: 1px solid red;
+        } */
 
-		var sendmessage = function (message) {
-			console.log("chatmessage: " + message);
-			socket.emit('chatmessage', message); //send message
-		};
+        .container {
+            padding: 2%;
+            position: relative;
+            height: 100vh;
+        }
 
-	</script>
+        /* GRID - COLUMN */
+        .col-4 {
+            width: 33.33%;
+            /* height: 12.5vh; */
+        }
+
+        .col-5 {
+            width: 41.66%;
+            /* height: 12.5vh; */
+        }
+
+        .col-6 {
+            width: 50%;
+            /* height: 12.5vh; */
+        }
+
+        .col-7 {
+            width: 58.33%;
+            /* height: 12.5vh; */
+        }
+
+        .col-8 {
+            width: 66.66%;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+
+        .col-24 {
+            width: 4.166%;
+        }
+
+        /*SNAIL HEADER*/
+        #snail-div{
+            height: 20vh;
+            position: relative;
+            padding-top: 3vh;
+            padding-left: 3vw;
+        }
+
+        #snail-pre{
+            position: relative;
+           float: left;
+        }
+
+        /* TEXT INPUT */
+        #text-input-div{
+            position: relative;
+            height: 20vh;
+            padding: 2%;
+        }
+
+        #text-input-div input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        /* MSG */
+        #messages{
+            position: relative;
+            margin-top: 5%;
+        }
+    </style>
+
+    <!--SOCKET-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+        var socket = io.connect();
+
+        socket.on('connect', function () {
+            console.log("Connected");
+
+            // Once we are connected, request the history
+            socket.emit('history', null);
+        });
+
+        // // Receive from any event
+        // socket.on('chatmessage', function (data) {
+        // 	document.getElementById('messages').innerHTML = "" + data + "\n<br />"
+        // 		+ "" + document.getElementById('messages').innerHTML;
+        // });
+
+        // Receive from any event
+        socket.on('chatmessage', function (data) {
+            document.getElementById('messages').innerHTML = "" + data + "\n<br />"
+                + "" + document.getElementById('messages').innerHTML;
+        });
+
+        var sendmessage = function (message) {
+            console.log("chatmessage: " + message);
+            socket.emit('chatmessage', message); //send message
+        };
+
+    </script>
 </head>
 
 <body>
-	<div class='container'class = 'col-4'>
-		<div>
-			<pre>
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style/style.css">
+
+    <div class='container'>
+        <div id = 'snail-div' class='col-12'>
+            <pre id = 'snail-pre'>
 @             _________
  \____       /         \
  /    \     /   ____    \
@@ -44,19 +157,31 @@
    \    \ (    \__/  )    )
     \    \_\ \______/    /
      \      \           /___
-      \______\_________/____"-_
+      \______\_________/____"-_   <input type="text" id="message" name="message"><input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+      
 			</pre>
-		</div>
-	</div>
+        </div>
+
+        <!--TEXT MSG-->
+        <!-- <div id='text-input-div' class='col-7'>
+            <input type="text" id="message" name="message">
+            <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+        </div> -->
+
+        <div id="messages" class='col-7'>
+            No Messages Yet
+        </div>
+    </div>
 
 
 
-	<input type="button" value="Push Me" onclick="sendBlink();">
-	<input type="text" id="message" name="message">
-	<input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
-	<div id="messages">
-		No Messages Yet
-	</div>
+    <!-- FROM EXAMPLE CODE
+    <input type="button" value="Push Me" onclick="sendBlink();">
+    <input type="text" id="message" name="message">
+    <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+    <div id="messages">
+        No Messages Yet
+    </div> -->
 </body>
 
 </html>
