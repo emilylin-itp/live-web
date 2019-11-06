@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>snail</title>
+
+    <style>
+        /* div{
+            border: red solid 1px;
+        } */
+        /* 
+        @font-face {
+            font-family: 'MonostenA';
+            src: url('MonostenA.eot');
+            src: url('MonostenA.woff');
+            format('truetype');
+        } */
+
+
+        /* GRID STUFF */
+        * {
+            box-sizing: border-box;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        html {
+            background-color: #F2FDFE;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.925em;
+        }
+
+        [class*="col-"] {
+            float: left;
+        }
+
+        .container {
+            padding: 2%;
+            position: relative;
+            height: 100vh;
+        }
+
+        /* GRID - COLUMN */
+        .col-4 {
+            width: 33.33%;
+            /* height: 12.5vh; */
+        }
+
+        .col-5 {
+            width: 41.66%;
+            /* height: 12.5vh; */
+        }
+
+        .col-6 {
+            width: 50%;
+            /* height: 12.5vh; */
+        }
+
+        .col-7 {
+            width: 58.33%;
+            /* height: 12.5vh; */
+        }
+
+        .col-8 {
+            width: 66.66%;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+
+        .col-1-24 {
+            width: 4.166%;
+            padding: 1%;
+            text-align: center;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+
+        /*SNAIL HEADER*/
+        #snail-div {
+            /* height: 20vh; */
+            position: relative;
+            padding-top: 3vh;
+            padding-left: 3vw;
+        }
+
+        #snail-pre {
+            position: relative;
+            float: left;
+        }
+
+        #title {
+            position: relative;
+            margin: 0 auto;
+        }
+
+        #title div {
+            float: right;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.925em;
+        }
+
+        /* TEXT INPUT */
+        #text-input-div {
+            position: relative;
+            padding: 1%;
+        }
+
+        #text-input-div input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        ::placeholder {
+            color: black;
+        }
+
+        /* MSG */
+        #messages {
+            position: relative;
+            margin-top: 10%;
+            padding: 1%;
+            font-family: "Courier New"'Courier New', Courier, monospace;
+            font-size: 0.925em;
+        }
+
+        #messages-container {
+            position: relative;
+            padding: 1%;
+        }
+
+        #letter-msg {
+            padding: 1%;
+        }
+
+        /* Input*/
+        input {
+            border: 0px solid white;
+            background: #F2FDFE;
+            margin: 0 0 10px 0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.925em;
+            letter-spacing: 0.1pt
+        }
+
+        textarea,
+        select,
+        input,
+        button {
+            outline: none;
+        }
+
+        #send-button {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+
+    <!--SOCKET-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript">
+        var socket = io.connect();
+
+        socket.on('connect', function () {
+            console.log("Connected");
+
+            // Once we are connected, request the history
+            socket.emit('history', null);
+        });
+
+
+        // Receive message from socket //message is data
+        socket.on('chatmessage', function (data) {
+            let messagesContainer = document.getElementById('messages-container');
+
+            //steps: 1.) get data, 2.) put data in div, 3.) add style to div, 4.) append div to div messages-container
+            console.log('data received in client side socket.io: ' + data);
+
+            appendMessage(data);
+        });
+
+        function appendMessage(msg) {
+            let nodeDiv = document.createElement("div"); //node div creates a div
+            let textNode = document.createTextNode(msg); //create text node with msg data in it
+            let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
+
+            console.log('newTextDiv: ' + newTextDiv);
+
+            let div = document.createElement('div');
+            div.className = 'col-1-24';
+            div.innerHTML = msg; //needs to be inner html
+
+            // newTextDiv.addClassName = 'letter-msg'; //add class
+            document.getElementById('messages-container').appendChild(div);
+
+        }
+
+        //send message to socket
+        var sendmessage = function (message) {
+            console.log("chatmessage: " + message);
+            socket.emit('chatmessage', message); //send message
+        };
+
+
+        var bgColors = new Array("#F2FFDC", "#EADFF4", "#FEFDF2", "#F2FDFE", "#FEF2F2")
+
+        document.body.style.background = bgColors[Math.floor(Math.random() * bgColors.length)]
+
+    </script>
+</head>
+
+<body>
+    <!--STYLESHEET THAT KEEPS SAYING IT IS READING AS MIME TYPE-->
+    <!-- <link rel="stylesheet" href="style/style.css"> -->
+
+    <div class='container'>
+        <div id='snail-div' class='col-12'>
+            <pre id='snail-pre'>
+@             _________
+ \____       /         \
+ /    \     /   ____    \
+ \_    \   /   /    \    \
+   \    \ (    \__/  )    )
+    \    \_\ \______/    /
+     \      \           /___
+      \______\_________/____"-_   <input type="text" id="message" maxlength="1" name="message"  placeholder="type here please"><input type="send" id = 'send-button' value="send snail msg" onclick="sendmessage(document.getElementById('message').value);">
+      
+            </pre>
+        </div>
+
+        <!--MESSAGES DISPLAY SECTION-->
+        <div id="messages" class='col-12'>
+            <div id='messages-container'>
+                <!-- <div id='indiv-message' class='col-1-24'>a</div> -->
+            </div>
+            <!-- No Messages Yet -->
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+
+<!--DUMPSTER-->
+<!--
+            <div id='title' class='col-5'>
+                <div>
+                    <p>snail msg</p>
+                </div>
+            </div>
+
+ FROM EXAMPLE CODE
+    <input type="button" value="Push Me" onclick="sendBlink();">
+    <input type="text" id="message" name="message">
+    <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+    <div id="messages">
+        No Messages Yet
+    </div>
+
+                // // Your existing code unmodified...
+            // var iDiv = document.createElement('div');
+            // iDiv.id = 'block';
+            // iDiv.className = 'block';
+            // document.getElementsByTagName('body')[0].appendChild(iDiv);
+
+            // // Now create and append to iDiv
+            // var innerDiv = document.createElement('div');
+            // innerDiv.className = 'block-2';
+
+            // // The variable iDiv is still good... Just append to it.
+            // iDiv.appendChild(innerDiv);
+
+                    // GREAT BUT NOT CREATING NEW DIV 
+        // function appendMessage(msg){
+        //     let nodeDiv = document.createElement("div"); //node div creates a div
+        //     let textNode = document.createTextNode(msg); //create text node with msg data in it
+        //     let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
+
+        //     console.log('newTextDiv: '+ newTextDiv);
+
+        //     newTextDiv.addClassName = 'letter-msg'; //add class
+
+        //     document.getElementById("messages-container").appendChild(newTextDiv);
+        //     // document.getElementById('messages-container').appendChild(nodeDiv) = "<div>" + msg + "</div>";
+        // }
+
+                // GREAT BUT NOT CREATING NEW DIV 
+        // function appendMessage(msg){
+        //     let nodeDiv = document.createElement("div"); //node div creates a div
+        //     let textNode = document.createTextNode(msg); //create text node with msg data in it
+        //     let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
+
+        //     console.log('newTextDiv: '+ newTextDiv);
+
+        //     newTextDiv.addClassName = 'letter-msg'; //add class
+
+        //     document.getElementById("messages-container").appendChild(newTextDiv);
+        //     // document.getElementById('messages-container').appendChild(nodeDiv) = "<div>" + msg + "</div>";
+        // }
+
+                    // let myDiv = document.createElement("div");
+            // myDiv.classList.add("col-1-24");
+            // messagesInput.messages; //add style to messageArea
+
+                    // // Receive from any event
+        // socket.on('chatmessage', function (data) {
+        // 	document.getElementById('messages').innerHTML = "" + data + "\n<br />"
+        // 		+ "" + document.getElementById('messages').innerHTML;
+        // });
+
+                    // let messagesInput = document.getElementById('messages'); //messages response
+            // let messagesInput = data;
+            // console.log("messagesInput: " + messagesInput);
+<div id='text-input-div' class='col-7'>
+            <input type="text" id="message" name="message">
+            <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
+        </div>
+
+          @font-face {
+            font-family: 'MonostenA';
+            src: url('MonostenA.eot');
+            /* IE9 Compat Modes */
+            src: url('MonostenA.eot?#iefix') format('embedded-opentype'),
+                /* IE6-IE8 */
+                url('MonostenA.woff2') format('woff2'),
+                /* Super Modern Browsers */
+                url('MonostenA.woff') format('font-woff'),
+                /* Pretty Modern Browsers */
+                url('MonostenA.ttf') format('truetype')
+                /* Legacy iOS */
+        }
+
+-->
