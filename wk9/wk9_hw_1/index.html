@@ -126,11 +126,15 @@
             margin-top: 10%;
             padding: 1%;
             font-family: 'MonostenA';
-            font-size: 0.75em;
+            font-size: 0.85em;
         }
 
         #messages-container {
             position: relative;
+            padding: 1%;
+        }
+
+        #letter-msg {
             padding: 1%;
         }
 
@@ -183,12 +187,52 @@
             // console.log("messagesInput: " + messagesInput);
 
             //steps: 1.) get data, 2.) put data in div, 3.) add style to div, 4.) append div to div messages-container
-            console.log('data received in client side socket.io: '+ data);
+            console.log('data received in client side socket.io: ' + data);
 
-            let div = document.createElement("div");
+            // let myDiv = document.createElement("div");
+            // myDiv.classList.add("col-1-24");
             // messagesInput.messages; //add style to messageArea
-            messagesContainer.appendChild(data);
+            appendMessage(data);
+
+
+            // var socket = io();
+            // function appendNotification(notification) {
+            //     document.getElementById("notifications").innerHTML = "<div>" + notification + "</div>";
+            // }
+            // socket.on('notification', function (msg) {
+            //     appendNotification(msg);
+            // });
+
         });
+
+        function appendMessage(msg) {
+            let nodeDiv = document.createElement("div"); //node div creates a div
+            let textNode = document.createTextNode(msg); //create text node with msg data in it
+            let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
+
+            console.log('newTextDiv: ' + newTextDiv);
+
+            let div = document.createElement('div');
+            div.className = 'col-1-24';
+            div.innerHTML = msg; //needs to be inner html
+
+            // newTextDiv.addClassName = 'letter-msg'; //add class
+            document.getElementById('messages-container').appendChild(div);
+
+        }
+        // GREAT BUT NOT CREATING NEW DIV 
+        // function appendMessage(msg){
+        //     let nodeDiv = document.createElement("div"); //node div creates a div
+        //     let textNode = document.createTextNode(msg); //create text node with msg data in it
+        //     let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
+
+        //     console.log('newTextDiv: '+ newTextDiv);
+
+        //     newTextDiv.addClassName = 'letter-msg'; //add class
+
+        //     document.getElementById("messages-container").appendChild(newTextDiv);
+        //     // document.getElementById('messages-container').appendChild(nodeDiv) = "<div>" + msg + "</div>";
+        // }
 
         //send message to socket
         var sendmessage = function (message) {
@@ -228,7 +272,7 @@
 
         <div id="messages" class='col-12'>
             <div id='messages-container'>
-                <div class='col-1-24'>a</div>
+                <!-- <div id='indiv-message' class='col-1-24'>a</div> -->
             </div>
             <!-- No Messages Yet -->
         </div>
@@ -258,4 +302,17 @@
     <div id="messages">
         No Messages Yet
     </div>
+
+                // // Your existing code unmodified...
+            // var iDiv = document.createElement('div');
+            // iDiv.id = 'block';
+            // iDiv.className = 'block';
+            // document.getElementsByTagName('body')[0].appendChild(iDiv);
+
+            // // Now create and append to iDiv
+            // var innerDiv = document.createElement('div');
+            // innerDiv.className = 'block-2';
+
+            // // The variable iDiv is still good... Just append to it.
+            // iDiv.appendChild(innerDiv);
 -->
