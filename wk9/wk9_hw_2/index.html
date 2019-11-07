@@ -32,7 +32,7 @@
         html {
             background-color: #F2FDFE;
             font-family: "Courier New", Courier, monospace;
-            font-size: 0.925em;
+            font-size: 0.8em;
         }
 
         [class*="col-"] {
@@ -103,7 +103,7 @@
         #title div {
             float: right;
             font-family: "Courier New", Courier, monospace;
-            font-size: 0.925em;
+            font-size: 0.8em;
         }
 
         /* TEXT INPUT */
@@ -128,7 +128,7 @@
             margin-top: 10%;
             padding: 1%;
             font-family: "Courier New"'Courier New', Courier, monospace;
-            font-size: 0.925em;
+            font-size: 0.8em;
         }
 
         #messages-container {
@@ -143,10 +143,10 @@
         /* Input*/
         input {
             border: 0px solid white;
-            background: #F2FDFE;
+            background-color: #F2FDFE;
             margin: 0 0 10px 0;
             font-family: "Courier New", Courier, monospace;
-            font-size: 0.925em;
+            font-size: 0.8em;
             letter-spacing: 0.1pt
         }
 
@@ -167,6 +167,24 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
     <script type="text/javascript">
+        window.addEventListener('load', init);
+
+        function init() {
+            //refresh bkg color
+            
+            var bgColors = new Array("#F2FFDC", "#EADFF4", "#FEFDF2", "#F2FDFE", "#FEF2F2")
+            
+            let inputElement = document.getElementsByTagName("input");
+            let bodyElement = document.getElementsByTagName('body');
+            var elem = document.getElementById("message","sendbutton", "bodycontainer");
+
+            elem.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)]
+            bodyElement.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)]
+            inputElement.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)]
+            //elem.style.backgroundColor = bgColors[Math.floor(Math.random() * bgColors.length)]
+        }
+
+
         var socket = io.connect();
 
         socket.on('connect', function () {
@@ -208,16 +226,10 @@
             console.log("chatmessage: " + message);
             socket.emit('chatmessage', message); //send message
         };
-
-
-        var bgColors = new Array("#F2FFDC", "#EADFF4", "#FEFDF2", "#F2FDFE", "#FEF2F2")
-
-        document.body.style.background = bgColors[Math.floor(Math.random() * bgColors.length)]
-
     </script>
 </head>
 
-<body>
+<body id = 'body-container'>
     <!--STYLESHEET THAT KEEPS SAYING IT IS READING AS MIME TYPE-->
     <!-- <link rel="stylesheet" href="style/style.css"> -->
 
@@ -248,96 +260,4 @@
 </body>
 
 </html>
-
-
-
-<!--DUMPSTER-->
-<!--
-            <div id='title' class='col-5'>
-                <div>
-                    <p>snail msg</p>
-                </div>
-            </div>
-
- FROM EXAMPLE CODE
-    <input type="button" value="Push Me" onclick="sendBlink();">
-    <input type="text" id="message" name="message">
-    <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
-    <div id="messages">
-        No Messages Yet
-    </div>
-
-                // // Your existing code unmodified...
-            // var iDiv = document.createElement('div');
-            // iDiv.id = 'block';
-            // iDiv.className = 'block';
-            // document.getElementsByTagName('body')[0].appendChild(iDiv);
-
-            // // Now create and append to iDiv
-            // var innerDiv = document.createElement('div');
-            // innerDiv.className = 'block-2';
-
-            // // The variable iDiv is still good... Just append to it.
-            // iDiv.appendChild(innerDiv);
-
-                    // GREAT BUT NOT CREATING NEW DIV 
-        // function appendMessage(msg){
-        //     let nodeDiv = document.createElement("div"); //node div creates a div
-        //     let textNode = document.createTextNode(msg); //create text node with msg data in it
-        //     let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
-
-        //     console.log('newTextDiv: '+ newTextDiv);
-
-        //     newTextDiv.addClassName = 'letter-msg'; //add class
-
-        //     document.getElementById("messages-container").appendChild(newTextDiv);
-        //     // document.getElementById('messages-container').appendChild(nodeDiv) = "<div>" + msg + "</div>";
-        // }
-
-                // GREAT BUT NOT CREATING NEW DIV 
-        // function appendMessage(msg){
-        //     let nodeDiv = document.createElement("div"); //node div creates a div
-        //     let textNode = document.createTextNode(msg); //create text node with msg data in it
-        //     let newTextDiv = nodeDiv.appendChild(textNode); //append text to newly created div
-
-        //     console.log('newTextDiv: '+ newTextDiv);
-
-        //     newTextDiv.addClassName = 'letter-msg'; //add class
-
-        //     document.getElementById("messages-container").appendChild(newTextDiv);
-        //     // document.getElementById('messages-container').appendChild(nodeDiv) = "<div>" + msg + "</div>";
-        // }
-
-                    // let myDiv = document.createElement("div");
-            // myDiv.classList.add("col-1-24");
-            // messagesInput.messages; //add style to messageArea
-
-                    // // Receive from any event
-        // socket.on('chatmessage', function (data) {
-        // 	document.getElementById('messages').innerHTML = "" + data + "\n<br />"
-        // 		+ "" + document.getElementById('messages').innerHTML;
-        // });
-
-                    // let messagesInput = document.getElementById('messages'); //messages response
-            // let messagesInput = data;
-            // console.log("messagesInput: " + messagesInput);
-<div id='text-input-div' class='col-7'>
-            <input type="text" id="message" name="message">
-            <input type="submit" value="submit" onclick="sendmessage(document.getElementById('message').value);">
-        </div>
-
-          @font-face {
-            font-family: 'MonostenA';
-            src: url('MonostenA.eot');
-            /* IE9 Compat Modes */
-            src: url('MonostenA.eot?#iefix') format('embedded-opentype'),
-                /* IE6-IE8 */
-                url('MonostenA.woff2') format('woff2'),
-                /* Super Modern Browsers */
-                url('MonostenA.woff') format('font-woff'),
-                /* Pretty Modern Browsers */
-                url('MonostenA.ttf') format('truetype')
-                /* Legacy iOS */
-        }
-
--->
+]
