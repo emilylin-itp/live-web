@@ -6,19 +6,24 @@ var db = new Datastore({filename: "data.db", autoload: true});
 var http = require('http');
 var fs = require('fs'); // Using the filesystem module
 var httpServer = http.createServer(requestHandler);
+var url = require('url');
+
 httpServer.listen(8095);
 
 console.log('listening on port 8095');
 
 function requestHandler(req, res) {
-	// Read index.html
-	fs.readFile(__dirname + '/index.html', 
+
+	var parsedUrl = url.parse(req.url);
+	console.log("The Request is: " + parsedUrl.pathname);
+		
+	fs.readFile(__dirname + parsedUrl.pathname, 
 		// Callback function for reading
 		function (err, data) {
 			// if there is an error
 			if (err) {
 				res.writeHead(500);
-				return res.end('Error loading index.html');
+				return res.end('Error loading ' + parsedUrl.pathname);
 			}
 			// Otherwise, send the data, the contents of the file
 			res.writeHead(200);
