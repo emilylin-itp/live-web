@@ -2,6 +2,19 @@ window.addEventListener('load', function () {
   // The video element on the page to display the webcam
   var video = document.getElementById('thevideo');
 
+  // Canvas element on the page
+  var canvas = document.getElementById('thecanvas');
+  console.log(thecanvas);
+
+  var context = canvas.getContext('2d');
+  console.log(context);
+  console.log(video);
+
+  //get color info
+  let color = document.getElementById("thecolor");
+  let colorText = document.getElementById("colortext");
+  let hslText = document.getElementById("hsltext");
+
   // Constraints - what do we want?
   let constraints = {
     audio: false,
@@ -26,16 +39,6 @@ window.addEventListener('load', function () {
       alert(err);
     });
 
-  // Canvas element on the page
-  var canvas = document.getElementById('thecanvas');
-  console.log(thecanvas);
-  var context = canvas.getContext('2d');
-  console.log(context);
-  console.log(video);
-
-  //get color info
-  let color = document.getElementById("thecolor");
-  let colorText = document.getElementById("colortext");
 
   //pick the color from canvas
   function pick(e) {
@@ -45,11 +48,19 @@ window.addEventListener('load', function () {
     let data = pixel.data;
     let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
 
-    // console.log("rgb: " + rgb);
+    let r = data[0];
+    let g = data[1];
+    let b = data[2];
+
+    console.log("r: " + r + " g: " + g + " b: " + b);
+
+    //find hsl from rgb
+    RGBToHSL(r, g, b);
 
     //change dom elements
     color.style.background = rgb;
     colorText.innerHTML = rgb;
+    hslText.innerHTML = RGBToHSL(r, g, b);
   }
 
   // show color with pick function
@@ -168,8 +179,7 @@ window.addEventListener('load', function () {
     };
   };
 
-
-//update canvas + pixel effect called here
+  //update canvas + pixel effect called here
   function updateCanvas() {
     let video = document.getElementById('thevideo');
     let canvas = document.getElementById('thecanvas');
@@ -270,6 +280,57 @@ window.addEventListener('load', function () {
       }
     }
   };
+
+  /*Convert RGB to HSL: https://css-tricks.com/converting-color-spaces-in-javascript/
+  */
+  function RGBToHSL(r, g, b) {
+    //make r, g, b fractions of 1
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+
+    //find greatest and smallest channel value
+    let cmin = Math.min(r, g, b),
+      cmax = Math.max(r, g, b),
+      delta = cmax - cmin,
+      h = 0,
+      s = 0,
+      l = 0;
+
+    // calculate hue
+    // if no difference
+    if (delta == 0)
+      h = 0;
+    //red is max
+    else if (cmax == r)
+      h = ((g - b) / delta) % 6;
+    //green is max
+    else if (cmax == g)
+      h = (b - r) / delta + 2;
+    //blue is max
+    else
+      h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    //make neg hues positive behind 360
+    if (h < 0)
+      h += 360;
+
+    //calculate lightness
+    l = (cmax + cmin)/2;
+
+    //calculate saturation
+    s = delta == 0 ? 0 : delta / (1-Math.abs(2 * l -1));
+
+    //multiply l and s by 100
+    s = +(s * 100).toFixed(1);
+    l = +(l * 100).toFixed(1);
+
+    return("hsl(" + h + "," + s + "%," + l + "%)");
+    //console.log("hsl(" + h + "," + s + "%," + l + "%)");
+  }
+
 });
 
 
