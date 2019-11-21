@@ -10,11 +10,6 @@ window.addEventListener('load', function () {
   console.log(context);
   console.log(video);
 
-  //get color info
-  let color = document.getElementById("thecolor");
-  let colorText = document.getElementById("colortext");
-  let hslText = document.getElementById("hsltext");
-
   // Constraints - what do we want?
   let constraints = {
     audio: false,
@@ -42,6 +37,12 @@ window.addEventListener('load', function () {
 
   //pick the color from canvas
   function pick(e) {
+    //get color info
+    let color = document.getElementById("thecolor");
+    let colorText = document.getElementById("colortext");
+    let hslText = document.getElementById("hsltext");
+    let frequencyText = document.getElementById("frequencytext");
+
     let x = e.layerX; //mouse x pos
     let y = e.layerY; //mouse y pos
     let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
@@ -61,6 +62,8 @@ window.addEventListener('load', function () {
     color.style.background = rgb;
     colorText.innerHTML = rgb;
     hslText.innerHTML = RGBToHSL(r, g, b);
+    
+    console.log("wavelength text: " + hslText.innerHTML);
   }
 
   // show color with pick function
@@ -331,27 +334,26 @@ window.addEventListener('load', function () {
 
     //convert hue to wavelength
     //https://stackoverflow.com/questions/11850105/hue-to-wavelength-mapping
-     // Estimating that the usable part of the visible spectrum is 450-620nm, 
+    // Estimating that the usable part of the visible spectrum is 450-620nm, 
     // with wavelength (in nm) and hue value (in degrees), you can improvise this:
-    let wavelength;
-    wavelength = Math.ceil(620 - 170 / 270 * h);
+    let wavelength = Math.ceil(620 - 170 / 270 * h);
     console.log('wavelength: ' + wavelength);
-    return ("hsl(" + h + "," + s + "%," + l + "%)" + " " + "wavelength: " + wavelength);
 
-    //console.log("hsl(" + h + "," + s + "%," + l + "%)");
+    //convert wavelength (nm) to frequency (THz)
+    findFrequency(wavelength);
+
+    return("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "frequency: " + findFrequency(wavelength));
+
+    // return(wavelength);
   }
-
-
-  // function hue2wavelength(hue) {
-  //   // Estimating that the usable part of the visible spectrum is 450-620nm, 
-  //   // with wavelength (in nm) and hue value (in degrees), you can improvise this:
-  //   let wavelength = 620 - 170 / 270 * hue;
-  //   console.log("wavelength: " + wavelength);
-  // }
-
 });
 
-
+function findFrequency(wl) {
+  let frequency;
+  frequency = Math.ceil(3 * (Math.pow(10, 5)) / wl);
+  console.log("frequency: " + frequency);
+  return frequency;
+}
 
 
 
