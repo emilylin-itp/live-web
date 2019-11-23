@@ -35,38 +35,44 @@ window.addEventListener('load', function () {
     });
 
 
+    var currentlyPicking = false;
   ///////* PICK COLOR FROM CANVAS *//////
   function pick(e) {
-    //get color info
-    let color = document.getElementById("thecolor");
-    let colorText = document.getElementById("colortext");
-    let hslText = document.getElementById("hsltext");
-    let frequencyText = document.getElementById("frequencytext");
+    if (!currentlyPicking) {
+      currentlyPicking = true;
+      //get color info
+      let color = document.getElementById("thecolor");
+      let colorText = document.getElementById("colortext");
+      let hslText = document.getElementById("hsltext");
+      let frequencyText = document.getElementById("frequencytext");
 
-    let x = e.layerX; //mouse x pos
-    let y = e.layerY; //mouse y pos
-    let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
-    let data = pixel.data;
-    let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
+      let x = e.layerX; //mouse x pos
+      let y = e.layerY; //mouse y pos
+      let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
+      let data = pixel.data;
+      let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
 
-    let r = data[0];
-    let g = data[1];
-    let b = data[2];
+      let r = data[0];
+      let g = data[1];
+      let b = data[2];
 
-    console.log("r: " + r + " g: " + g + " b: " + b);
+      console.log("r: " + r + " g: " + g + " b: " + b);
 
-    //find hsl from rgb
-    RGBToHSL(r, g, b);
+      //find hsl from rgb
+      RGBToHSL(r, g, b);
 
-    //change dom elements
-    color.style.background = rgb;
-    colorText.innerHTML = rgb;
-    hslText.innerHTML = RGBToHSL(r, g, b);
+      //change dom elements
+      color.style.background = rgb;
+      colorText.innerHTML = rgb;
+      hslText.innerHTML = RGBToHSL(r, g, b);
 
-    console.log("wavelength text: " + hslText.innerHTML);
+      console.log("wavelength text: " + hslText.innerHTML);
+      setTimeout(function() { currentlyPicking = false;}, 100);
+    }
   }
 
   // show color with pick function
+
   canvas.addEventListener('mousemove', pick);
 
   ///////* DRAW FUNCTION *//////
@@ -356,7 +362,7 @@ function findFrequency(wl) {
   console.log("frequency: " + frequency);
 
   playFreq(frequency);
-  //return frequency;
+  return frequency;
 }
 
 /////////////////// FUNCTIONS TO MAP FREQ //////////////////
@@ -403,94 +409,14 @@ function startOsc(frequency) {
 
   // Create GainNode	
   gain = audioCtx.createGain(); // Create gain node
-  gain.gain.value = 0.5; // Set gain to half volume
+  gain.gain.value = 2; // Set gain to half volume
 
   // Connect the Nodes
   oscillator.connect(gain); // Connect oscillator to gain
   gain.connect(audioCtx.destination); // Connect gain to output
-  // stop 2 seconds after the current time
-  oscillator.stop(audioCtx.currentTime+0.01);
+  
+  oscillator.stop(audioCtx.currentTime+0.1);
 }
 
 
-
-/*
-thecanvas.addEventListener('mousemove', function (e) {
-console.log(e.x, e.y);
-socket.emit('coordinates', {
-  x: e.x,
-  y: e.y
-});
-});
-*/
-
-/// SOCKET PORTION //////
-
-
-/* FOR SOCKET
-//send over to socket
-socket.emit('dataurl', dataUrl);
-*/
-
-    // document.getElementById('imagefile').src = dataUrl;
-
-    // Draw again in 3 seconds
-    // setTimeout(draw, 3000);
-
-/*
-//listen for connect
-var socket = io.connect();
-socket.on('connect', function () {
-  console.log("Connected");
-});
-
-//listen for coordinates
-socket.on('coordinates', function (data) {
-  document.getElementById('thediv').style.position = "absolute";
-  document.getElementById('thediv').style.top = data.x + "px";
-  document.getElementById('thediv').style.left = data.y + "px";
-});
-
-//listen for dataurl
-socket.on('dataurl', function (data) {
-  console.log("Got Data");
-  //var theimage = document.getElementById('theimage');
-
-  var theimage = document.createElement("img");
-  theimage.src = data;
-  document.body.appendChild(theimage);
-
-});
-*/
-
-
-//////* REFERENCE CODE *//////////
-
-// function updateCanvas() {
-//   let video = document.getElementById('thevideo');
-//   let canvas = document.getElementById('thecanvas');
-//   let ctx = canvas.getContext('2d');
-
-//   ctx.drawImage(video, 0, 0);
-
-//   let options = {
-//     pixelWidth: 8,
-//     pixelHeight: 8
-//   };
-
-//   let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-//   Pixelate(imageData, imageData, options);
-//   ctx.putImageData(imageData, 0, 0);
-
-//   //setup the animation loop. starts when the video begins to play
-//   video.onplay = function (e) {
-//     setTimeout(function () {
-//       setInterval(updateCanvas, 30);
-//       let video = document.getElementById('thevideo');
-//       let canvas = document.getElementById('thecanvas');
-//       canvas.width = video.videoWidth;
-//       canvas.height = video.videoHeight;
-//     }, 1000);
-//   };
-// }
 
