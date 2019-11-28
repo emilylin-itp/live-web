@@ -42,7 +42,6 @@ function init() {
             let p = {
                 x: e.clientX,
                 y: e.clientY
-                // step: 4
             };
             socket.emit('sendRedData', p);
         });
@@ -166,13 +165,13 @@ function init() {
     socket.on('sendRedData', function (data) {
         //drawRedSine(data);
         // var sineToDraw = {color: 'red', data: data};
-        var sineToDraw = { color: 'red', data: data };
-        thingsToDraw.push(sineToDraw);
+        var sineToDraw = { color: 'red', data: data };  //make json obj
+        thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
 
         // console.log("thingsToDraw: " + thingsToDraw);
-        console.log("sineToDraw.color:  " + sineToDraw.color);
-        console.log("sineToDraw.mousex:  " + sineToDraw.data.x);
-        console.log("sineToDraw.mousey:  " + sineToDraw.data.y);
+        // console.log("sineToDraw.color:  " + sineToDraw.color);
+        // console.log("sineToDraw.mousex:  " + sineToDraw.data.x);
+        // console.log("sineToDraw.mousey:  " + sineToDraw.data.y);
         // console.log("sineToDraw.data:  " + sineToDraw.data);
 
         drawRedSine(data);
@@ -181,55 +180,57 @@ function init() {
     });
 
     socket.on('sendOrangeData', function (data) {
-
-        var sineToDraw = { color: 'orange', data: data};
-        thingsToDraw.push(sineToDraw);
-
-        // console.log("thingsToDraw: " + thingsToDraw);
-        console.log("sineToDraw.color:  " + sineToDraw.color);
-        console.log("sineToDraw.mousex:  " + sineToDraw.data.x);
-        console.log("sineToDraw.mousey:  " + sineToDraw.data.y);
-        // console.log("sineToDraw.data:  " + sineToDraw.data);
+        var sineToDraw = { color: 'orange', data: data }; //make json obj
+        thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
 
         drawOrangeSine(data);
         playOrangeFreq();
-        console.log(data);
+        // console.log(data);
     });
 
     socket.on('sendYellowData', function (data) {
+        var sineToDraw = { color: 'yellow', data: data }; //make json obj
+        thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
+
         drawYellowSine(data);
         playYellowFreq();
-        console.log("Got: " + data);
     });
 
     socket.on('sendGreenData', function (data) {
+        var sineToDraw = { color: 'green', data: data };
+        thingsToDraw.push(sineToDraw);
+
         drawGreenSine(data);
         playGreenFreq();
-        console.log("Got: " + data);
     });
 
     socket.on('sendCyanData', function (data) {
+        var sineToDraw = { color: 'cyan', data: data };
+        thingsToDraw.push(sineToDraw);
+
         drawCyanSine(data);
         playCyanFreq();
-        console.log("Got: " + data);
     });
 
     socket.on('sendBlueData', function (data) {
+        var sineToDraw = { color: 'blue', data: data };
+        thingsToDraw.push(sineToDraw);
+
         drawBlueSine(data);
         playBlueFreq();
-        console.log("Got: " + data);
     });
 
     socket.on('sendPurpleData', function (data) {
+        var sineToDraw = { color: 'purple', data: data };
+        thingsToDraw.push(sineToDraw);
+
         drawPurpleSine(data);
         playPurpleFreq();
-        console.log("Got: " + data);
     });
 
 
-    /////////////////// FUNCTION TO DRAW //////////////////
-
-
+    /////////////////// FUNCTIONS TO DRAW ///////////////////
+    /////////////////////////////////////////////////////////
 
     /////////////////// ANIMATE THE LINE ///////////////////
     function mainLoop() {
@@ -243,21 +244,32 @@ function init() {
         //      drawRedSine(thingsToDraw[i].data);
         //  }
 
-        // console.log('in main loop');
-
         for (let i = 0; i < thingsToDraw.length; i++) {
             //console.log("thingsToDraw[i].color: " + thingsToDraw[i].color);
 
             if (thingsToDraw[i].color === 'red') {
                 drawRedSine(thingsToDraw[i].data);
-            } 
+            }
             if (thingsToDraw[i].color === 'orange') {
                 drawOrangeSine(thingsToDraw[i].data);
             }
+            if (thingsToDraw[i].color === 'yellow') {
+                drawYellowSine(thingsToDraw[i].data);
+            }
+            if (thingsToDraw[i].color === 'green') {
+                drawGreenSine(thingsToDraw[i].data);
+            }
+            if (thingsToDraw[i].color === 'cyan') {
+                drawCyanSine(thingsToDraw[i].data);
+            }
+            if (thingsToDraw[i].color === 'blue') {
+                drawBlueSine(thingsToDraw[i].data);
+            }
+            if (thingsToDraw[i].color === 'purple') {
+                drawPurpleSine(thingsToDraw[i].data);
+            }
         }
 
-
-        // recursion
         ctx.restore();//pop
         step += 1; //changes the speed
         requestAnimationFrame(mainLoop);
@@ -274,6 +286,26 @@ function drawRedSine(data) {
 
 function drawOrangeSine(data) {
     plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, ofreq, "#FF9D41", lineWidth);
+}
+
+function drawYellowSine(data) {
+    plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, yfreq, "#FBE11F", lineWidth);
+}
+
+function drawGreenSine(data) {
+    plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, gfreq, "#B6E836", lineWidth);
+}
+
+function drawCyanSine(data) {
+    plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, cfreq, "#1EDFBE", lineWidth);
+}
+
+function drawBlueSine(data) {
+    plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, bfreq, "#29ACFF", lineWidth);
+}
+
+function drawPurpleSine(data) {
+    plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, pfreq, "#685CFF", lineWidth);
 }
 
 let step = -1;
@@ -328,7 +360,6 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
     // ctx.stroke();
     ctx.restore(); //pop
 }
-
 
 
 ///////////////////* TOGGLE BOTTOM BAR *//////////////////
