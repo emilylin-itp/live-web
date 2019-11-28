@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sound of Color</title>
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!--STYLESHEET-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+
+<body id='play-body'>
+    <!--NAVBAR-->
+    <nav id='navbar' class='row justify-content-between'>
+        <!--NAV HOME/ABOUT-->
+        <div id='nav-about' class="col-2">
+            <a class='nav-text' href="index.html">Sound of Color</a>
+        </div>
+
+        <!--NAV TITLE-->
+        <div id='nav-title' class="col-8">
+            <h2 id='nav-h2'>Draw With Sound</h2>
+        </div>
+
+        <!--NAV LEARN-->
+        <div id='nav-learn' class="col-1">
+            <a class='nav-text' href="learn.html">Learn</a>
+        </div>
+
+        <!--NAV PLAY-->
+        <div id='nav-play' class="col-1">
+            <a class='nav-text' href="play.html">Play</a>
+        </div>
+    </nav>
+
+    <!--CANVAS-->
+    <!-- <canvas id='bkg-canvas'></canvas> -->
+    <canvas id='draw-canvas'></canvas>
+
+    <!--CONTAINER FOR ALL COLORS-->
+    <div id='bottom-container' class='row justify-content-between'>
+        <div id='bottom-div' class='col-12'>
+
+            <!--BOTTOM INSTRUCTIONS - LEFT-->
+            <div id='bottom-instruction' class='col-4'>
+                <p id='bottom-instruction-text'>
+                    1. Select color <br>
+                    2. Click above to draw.
+                </p>
+            </div>
+
+            <div id='bottom-panel' class='col-7'>
+                <div id='bottom-palette-container' class='row justify-content-start'>
+                    <div id='bottom-palette-div' class='col-12'>
+                        <div id='red-play-div' class='palette-div'></div>
+                        <div id='orange-play-div' class='palette-div'></div>
+                        <div id='yellow-play-div' class='palette-div'></div>
+                        <div id='green-play-div' class='palette-div'></div>
+                        <div id='cyan-play-div' class='palette-div'></div>
+                        <div id='blue-play-div' class='palette-div'></div>
+                        <div id='purple-play-div' class='palette-div'></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id='bottom-div-x' class='col-1'>
+                <img src="assets/gray_x.png" id='bottom-x' alt="x">
+                <img src="assets/gray_plus.png" id='bottom-plus' alt="plus">
+            </div>
+        </div>
+    </div>
+    <!--SCRIPT-->
+    <script src="client-play-socket6.js"></script>
+
+    <!--SCRIPT WITHOUT SOCKET-->
+    <!-- <script src="client-play.js"></script> -->
+</body>
+
+</html>
+
+
+<!--CONTAINER FOR ALL COLORS-->
+<!-- <div id='palette-container' class='row align-items-center'>
+        <div id='red-play-div' class='palette-div'>
+        </div>
+
+        <div id='orange-play-div' class='palette-div'>
+        </div>
+
+        <div id='yellow-play-div' class='palette-div'>
+        </div>
+
+        <div id='green-play-div' class='palette-div'>
+        </div>
+
+        <div id='cyan-play-div' class='palette-div'>
+        </div>
+
+        <div id='blue-play-div' class='palette-div'>
+        </div>
+
+        <div id='purple-play-div' class='palette-div'>
+        </div>
+    </div> -->
