@@ -231,6 +231,16 @@ function init() {
         console.log('draw orange sine');
     }
     requestAnimationFrame(drawOrangeSine);
+
+    function drawOrangeSine(data) {
+        //draw canvas
+        ctx.save(); //push
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        animateOrangeSine(data);
+        ctx.restore();//pop
+        console.log('draw orange sine');
+    }
+    requestAnimationFrame(drawOrangeSine);
 }
 
 /////////////////// FUNCTIONS TO PLOT AND ANIMATE //////////////////
@@ -251,6 +261,14 @@ function animateOrangeSine(data) {
     step += 4; //changes the speed
     window.requestAnimationFrame(animateOrangeSine);
 }
+
+// function drawYellowSine(data) {
+//     ctx.save();
+//     step += 4; //changes the speed
+//     plotSine(data.x, data.y, wavelength, step, 0, amplitudeSine, yfreq, "#FBE11F", lineWidth);
+//     ctx.restore();
+//     window.requestAnimationFrame(drawYellowSine(data));    
+// }
 
 
 let step = -4;
