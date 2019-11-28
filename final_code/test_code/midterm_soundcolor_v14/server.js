@@ -35,9 +35,9 @@ function handleIt(req, res) {
 }
 
 var httpServer = https.createServer(options, handleIt);
-httpServer.listen(8094);
+httpServer.listen(8097);
 
-console.log('Server listening on port 8094');
+console.log('Server listening on port 8097');
 
 
 ////////////////*  WEB SOCKET PORTION *////////////////
@@ -66,10 +66,10 @@ io.sockets.on('connection',
         });
 
         // //listen for orange Data, then emit orange Data
-        // socket.on('sendOrangeData', function (data) {
-        //     io.sockets.emit('sendOrangeData', data);
-        //     console.log('server received orange data: ' + data);
-        // });
+        socket.on('sendOrangeData', function (data) {
+            io.sockets.emit('sendOrangeData', data);
+            console.log('server received orange data: ' + data);
+        });
 
         // //listen for yellow Data, then emit yellow Data
         // socket.on('sendYellowData', function (data) {
