@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pixelate Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+
+    <!--VIDEO-->
+    <canvas id="thecanvas" height="100vh" width="100vw"></canvas>
+    <video id="thevideo" height="720px" width="480px"></video>
+
+    <!--COLOR PICKER DIV-->
+    <div id='thecolor' style="border: 1px solid black; width:200px; height: 200px; float: right;">
+        <p id='colortext' style='font-size: 8pt; float: right; padding: 15px;'></p>
+
+        <p id='hsltext' style='font-size: 8pt; float: right; padding: 15px;'>wavelength (from HSL):</p>
+        <!-- <p id='frequencytext' style='font-size: 8pt; float: right; padding: 15px;'>frequency: </p> -->
+    </div>
+
+    <!--TRIANGLE-->
+    <div id='trianglediv'>
+        <img src="/assets/triangle.png" id='play-button' alt="triangle">
+    </div>
+
+</body>
+
+</html>
