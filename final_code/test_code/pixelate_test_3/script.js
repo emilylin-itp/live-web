@@ -35,7 +35,7 @@ window.addEventListener('load', function () {
     });
 
 
-  //pick the color from canvas
+   ///////* PICK COLOR FROM CANVAS *//////
   function pick(e) {
     //get color info
     let color = document.getElementById("thecolor");
@@ -62,13 +62,14 @@ window.addEventListener('load', function () {
     color.style.background = rgb;
     colorText.innerHTML = rgb;
     hslText.innerHTML = RGBToHSL(r, g, b);
-    
+
     console.log("wavelength text: " + hslText.innerHTML);
   }
 
   // show color with pick function
   canvas.addEventListener('mousemove', pick);
 
+  ///////* DRAW FUNCTION *//////
   var draw = function () {
     // Pixelate function:determine the size of each 'pixel' (ie how many real pixels will be in our larger pixel). Then we divide the canvas into the larger pixels. For each larger pixel we average the real pixels within it and draw the larger pixel as that average.
 
@@ -212,8 +213,8 @@ window.addEventListener('load', function () {
     };
   }
 
-  // Pixelate function 
-  // Code from here: http://blog.acipo.com/js-canvas-pixelate/
+  ////* PIXELATE VID *//////
+  // Source: http://blog.acipo.com/js-canvas-pixelate/
   var Pixelate = function (src, dst, opt) {
 
     var xBinSize = opt.pixelWidth * 10,
@@ -284,8 +285,8 @@ window.addEventListener('load', function () {
     }
   };
 
-  /*Convert RGB to HSL: https://css-tricks.com/converting-color-spaces-in-javascript/
-  */
+  ///////* CONVERT RGB TO HSL *//////
+  /* source: https://css-tricks.com/converting-color-spaces-in-javascript/*/
   function RGBToHSL(r, g, b) {
     //make r, g, b fractions of 1
     r = r / 255;
@@ -342,18 +343,70 @@ window.addEventListener('load', function () {
     //convert wavelength (nm) to frequency (THz)
     findFrequency(wavelength);
 
-    return("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "frequency: " + findFrequency(wavelength));
+    return ("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "frequency: " + findFrequency(wavelength));
 
     // return(wavelength);
   }
 });
 
+/////* FIND FREQUENCY */////
 function findFrequency(wl) {
   let frequency;
   frequency = Math.ceil(3 * (Math.pow(10, 5)) / wl);
   console.log("frequency: " + frequency);
+
+  playFreq(frequency);
   return frequency;
 }
+
+
+/////////* PLAY PITCH  *////////
+//set up color + pitch frequency
+let lowColFreq = 400;
+let highColFreq = 789;
+let lowPitchFreq = 120;
+let highPitchFreq = 2000;
+
+///// * PLAY COLOR FREQ */////////
+function playFreq(frequency) {
+  let freqPitch = Math.floor(mapRange(frequency, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq));
+  console.log("freq pitch: " + freqPitch);
+  startOsc(freqPitch);
+}
+
+
+
+//////////* SOUND MUST HAVES */////////////
+// create web audio api context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// create Oscillator node
+var oscillator; // = audioCtx.createOscillator();
+// let now = audioCtx.currentTime;
+
+//frequency is passed to this function from input button
+function startOsc(frequency) {
+  oscillator = audioCtx.createOscillator(); //create oscillator each time function runs
+
+  oscillator.type = 'square'; //this can't be sine for some reason
+  oscillator.frequency.value = frequency; //frequency val to be passed in on event click
+  // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
+
+  oscillator.start(audioCtx.currentTime);
+
+  // Create GainNode	
+  gain = audioCtx.createGain(); // Create gain node
+  gain.gain.value = 0.5; // Set gain to half volume
+
+  // Connect the Nodes
+  oscillator.connect(gain); // Connect oscillator to gain
+  gain.connect(audioCtx.destination); // Connect gain to output
+  // stop 2 seconds after the current time
+  oscillator.stop(audioCtx.currentTime + 1.01);
+}
+
+
+
 
 
 
@@ -368,8 +421,6 @@ socket.emit('coordinates', {
 */
 
 /// SOCKET PORTION //////
-
-
 
 
 /* FOR SOCKET

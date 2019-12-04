@@ -55,22 +55,40 @@ function init() {
 
   // play button
   var playButton = document.getElementById('play-button');
-  playButton.addEventListener('click', moveFakePick);
+  playButton.addEventListener('click',  moveFakePick);
 
   let fakeX = 0;
   let fakeY = 0;
+  let binSize = canvas.width / 12;
+  let originFakeX = canvas.width/20;
+  let originFakeY = canvas.height/20;
 
   function moveFakePick() {
     setInterval(function () {
-      fakeX = fakeX + canvas.width/8 ;
+      fakeX = fakeX + binSize;
       fakeY;
-      //if else if statement that moves through the screen
 
+      //if fake x is at edge of canvas move fake y down one row
+      // then move fake y across the opposite way
+      if (fakeX >= canvas.width) {
+        fakeY = fakeY + binSize;
+        fakeX = originFakeX;
+      }
+
+      //if fake Y is at canvas bottom, move to origin
+      if(fakeY >= canvas.height){
+        fakeY = originFakeY;
+        fakeX = fakeX + binSize;
+      }
+
+      console.log('originFakeX: '+ originFakeX);
+      console.log ('binSize: ' + binSize);
+      console.log('fakeX: '+ fakeX);
 
       //function to change which pixel is picked
       fakePick(fakeX, fakeY);
       //drawRect(fakeX, fakeY); //moved drawRect function to loop section
-    }, 1000); // every 1 sec move the x position by 100
+    }, 500); // every 1 sec move the x position by 100
   }
 
 
@@ -112,15 +130,15 @@ function init() {
   }
 
   ///////// DRAW SHAPE ////////
-  function drawRect(x, y) {
-    let newX = -canvas.width/14; //half of the bin
+  function drawRect(x, y, binSize) {
+    let newX = -binSize; //half of the bin
     let newY = 0;
     let moveX = x;
     let moveY = y;
 
     animateX = newX + moveX; //move right
 
-    context.fillRect(animateX, 20, 10, 10);
+    context.fillRect(animateX, y, 10, 10);
     // context.rect(animateX, y, 10, 10);
     //console.log('animate rect x:' + animateX);
   }
@@ -128,6 +146,7 @@ function init() {
 
   ///////// OG PICK FUNCTION: MOVES THROUGH CANVAS /////////
   var currentlyPicking = false;
+  
   ///////* PICK COLOR FROM CANVAS *//////
   function pick(e) {
     if (!currentlyPicking) {
@@ -177,98 +196,98 @@ function init() {
     // Pixelate function:determine the size of each 'pixel' (ie how many real pixels will be in our larger pixel). Then we divide the canvas into the larger pixels. For each larger pixel we average the real pixels within it and draw the larger pixel as that average.
 
     // Code from here: http://blog.acipo.com/js-canvas-pixelate/
-    let Pixelate = function (src, dst, opt) {
+    // let Pixelate = function (src, dst, opt) {
 
-      var xBinSize = opt.pixelWidth,
-        yBinSize = opt.pixelHeight;
+    //   var xBinSize = opt.pixelWidth,
+    //     yBinSize = opt.pixelHeight;
 
-      console.log("xBinSize: " + xBinSize); 
-      console.log("yBinSize: " + yBinSize); 
+    //   console.log("xBinSize: " + xBinSize);
+    //   console.log("yBinSize: " + yBinSize);
 
-      var xSize = src.width,
-        ySize = src.height,
-        srcPixels = src.data,
-        dstPixels = dst.data,
-        x, y, i;
+    //   var xSize = src.width,
+    //     ySize = src.height,
+    //     srcPixels = src.data,
+    //     dstPixels = dst.data,
+    //     x, y, i;
 
-      // console.log("srcPixels: " + srcPixels); 
-      // console.log("dstPixels: " + dstPixels);
-      console.log("xSize: " + xSize); //
-      console.log("ySize: " + ySize); //
+    //   // console.log("srcPixels: " + srcPixels); 
+    //   // console.log("dstPixels: " + dstPixels);
+    //   console.log("xSize: " + xSize); //
+    //   console.log("ySize: " + ySize); //
 
-      let pixelsPerBin = xBinSize * yBinSize,
-        red, green, blue, alpha,
-        nBinsX = Math.ceil(xSize / xBinSize),
-        nBinsY = Math.ceil(ySize / yBinSize),
-        xBinStart, xBinEnd, yBinStart, yBinEnd,
-        xBin, yBin, pixelsInBin;
+    //   let pixelsPerBin = xBinSize * yBinSize,
+    //     red, green, blue, alpha,
+    //     nBinsX = Math.ceil(xSize / xBinSize),
+    //     nBinsY = Math.ceil(ySize / yBinSize),
+    //     xBinStart, xBinEnd, yBinStart, yBinEnd,
+    //     xBin, yBin, pixelsInBin;
 
-      //console.log("nBinsX: " + nBinsX); //1
-      //console.log("nBinsY: " + nBinsY); //
+    //   //console.log("nBinsX: " + nBinsX); //1
+    //   //console.log("nBinsY: " + nBinsY); //
 
-      for (xBin = 0; xBin < nBinsX; xBin += 1) {
-        for (yBin = 0; yBin < nBinsY; yBin += 1) {
+    //   for (xBin = 0; xBin < nBinsX; xBin += 1) {
+    //     for (yBin = 0; yBin < nBinsY; yBin += 1) {
 
-          // Initialize the color accumlators to 0
-          red = 0;
-          green = 0;
-          blue = 0;
-          alpha = 0;
+    //       // Initialize the color accumlators to 0
+    //       red = 0;
+    //       green = 0;
+    //       blue = 0;
+    //       alpha = 0;
 
-          // Determine which pixels are included in this bin
-          xBinStart = xBin * xBinSize;
-          xBinEnd = xBinStart + xBinSize;
-          yBinStart = yBin * yBinSize;
-          yBinEnd = yBinStart + yBinSize;
+    //       // Determine which pixels are included in this bin
+    //       xBinStart = xBin * xBinSize;
+    //       xBinEnd = xBinStart + xBinSize;
+    //       yBinStart = yBin * yBinSize;
+    //       yBinEnd = yBinStart + yBinSize;
 
-          // Add all of the pixels to this bin!
-          pixelsInBin = 0;
-          for (x = xBinStart; x < xBinEnd; x += 1) {
-            if (x >= xSize) { continue; }
-            for (y = yBinStart; y < yBinEnd; y += 1) {
-              if (y >= ySize) { continue; }
-              i = (xSize * y + x) * 4;
-              red += srcPixels[i + 0];
-              green += srcPixels[i + 1];
-              blue += srcPixels[i + 2];
-              alpha += srcPixels[i + 3];
-              pixelsInBin += 4;
-            }
-            //console.log("pixels in bin: " + pixelsInBin);
-          }
+    //       // Add all of the pixels to this bin!
+    //       pixelsInBin = 0;
+    //       for (x = xBinStart; x < xBinEnd; x += 1) {
+    //         if (x >= xSize) { continue; }
+    //         for (y = yBinStart; y < yBinEnd; y += 1) {
+    //           if (y >= ySize) { continue; }
+    //           i = (xSize * y + x) * 4;
+    //           red += srcPixels[i + 0];
+    //           green += srcPixels[i + 1];
+    //           blue += srcPixels[i + 2];
+    //           alpha += srcPixels[i + 3];
+    //           pixelsInBin += 4;
+    //         }
+    //         //console.log("pixels in bin: " + pixelsInBin);
+    //       }
 
-          // Make sure the channels are between 0-255
-          red = red / pixelsInBin;
-          green = green / pixelsInBin;
-          blue = blue / pixelsInBin;
-          alphas = alpha / pixelsInBin;
+    //       // Make sure the channels are between 0-255
+    //       red = red / pixelsInBin;
+    //       green = green / pixelsInBin;
+    //       blue = blue / pixelsInBin;
+    //       alphas = alpha / pixelsInBin;
 
-          // register the individual bins and return array
-          let binArray;
+    //       // register the individual bins and return array
+    //       let binArray;
 
-          let binID = {
-            x, y, red, green, blue, alphas
-          };
+    //       let binID = {
+    //         x, y, red, green, blue, alphas
+    //       };
 
 
-          // binArray.add(binID)
+    //       // binArray.add(binID)
 
-          // Draw this bin
-          for (x = xBinStart; x < xBinEnd; x += 1) {
-            if (x >= xSize) { continue; }
-            for (y = yBinStart; y < yBinEnd; y += 1) {
-              if (y >= ySize) { continue; }
-              i = (xSize * y + x) * 4;
-              dstPixels[i + 0] = red;
-              dstPixels[i + 1] = green;
-              dstPixels[i + 2] = blue;
-              dstPixels[i + 3] = alpha;
-            }
-          }
-          //return binArray
-        }
-      }
-    };
+    //       // Draw this bin
+    //       for (x = xBinStart; x < xBinEnd; x += 1) {
+    //         if (x >= xSize) { continue; }
+    //         for (y = yBinStart; y < yBinEnd; y += 1) {
+    //           if (y >= ySize) { continue; }
+    //           i = (xSize * y + x) * 4;
+    //           dstPixels[i + 0] = red;
+    //           dstPixels[i + 1] = green;
+    //           dstPixels[i + 2] = blue;
+    //           dstPixels[i + 3] = alpha;
+    //         }
+    //       }
+    //       //return binArray
+    //     }
+    //   }
+    // };
 
     console.log("It should be drawing!");
 
@@ -311,7 +330,7 @@ function init() {
 
     //this is where you change pixel size
     let options = {
-      pixelWidth: 8, 
+      pixelWidth: 8,
       pixelHeight: 8
     };
 
@@ -320,7 +339,7 @@ function init() {
     ctx.putImageData(imageData, 0, 0);
 
     //Draw Rect to go through 
-    drawRect(fakeX, fakeY);
+    drawRect(fakeX, fakeY, binSize);
 
     //setup the animation loop. starts when the video begins to play
     video.onplay = function (e) {
@@ -477,7 +496,6 @@ function init() {
 function findFrequency(wl) {
   let frequency;
   frequency = Math.ceil(3 * (Math.pow(10, 5)) / wl);
-  // console.log("frequency: " + frequency);
 
   playFreq(frequency);
   return frequency;
@@ -523,6 +541,8 @@ function startOsc(frequency) {
   oscillator.type = 'square'; //this can't be sine for some reason
   oscillator.frequency.value = frequency; //frequency val to be passed in on event click
   // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
+
+  console.log("sound frequency: " + frequency);
 
   oscillator.start(audioCtx.currentTime);
 

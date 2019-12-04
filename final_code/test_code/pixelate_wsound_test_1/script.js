@@ -35,7 +35,7 @@ window.addEventListener('load', function () {
     });
 
 
-    var currentlyPicking = false;
+  var currentlyPicking = false;
   ///////* PICK COLOR FROM CANVAS *//////
   function pick(e) {
     if (!currentlyPicking) {
@@ -72,7 +72,6 @@ window.addEventListener('load', function () {
   }
 
   // show color with pick function
-
   canvas.addEventListener('mousemove', pick);
 
   ///////* DRAW FUNCTION *//////

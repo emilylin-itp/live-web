@@ -38,130 +38,109 @@ function init() {
     let purpleSelect = document.getElementById('purple-play-div');
 
     redSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-            //to unsubscribe a certain listener
-            // socket.off('sendRedData');
-            // socket.off('click', evl);
-            // socket.removeEventListener('sendRedData',evl)
-            // socket.removeEventListener('click',evl);
-        }
+        // if (evl != null) {
+        //     canvas.removeEventListener('click', evl);
+        //     console.log('evl removed');
+        //     //to unsubscribe a certain listener
+        //     // socket.off('sendRedData');
+        //     // socket.off('click', evl);
+        //     // socket.removeEventListener('sendRedData',evl)
+        //     // socket.removeEventListener('click',evl);
+        // }
         evl = drawRedSine;
-        console.log('evl: ' + evl);
+        // evl = 'drawRedSine';
+        // console.log('evl: ' + evl);
         // canvas.addEventListener('click', drawYellowSine);
-        canvas.addEventListener('click', (e) => {
+        var listener = canvas.addEventListener('click', (e) => {
+            console.log('evl for red: ' + evl)
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendRedData', p);
+            canvas.removeEventListener(listener);
         });
     });
-
-    // evl = drawRedSine;
-
-    // if (evl != null) {
-    //     canvas.addEventListener('click', (e) => {
-    //         //drawRedSine;
-    //         console.log(e);
-    //         let p = {
-    //             x: e.clientX,
-    //             y: e.clientY
-    //         };
-    //         socket.emit('sendRedData', p);
-    //     });
-    // } else if (evl! = null){
-    //     canvas.removeEventListener('click', evl);
-    //     console.log('evl red removed');
-    // }
 
 
     orangeSelect.addEventListener('click', () => {
+        // if (evl != null) {
+        //     canvas.removeEventListener('click', evl);
+        //     console.log('evl removed');
+        //     //to unsubscribe a certain listener
+        //     //socket.removeListener('sendOrangeData', evl);
+        //     // socket.off('sendOrangeData');
+        //     // socket.off('sendOrangeData', 'click');
+        //     // socket.removeEventListener('sendOrangeData',evl)
+        //     socket.removeEventListener('click', evl)
+        // } 
+
+        evl = drawOrangeSine;
+
         if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-            //to unsubscribe a certain listener
-            //socket.removeListener('sendOrangeData', evl);
-            // socket.off('sendOrangeData');
-            // socket.off('sendOrangeData', 'click');
-            // socket.removeEventListener('sendOrangeData',evl)
-            socket.removeEventListener('click', evl)
+            // canvas.addEventListener('click', drawYellowSine);
+            var listener = canvas.addEventListener('click', (e) => {
+                console.log('evl for orange: ' + evl)
+                console.log(e);
+                let p = {
+                    x: e.clientX,
+                    y: e.clientY
+                };
+                socket.emit('sendOrangeData', p);
+                canvas.removeEventListener('click',listener);
+            });
+
         }
-        evl = drawYellowSine;
-        // canvas.addEventListener('click', drawYellowSine);
-        canvas.addEventListener('click', (e) => {
-            console.log(e);
-            let p = {
-                x: e.clientX,
-                y: e.clientY
-            };
-            socket.emit('sendOrangeData', p);
-        });
     });
-
-
-    // evl = drawOrangeSine;
-
-    // if (evl != null) {
-    //     canvas.addEventListener('click', (e) => {
-    //         console.log(e);
-    //         let p = {
-    //             x: e.clientX,
-    //             y: e.clientY
-    //         };
-    //         socket.emit('sendOrangeData', p);
-    //     });
-
-    //     canvas.removeEventListener('click', evl);
-    //     console.log('evl removed');
-    // } else {
-    //     canvas.removeEventListener('click', evl);
-    //     console.log('evl removed');
-    // }
 
 
     yellowSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-            // socket.off('sendYellowData');
-        }
+        // if (evl != null) {
+        //     canvas.removeEventListener('click', evl);
+        //     console.log('evl removed');
+        //     // socket.off('sendYellowData');
+        // }
         evl = drawYellowSine;
         // canvas.addEventListener('click', drawYellowSine);
-        canvas.addEventListener('click', (e) => {
-            console.log(e);
-            let p = {
-                x: e.clientX,
-                y: e.clientY
-            };
-            socket.emit('sendYellowData', p);
-        });
+
+        if (evl != null) {
+            var listener = canvas.addEventListener('click', (e) => {
+                console.log(e);
+                let p = {
+                    x: e.clientX,
+                    y: e.clientY
+                };
+                socket.emit('sendYellowData', p);
+                canvas.removeEventListener('click',listener);
+            });
+        }
+
     });
 
     greenSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-        }
+        // if (evl != null) {
+        //     canvas.removeEventListener('click', evl);
+        //     console.log('evl removed');
+        // }
         evl = drawGreenSine;
-        canvas.addEventListener('click', (e) => {
+        var listener = canvas.addEventListener('click', (e) => {
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendGreenData', p);
+            canvas.removeEventListener(listener); //shawn wrote this
         });
         // canvas.addEventListener('click', drawGreenSine);
     });
 
     cyanSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-        }
+        // if (evl != null) {
+        //     canvas.removeEventListener('click', evl);
+        //     console.log('evl removed');
+        // }
         evl = drawCyanSine;
         canvas.addEventListener('click', (e) => {
             console.log(e);
@@ -170,6 +149,7 @@ function init() {
                 y: e.clientY
             };
             socket.emit('sendCyanData', p);
+            canvas.removeEventListener(listener);
         });
         // canvas.addEventListener('click', drawCyanSine);
     });
@@ -188,6 +168,7 @@ function init() {
                 y: e.clientY
             };
             socket.emit('sendBlueData', p);
+            canvas.removeEventListener(listener);
         });
         // canvas.addEventListener('click', drawBlueSine);
     });
@@ -206,6 +187,7 @@ function init() {
                 y: e.clientY
             };
             socket.emit('sendPurpleData', p);
+            canvas.removeEventListener(listener);
         });
         //canvas.addEventListener('click', drawPurpleSine);
     });
@@ -324,6 +306,7 @@ function init() {
         //  if (thingsToDraw[i].color = "red") {
         //      drawRedSine(thingsToDraw[i].data);
         //  }
+
 
         for (let i = 0; i < thingsToDraw.length; i++) {
             //console.log("thingsToDraw[i].color: " + thingsToDraw[i].color);

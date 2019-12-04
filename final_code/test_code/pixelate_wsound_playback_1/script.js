@@ -53,51 +53,54 @@ function init() {
   // requestAnimationFrame(mainLoop);
 
 
-  /////////////////// FAKE PICK //////////////////////
-  ///////(SHAWN WROTE THE FAKE X + Y SECTION) ////////
-  // this.setInterval(function () {
-  //   fakeX = fakeX + 100;
-  //   fakePick();
-  // }, 1000); // every 1 sec move the x position by 100
+  ///////////////// FAKE PICK //////////////////////
+  /////(SHAWN WROTE THE FAKE X + Y SECTION) ////////
+  this.setInterval(function () {
+    fakeX = fakeX + 100;
+    fakePick();
+  }, 1000); // every 1 sec move the x position by 100
 
-  // let fakeX = 100;
-  // let fakeY = 100;
+  let fakeX = 100;
+  let fakeY = 100;
 
-  // function fakePick() {
-  //   if (!currentlyPicking) {
-  //     currentlyPicking = true;
-  //     //get color info
-  //     let color = document.getElementById("thecolor");
-  //     let colorText = document.getElementById("colortext");
-  //     let hslText = document.getElementById("hsltext");
-  //     let frequencyText = document.getElementById("frequencytext");
+  // let fakeX = window.innerWidth/8;
+  // let fakeY = window.innerHeight/8;
 
-  //     let x = fakeX; //mouse x pos
-  //     let y = fakeY; //mouse y pos
-  //     console.log('fakeX: ' + fakeX);
+  function fakePick() {
+    if (!currentlyPicking) {
+      currentlyPicking = true;
+      //get color info
+      let color = document.getElementById("thecolor");
+      let colorText = document.getElementById("colortext");
+      let hslText = document.getElementById("hsltext");
+      let frequencyText = document.getElementById("frequencytext");
 
-  //     let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
-  //     let data = pixel.data;
-  //     let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
+      let x = fakeX; //mouse x pos
+      let y = fakeY; //mouse y pos
+      console.log('fakeX: ' + fakeX);
 
-  //     let r = data[0];
-  //     let g = data[1];
-  //     let b = data[2];
+      let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
+      let data = pixel.data;
+      let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
 
-  //     console.log("r: " + r + " g: " + g + " b: " + b);
+      let r = data[0];
+      let g = data[1];
+      let b = data[2];
 
-  //     //find hsl from rgb
-  //     RGBToHSL(r, g, b);
+      console.log("r: " + r + " g: " + g + " b: " + b);
 
-  //     //change dom elements
-  //     color.style.background = rgb;
-  //     colorText.innerHTML = rgb;
-  //     hslText.innerHTML = RGBToHSL(r, g, b);
+      //find hsl from rgb
+      RGBToHSL(r, g, b);
 
-  //     // console.log("wavelength text: " + hslText.innerHTML);
-  //     setTimeout(function () { currentlyPicking = false; }, 100);
-  //   }
-  // }
+      //change dom elements
+      color.style.background = rgb;
+      colorText.innerHTML = rgb;
+      hslText.innerHTML = RGBToHSL(r, g, b);
+
+      // console.log("wavelength text: " + hslText.innerHTML);
+      setTimeout(function () { currentlyPicking = false; }, 100);
+    }
+  }
 
 
   var currentlyPicking = false;

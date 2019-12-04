@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Follow Mouse</title>
+    <style>
+        #canvas {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="550px" height="350px"></canvas>
+
+    <script>
+        var canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d'),
+            x = 0,
+            last = performance.now();
+
+        function draw(timestamp) {
+            requestAnimationFrame(draw);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.rect(x, 20, 20, 20);
+            ctx.fillStyle = "#ffffff";
+            ctx.fill();
+
+            x += (timestamp - last) / 10;
+            last = timestamp;
+
+            console.log('timestamp: '+ timestamp);
+        }
+        requestAnimationFrame(draw);
+
+    </script>
+
+</body>
+
+</html>
