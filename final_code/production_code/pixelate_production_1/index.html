@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pixelate Test</title>
+
+     <!--BOOTSTRAP-->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+     integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script src="script.js"></script>
+
+    <!--VIDEO-->
+    <canvas id="thecanvas" height="100%" width="100%"></canvas>
+
+
+    <!--CONTAINER FOR INFO-->
+    <div id='bottom-container' class='row justify-content-between'>
+        <div id='bottom-div' class='col-12'>
+
+            <!--BOTTOM INSTRUCTIONS - LEFT-->
+            <div id='bottom-instruction' class='col-4'>
+                <p id='bottom-instruction-text'>
+                    Mouse Move
+                </p>
+            </div>
+
+            <div id='bottom-panel' class='col-7'>
+                <div id='bottom-palette-container' class='row justify-content-start'>
+                    <div id='bottom-palette-div' class='col-12'>
+             <!--CONTENT CAN GO HERE-->
+                    </div>
+                </div>
+            </div>
+
+            <div id='bottom-div-x' class='col-1'>
+                <img src="assets/gray_x.png" id='bottom-x' alt="x">
+                <img src="assets/gray_plus.png" id='bottom-plus' alt="plus">
+            </div>
+        </div>
+    </div>
+
+    <!--COLOR PICKER DIV-->
+    <div id='thecolor'>
+        <p id='colortext' style='font-size: 8pt; float: right; padding: 15px;'></p>
+
+        <p id='hsltext' style='font-size: 8pt; float: right; padding: 15px;'>wavelength (from HSL):</p>
+        <!-- <p id='frequencytext' style='font-size: 8pt; float: right; padding: 15px;'>frequency: </p> -->
+    </div>
+
+    <!--TRIANGLE-->
+    <div id='trianglediv'>
+        <img src="/assets/triangle.png" id='play-button' alt="triangle" style='width: 50px; height: auto; padding: 5%'>
+    </div>
+
+    <!--OG VIDEO-->
+    <video id="thevideo"></video>
+
+</body>
+
+</html>
