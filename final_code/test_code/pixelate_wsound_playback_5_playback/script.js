@@ -46,20 +46,26 @@ function init() {
   /////(SHAWN WROTE THE FAKE X + Y SECTION) ////////
 
   // // play button
-  var playButton = document.getElementById('play-button');
+  let playButton = document.getElementById('play-button');
+  let pauseButton = document.getElementById('pause-button');
   playButton.addEventListener('click', () => {
     moveFakePick();
     //playPixelsLoop();
   });
 
+  pauseButton.addEventListener('click', () => {
+    stopMoveFakePick();
+  })
+
+
   //playButton.addEventListener('click', moveFakePick);
 
-  let fakeX = canvas.width/36;
-  let fakeY = canvas.height/32;
+  let fakeX = canvas.width / 36;
+  let fakeY = canvas.height / 32;
   let binSizeX = canvas.width / 11.85;
-  let binSizeY = canvas.height/ 12.125;
-  let originFakeX = canvas.width/36;
-  let originFakeY = canvas.width/36;
+  let binSizeY = canvas.height / 12.125;
+  let originFakeX = canvas.width / 36;
+  let originFakeY = canvas.width / 36;
 
 
   function moveFakePick() {
@@ -91,6 +97,10 @@ function init() {
     }, 500); // every 1 sec move the x position by 100
   }
 
+  function stopMoveFakePick() {
+    clearInterval(moveFakePick);
+  }
+
   // console.log("fakeX, fakeY :" + fakeX + ','+ fakeY);
 
   ///// FAKE PICK //////
@@ -101,7 +111,7 @@ function init() {
       let color = document.getElementById("thecolor");
       let colorText = document.getElementById("colortext");
       let hslText = document.getElementById("hsltext");
-      let frequencyText = document.getElementById("frequencytext");
+
 
       let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
       let data = pixel.data;
@@ -137,7 +147,7 @@ function init() {
 
     context.fillStyle = "#D8D8D8";
     context.beginPath();
-    context.arc(x+r, y+r, 12, 0, 2 * Math.PI);
+    context.arc(x + r, y + r, 12, 0, 2 * Math.PI);
     context.fill();
   }
 
@@ -147,7 +157,6 @@ function init() {
 
   ///////* DRAW FUNCTION *//////
   function draw() {
-
 
     console.log("It should be drawing!");
 
@@ -350,7 +359,11 @@ function init() {
     //convert wavelength (nm) to frequency (THz)
     findFrequency(wavelength);
 
-    return ("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "frequency: " + findFrequency(wavelength));
+    let colorFrequency = findFrequency(wavelength);
+    let soundFrequency = findFreqPitch(colorFrequency);
+    
+
+    return ("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "color frequency: " + colorFrequency + " THz" + ", " + "sound frequency: " + soundFrequency + " Hz");
 
     // return(wavelength);
   }
@@ -385,10 +398,16 @@ let highPitchFreq = 3000;
 ///// * PLAY COLOR FREQ */////////
 function playFreq(frequency) {
   let freqPitch = Math.floor(mapRange(frequency, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq));
-  //console.log("freq pitch: " + freqPitch);
+  console.log("freq pitch: " + freqPitch);
   startOsc(freqPitch);
+  return freqPitch
 }
 
+function findFreqPitch(frequency) {
+  let freqPitch = Math.floor(mapRange(frequency, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq));
+  console.log("freq pitch: " + freqPitch);
+  return freqPitch
+}
 
 //////////* SOUND MUST HAVES */////////////
 // create web audio api context
