@@ -1,5 +1,7 @@
 window.addEventListener('load', init)
 
+
+
 function init() {
   // The video element on the page to display the webcam
   var video = document.getElementById('thevideo');
@@ -11,8 +13,6 @@ function init() {
 
   context.canvas.width = window.innerWidth;
   context.canvas.height = window.innerHeight;
-  //console.log("canvasWidth: " + context.canvas.width);
-  //console.log("canvasHeight: " + context.canvas.height);
 
 
   ///////// VIDEO SECTION /////////
@@ -51,24 +51,16 @@ function init() {
   playButton.addEventListener('click', () => {
     moveFakePick();
     console.log('play!')
+    pauseButton.style.visibility = "visible";
+    playButton.style.visibility = "hidden";
   });
 
   pauseButton.addEventListener('click', () => {
     stopMoveFakePick();
     console.log('pause!')
+    pauseButton.style.visibility = "hidden";
+    playButton.style.visibility = "visible";
   })
-
-  // function startPlay() {
-  //   isPlaying = true;
-  //   moveFakePick();
-  // }
-
-  // function stopPlay() {
-  //   isPlaying = false;
-  //   stopMoveFakePick();
-  // }
-
-  //playButton.addEventListener('click', moveFakePick);
 
   let fakeX = canvas.width / 36;
   let fakeY = canvas.height / 32;
@@ -80,11 +72,13 @@ function init() {
   let playing = false;
 
 
+  ///////////// PLAY /////////////
   function moveFakePick() {
     isPlaying = true;
-    playing = setInterval(animateFakePick, 100); // every 1 sec move the x position by 100
+    playing = setInterval(animateFakePick, 500); // every 1 sec move the x position by 100
   }
 
+  //////////// PAUSE ///////////
   function stopMoveFakePick() {
     isPlaying = false;
     clearInterval(playing);
@@ -124,9 +118,10 @@ function init() {
     if (!currentlyPicking) {
       currentlyPicking = true;
       //get color info
-      let color = document.getElementById("thecolor");
-      let colorText = document.getElementById("colortext");
-      let hslText = document.getElementById("hsltext");
+      //let color = document.getElementById("thecolor");
+      //let colorText = document.getElementById("colortext");
+      let infoText = document.getElementById("infotext");
+      let colorCircle = document.getElementById('colorcircle');
 
       let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
       let data = pixel.data;
@@ -142,9 +137,10 @@ function init() {
       RGBToHSL(r, g, b);
 
       //change dom elements
-      color.style.background = rgb;
-      colorText.innerHTML = rgb;
-      hslText.innerHTML = RGBToHSL(r, g, b);
+      // color.style.background = rgb;
+      //colorText.innerHTML = rgb;
+      infoText.innerHTML = RGBToHSL(r, g, b);
+      colorCircle.style.background = rgb;
 
       // console.log("wavelength text: " + hslText.innerHTML);
       setTimeout(function () { currentlyPicking = false; }, 100);
@@ -169,14 +165,8 @@ function init() {
   ///////// OG PICK FUNCTION: MOVES THROUGH CANVAS /////////
   var currentlyPicking = false;
 
-  ///////* DRAW FUNCTION *//////
+  //////////* DRAW FUNCTION *//////////////
   function draw() {
-
-    //console.log("It should be drawing!");
-
-    // // Draw the video onto the canvas
-    // context.drawImage(video, 0, 0, video.width, video.height);
-
     var dataUrl = thecanvas.toDataURL();
     //console.log(dataUrl);
 
@@ -199,8 +189,8 @@ function init() {
         canvas.height = video.videoHeight;
       }, 1000);
     };
-
   };
+
 
   /////////* UPDATE CANVAS AND PIXEL EFFECT *////////////
 
@@ -239,6 +229,8 @@ function init() {
       }, 1000);
     };
   }
+
+
 
   ////* PIXELATE VID *//////
   // Source: http://blog.acipo.com/js-canvas-pixelate/
@@ -375,8 +367,9 @@ function init() {
     let colorFrequency = findFrequency(wavelength);
     let soundFrequency = findFreqPitch(colorFrequency);
 
+    console.log("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  ");
 
-    return ("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "color frequency: " + colorFrequency + " THz" + ", " + "sound frequency: " + soundFrequency + " Hz");
+    return ("color frequency: " + colorFrequency + " THz" + ", " + "sound frequency: " + soundFrequency + " Hz");
 
     // return(wavelength);
   }
@@ -453,50 +446,3 @@ function startOsc(frequency) {
 
   oscillator.stop(audioCtx.currentTime + 0.1);
 }
-
-
-
-///////**////// MOUSE MOVE FUNCTION///////////
-  ///////* PICK COLOR FROM CANVAS *//////
-  // function pick(e) {
-  //   if (!currentlyPicking) {
-  //     currentlyPicking = true;
-  //     //get color info
-  //     let color = document.getElementById("thecolor");
-  //     let colorText = document.getElementById("colortext");
-  //     let hslText = document.getElementById("hsltext");
-  //     //let frequencyText = document.getElementById("frequencytext");
-
-  //     let x = e.clientX; //mouse x pos
-  //     let y = e.clientY; //mouse y pos
-
-  //     console.log('mousex pos: ' + x);
-  //     console.log('mousey pos: ' + y);
-
-  //     let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
-  //     let data = pixel.data;
-
-  //     console.log('data: ' + data);
-  //     let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
-
-  //     let r = data[0];
-  //     let g = data[1];
-  //     let b = data[2];
-
-  //     console.log("r: " + r + " g: " + g + " b: " + b);
-
-  //     //find hsl from rgb
-  //     RGBToHSL(r, g, b);
-
-  //     //change dom elements
-  //     color.style.background = rgb;
-  //     colorText.innerHTML = rgb;
-  //     hslText.innerHTML = RGBToHSL(r, g, b);
-
-  //     // console.log("wavelength text: " + hslText.innerHTML);
-  //     setTimeout(function () { currentlyPicking = false; }, 100);
-  //   }
-  // }
-
-  // // show color with pick function
-  // canvas.addEventListener('mousemove', pick);
