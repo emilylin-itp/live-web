@@ -1,0 +1,39 @@
+html, body {
+    width:  100%;
+    height: 100%;
+    margin: 0;
+  }
+
+#thecanvas{
+    /* position: absolute; */
+    display: block;
+    /* width: 100%;
+    height: 100%; */
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#thevideo{
+    display: block;
+    /* bottom: -400px;
+    z-index: 2; */
+}
+
+#trianglediv{
+    display: block;
+    z-index: 3;
+    bottom: -400px;
+    right:0;
+    width: 20%;
+    height: 20%;
+}
+
+#thecolor{
+    z-index: 4;
+    display:block;
+    left: 0;
+    width: 640px;
+    height: 50px;
+
+}
