@@ -11,8 +11,8 @@ function init() {
 
   context.canvas.width = window.innerWidth;
   context.canvas.height = window.innerHeight;
-  console.log("canvasWidth: " + context.canvas.width);
-  console.log("canvasHeight: " + context.canvas.height);
+  //console.log("canvasWidth: " + context.canvas.width);
+  //console.log("canvasHeight: " + context.canvas.height);
 
 
   ///////// VIDEO SECTION /////////
@@ -50,13 +50,23 @@ function init() {
   let pauseButton = document.getElementById('pause-button');
   playButton.addEventListener('click', () => {
     moveFakePick();
-    //playPixelsLoop();
+    console.log('play!')
   });
 
   pauseButton.addEventListener('click', () => {
     stopMoveFakePick();
+    console.log('pause!')
   })
 
+  // function startPlay() {
+  //   isPlaying = true;
+  //   moveFakePick();
+  // }
+
+  // function stopPlay() {
+  //   isPlaying = false;
+  //   stopMoveFakePick();
+  // }
 
   //playButton.addEventListener('click', moveFakePick);
 
@@ -67,43 +77,49 @@ function init() {
   let originFakeX = canvas.width / 36;
   let originFakeY = canvas.width / 36;
 
+  let playing = false;
+
 
   function moveFakePick() {
-    setInterval(function () {
-
-      fakeX = fakeX + binSizeX;
-      fakeY;
-
-      //if fake x is at edge of canvas move fake y down one row
-      // then move fake y across the opposite way
-      if (fakeX >= canvas.width) {
-        fakeY = fakeY + binSizeY;
-        fakeX = originFakeX;
-      }
-
-      //if fake Y is at canvas bottom, move to origin
-      if (fakeY >= canvas.height) {
-        fakeY = originFakeY;
-        fakeX = fakeX + binSizeX;
-      }
-
-      // console.log('originFakeX: ' + originFakeX);
-      // console.log('binSize: ' + binSize);
-      // console.log('fakeX: ' + fakeX);
-
-      // drawRect(fakeX, fakeY, binSize); //moved drawRect function to loop section
-      //function to change which pixel is picked
-      fakePick(fakeX, fakeY);
-    }, 500); // every 1 sec move the x position by 100
+    isPlaying = true;
+    playing = setInterval(animateFakePick, 100); // every 1 sec move the x position by 100
   }
 
   function stopMoveFakePick() {
-    clearInterval(moveFakePick);
+    isPlaying = false;
+    clearInterval(playing);
+  }
+
+  /////////ANIMATE FAKE PICK ////////
+  function animateFakePick() {
+    fakeX = fakeX + binSizeX;
+    fakeY;
+
+    //if fake x is at edge of canvas move fake y down one row
+    // then move fake y across the opposite way
+    if (fakeX >= canvas.width) {
+      fakeY = fakeY + binSizeY;
+      fakeX = originFakeX;
+    }
+
+    //if fake Y is at canvas bottom, move to origin
+    if (fakeY >= canvas.height) {
+      fakeY = originFakeY;
+      fakeX = fakeX + binSizeX;
+    }
+
+    // console.log('originFakeX: ' + originFakeX);
+    // console.log('binSize: ' + binSize);
+    // console.log('fakeX: ' + fakeX);
+
+    // drawRect(fakeX, fakeY, binSize); //moved drawRect function to loop section
+    //function to change which pixel is picked
+    fakePick(fakeX, fakeY);
   }
 
   // console.log("fakeX, fakeY :" + fakeX + ','+ fakeY);
 
-  ///// FAKE PICK //////
+  //////////////// FAKE PICK ///////////////
   function fakePick(x, y) {
     if (!currentlyPicking) {
       currentlyPicking = true;
@@ -111,7 +127,6 @@ function init() {
       let color = document.getElementById("thecolor");
       let colorText = document.getElementById("colortext");
       let hslText = document.getElementById("hsltext");
-
 
       let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
       let data = pixel.data;
@@ -121,7 +136,7 @@ function init() {
       let g = data[1];
       let b = data[2];
 
-      console.log("r: " + r + " g: " + g + " b: " + b);
+      //console.log("r: " + r + " g: " + g + " b: " + b);
 
       //find hsl from rgb
       RGBToHSL(r, g, b);
@@ -136,12 +151,11 @@ function init() {
     }
   }
 
-  ///////////// DRAW RECT ///////////
+  //////////////// DRAW SHAPE SECTION ///////////////
   // function drawRect(x, y) {
   //   context.fillRect(x, y, 10, 10);
   // }
 
-  //////////// DRAW ELLIPSE /////////
   function drawEllipse(x, y) {
     let r = 12;
 
@@ -158,7 +172,7 @@ function init() {
   ///////* DRAW FUNCTION *//////
   function draw() {
 
-    console.log("It should be drawing!");
+    //console.log("It should be drawing!");
 
     // // Draw the video onto the canvas
     // context.drawImage(video, 0, 0, video.width, video.height);
@@ -189,6 +203,7 @@ function init() {
   };
 
   /////////* UPDATE CANVAS AND PIXEL EFFECT *////////////
+
   //update canvas + pixel effect called here
   function updateCanvas() {
     let video = document.getElementById('thevideo');
@@ -224,8 +239,6 @@ function init() {
       }, 1000);
     };
   }
-
-
 
   ////* PIXELATE VID *//////
   // Source: http://blog.acipo.com/js-canvas-pixelate/
@@ -361,7 +374,7 @@ function init() {
 
     let colorFrequency = findFrequency(wavelength);
     let soundFrequency = findFreqPitch(colorFrequency);
-    
+
 
     return ("hsl(" + h + "," + s + "%," + l + "%)" + "; " + "wavelength: " + wavelength + ";  " + "color frequency: " + colorFrequency + " THz" + ", " + "sound frequency: " + soundFrequency + " Hz");
 
@@ -392,20 +405,20 @@ function mapRange(colorFrequency, low1, high1, low2, high2) {
 //set up color + pitch frequency
 let lowColFreq = 400;
 let highColFreq = 789;
-let lowPitchFreq = 20;
-let highPitchFreq = 3000;
+let lowPitchFreq = 0;
+let highPitchFreq = 2000;
 
 ///// * PLAY COLOR FREQ */////////
 function playFreq(frequency) {
   let freqPitch = Math.floor(mapRange(frequency, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq));
-  console.log("freq pitch: " + freqPitch);
+  //console.log("freq pitch: " + freqPitch);
   startOsc(freqPitch);
   return freqPitch
 }
 
 function findFreqPitch(frequency) {
   let freqPitch = Math.floor(mapRange(frequency, lowColFreq, highColFreq, lowPitchFreq, highPitchFreq));
-  console.log("freq pitch: " + freqPitch);
+  //console.log("freq pitch: " + freqPitch);
   return freqPitch
 }
 
@@ -426,7 +439,7 @@ function startOsc(frequency) {
   oscillator.frequency.value = frequency; //frequency val to be passed in on event click
   // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
 
-  console.log("sound frequency: " + frequency);
+  //console.log("sound frequency: " + frequency);
 
   oscillator.start(audioCtx.currentTime);
 
