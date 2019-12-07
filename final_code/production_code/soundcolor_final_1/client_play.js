@@ -40,37 +40,37 @@ function init() {
     });
 
 
-  ///////// TOGGLE x mark in bottom container ///////////
-  let bottomX = document.getElementById('bottom-div-x');
-  bottomX.addEventListener('click', () => {
-    toggleBottom();
-    console.log('x clicked!');
-  });
+    ///////// TOGGLE x mark in bottom container ///////////
+    let bottomX = document.getElementById('bottom-div-x');
+    bottomX.addEventListener('click', () => {
+        toggleBottom();
+        console.log('x clicked!');
+    });
 
-  ///////////////////* TOGGLE BOTTOM BAR *//////////////////
-  // toggle the bottom palette bar
-  function toggleBottom() {
+///////////////////* TOGGLE BOTTOM BAR *//////////////////
+// toggle the bottom palette bar
+function toggleBottom() {
 
-    let bottomContainer = document.getElementById('bottom-container');
-    let bottomX = document.getElementById('bottom-x');
-    let instructionText = document.getElementById('bottom-instruction-text');
-    let paletteContainer = document.getElementById('bottom-palette-container');
-    let bottomPlus = document.getElementById('bottom-plus');
+  let bottomContainer = document.getElementById('bottom-div');
+  let bottomX = document.getElementById('bottom-x');
+  let bottomPlus = document.getElementById('bottom-plus');
 
-    if (bottomX.style.visibility === 'hidden') {
+  if (bottomX.style.visibility === 'hidden') {
       bottomX.style.visibility = 'visible';
       bottomContainer.style.bottom = '0vh';
       bottomContainer.style.height = '18vh';
       bottomPlus.style.visibility = 'hidden';
       console.log('show x and color palette');
-    } else {
+  } else {
       bottomX.style.visibility = 'hidden';
       bottomContainer.style.bottom = '0vh';
       bottomContainer.style.height = '10vh';
       bottomPlus.style.visibility = 'visible';
       console.log('hide x and color palette')
-    }
-  };
+  }
+};
+
+
 
 
   /////////////////// DRAW LOOP /////////////////////
@@ -80,9 +80,6 @@ function init() {
   // // play button
   let playButtonDiv = document.getElementById('bottom-button-play-div');
   let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
-
-  let playButton = document.getElementById('play-button');
-  let pauseButton = document.getElementById('pause-button');
 
   playButtonDiv.addEventListener('click', () => {
     moveFakePick();
@@ -119,7 +116,6 @@ function init() {
     isPlaying = false;
     clearInterval(playing);
   }
-
 
   ///////////VARIABLES FOR ANIMATE FAKE PICK///////////////
   let fakeX = canvas.width / 36;
@@ -182,10 +178,8 @@ function init() {
       RGBToHSL(r, g, b);
 
       //change dom elements
-      // color.style.background = rgb;
-      //colorText.innerHTML = rgb;
-      infoText.innerHTML = RGBToHSL(r, g, b);
-      colorCircle.style.background = rgb;
+      infoText.innerHTML = RGBToHSL(r, g, b); //change frequency text
+      colorCircle.style.background = rgb; //change color circle
 
       // console.log("wavelength text: " + hslText.innerHTML);
       setTimeout(function () { currentlyPicking = false; }, 100);

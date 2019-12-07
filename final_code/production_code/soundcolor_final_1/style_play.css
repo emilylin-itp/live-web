@@ -19,7 +19,7 @@
 /* EVERGREEN STYLE */
 html {
     box-sizing: border-box;
-    /* overflow: hidden; */
+    overflow: hidden;
   }
 
 #navbar{
@@ -54,6 +54,7 @@ html {
     line-height: 2.75vw;
     letter-spacing: 0.052vw;
     padding-top: 1.25vh;
+    color: black;
 }
 
 
@@ -91,20 +92,8 @@ html, body {
     height: 10%;
 }
 
-#colorcircle{
-    width: 5vw;
-    height: 5vw;
-    -webkit-border-radius: 10vw;
-    -moz-border-radius: 10vw;
-    border-radius: 10vw;
-    background: black;
-    margin: 2%;
-}
-
-
-
 /* ///////////// BOTTOM CONTAINER ////////////*/
-#bottom-container{
+#bottom-div{
     position: absolute;
     bottom: 0;
     width: 120vw;
@@ -115,24 +104,31 @@ html, body {
     z-index: 6;
     cursor: pointer;
     filter: drop-shadow(0px 0px 10px #434343);
+    margin: none !important;
+    padding: 2% !important;
     /* border: 1px solid red; */
 }
 
-#bottom-div{
-    /* padding: 2vh 2vw; */
-    border: 1px red solid;
+.bottom-choices{
+    /* border: 1px red solid; */
+    display: inline-block;
+    height: 8vh; 
+    margin: none!important;
+    font-size: 2.5vw;
+    letter-spacing: 0.25pt;
+    margin: 1vw;
+    top: 0vh;
+    /* position:fixed;*/
 }
 
-.bottom-buttons{
-    top: 0;
-    left: 3vw;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-}
+/* .divider-line{
+    width: 0.55vw;
+    margin: 0 0 0 15%;
+} */
 
+/* PLAY + PAUSE BUTTON */
 #bottom-button-play-div{
     z-index: 3;
-    border: 1px red solid;
     position: relative;
     display: inline-block;
     visibility: visible;
@@ -140,10 +136,10 @@ html, body {
 
 #play-button{
     display: inline-block;
-    width: 5vw;
-    padding-left: 1vw;
-    padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
+    width: 4.2vw;
+    /* padding-left: 1vw; */
+    /* padding-top: 2.5vh;
+    padding-bottom: 2.5vh; */
 }
 
 #play-button img{
@@ -152,66 +148,74 @@ html, body {
 
 #bottom-button-pause-div{
     z-index: 7;
-    border: 1px red solid;
     position: relative;
     display: none;
 }
 
 #pause-button{
     z-index: 10;
-    width: 5vw;
-    padding-left: 1vw;
+    width: 4vw;
+    /* padding-left: 1vw;
     padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
+    padding-bottom: 2.5vh; */
 }
 
 
+/* MODE CHOICEs*/
 
-#bottom-choices{
-    border: 1px red solid;
+#bottom-mode-selection{
+    display: inline-block;
     position: relative;
-    display: inline-block;
-}
-
-#bottom-instruction{
-    /* border: 1px red solid; */
-    display: inline-block;
-    position: absolute;
-    width: 30vw;
-    left: 5vw;
-    /* padding-top: 1.5vh; */
-    /* border: 1px solid red; */
+    /* border-right: 0.3em solid #d8d8d8; */
 }
 
 .bottom-text-info{
     font-family: 'Platform-Bold';
     color: #D5D5D5;
-    padding-top: 3vh;
+    /* padding-top: 3vh; */
     font-size: 2.5vw;
-    line-height: 3vw;
     letter-spacing: 0.25pt;
-    padding-bottom: 3vh;
+    text-align: center;
 }
 
+/* COLOR CIRCLE */
+#bottom-color-info{
+    display: inline-block;
+    position: relative;
+    /* border-right: 0.3em solid #d8d8d8; */
+    /* border: red solid 1px; */
+    padding-top: 1.35vh;
+}
+
+#colorcircle{
+    width: 5vw;
+    height: 5vw;
+    -webkit-border-radius: 5vw;
+    -moz-border-radius: 5w;
+    border-radius: 5vw;
+    background:#d8d8d8;
+}
+
+
+
+/* X CLOSE BOTTOM */
 #bottom-div-x{
     /* margin-top: 1.5vh; */
     /* border: 1px red solid; */
     position: absolute;
-    width: 8vw;   
-    right: 20vw;
-    /* height: 12vh;  */
+    width: 10vw;   
+    right: 0vw;
+    height: 15vh; 
     float:right;
     z-index: 5;
-    top: 0vh;
-    /* border: 1px solid red; */
+    /* top: 0vh; */
 }
 
 #bottom-x{
     position:absolute;
-    padding-top: 3.5vh;
-    width: 2.25vw;
+    top: 1.25vh;
+    width: 3vw;
     visibility: visible;
-    /* border: 1px solid red; */
 }
 
 #bottom-x:hover{
@@ -220,108 +224,12 @@ html, body {
 
 #bottom-plus{
     position:absolute;
-    top: 2.5vh;
+    top: 0.125vh;
     right: 4vw;
-    width: 3vw;
+    width: 4vw;
     visibility: hidden;
 }
 
 #bottom-plus:hover{
     opacity: 0.375;
-}
-
-#bottom-instruction-text{
-    font-family: 'Platform-Bold';
-    color: #D5D5D5;
-    padding-top: 3vh;
-    font-size: 2.5vw;
-    line-height: 3vw;
-    letter-spacing: 0.25pt;
-    padding-bottom: 3vh;
-}
-
-#bottom-palette-container{
-    /* border: 1px red solid; */
-    position: relative;
-    float: right;
-    vertical-align:top;
-}
-
-#bottom-panel{
-    margin-top: 2vh;
-    /* border: 1px red solid; */
-    position: absolute;
-    width: 60vw;  
-    right: 32vw;
-    z-index: 6;
-    visibility: visible;
-}
-
-#bottom-palette-div{
-    margin-top: 1vh;
-}
-
-#draw-canvas{
-    cursor: pointer;
-    position: absolute;
-    width: 105vw;
-    top: 0;
-    background-color: none; 
-    z-index: 1;
-}
-
-.palette-div{
-    margin-top: 1vh;
-    width: 6vw;
-    height: 8.75vh;
-    top: 70vh;
-    z-index: 4;
-    cursor: pointer;
-    display: inline-block;
-    padding:none;
-    float:left;
-    /* border: 1px solid red; */
-     /* left: 0.5vw; */
-}
-
-#red-play-div{
-    background-color: #FD4F4F;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#orange-play-div{
-    background-color: #FF9D41;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#yellow-play-div{
-    background-color: #FBE11F;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#green-play-div{
-    background-color: #B6E836;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#cyan-play-div{
-    background-color: #1EDFBE;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#blue-play-div{
-    background-color: #29ACFF;
-    /* width: 7vw;
-    height: 7vw; */
-}
-
-#purple-play-div{
-    background-color: #685CFF;
-    /* width: 7vw;
-    height: 7vw; */
 }

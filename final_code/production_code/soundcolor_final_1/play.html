@@ -52,16 +52,9 @@
     <div id='thecolor'>
         <p id='colortext' style='font-size: 8pt; float: right; padding: 15px;'></p>
         <p id='infotext' style='font-size: 8pt; float: right; padding: 15px;'>Color and Sound info goes here</p>
-        <div id="colorcircle"></div>
+
     </div>
 
-    <!--TRIANGLE-->
-    <div id='trianglediv'>
-        <img src="/assets/play_button.png" id='play-button' alt="play button"
-            style='width: 50px; height: auto; padding: 5%'>
-        <img src="/assets/pause_button.png" id='pause-button' alt="pause button"
-            style='width: 50px; height: auto; padding: 5%'>
-    </div>
 
     <!--OG VIDEO-->
     <video id="thevideo"></video>
@@ -71,17 +64,32 @@
         <div id='bottom-div' class='col-12'>
 
             <!--BOTTOM BUTTON PLAY-->
-            <div id='bottom-button-play-div' class='col-1 bottom-buttons'>
+            <div id='bottom-button-play-div' class='col-1 bottom-choices'>
                 <img src="/assets/play_button.png" alt="play button" id='play-button'>
+                <!-- <img src="/assets/divider_line.svg" alt="divider line" class = 'divider-line'> -->
             </div>
 
             <!--BOTTOM BUTTON PAUSE-->
-            <div id='bottom-button-pause-div' class='col-1 bottom-buttons'>
+            <div id='bottom-button-pause-div' class='col-1 bottom-choices'>
                 <img src="/assets/pause_button.png" alt="play button" id='pause-button'>
             </div>
 
+            <!--MODE SELECTION-->
+            <div id='bottom-mode-selection' class='col-3 bottom-choices'>
+                <p class='bottom-text-info'>Play</p>
+            </div>
 
-            <div id='bottom-choices' class='col-3'>
+            <!--COLOR INFO-->
+            <div id='bottom-color-info' class='col-1'>
+                <div id="colorcircle"></div>
+            </div>
+
+
+            <div id='bottom-choices' class='col-2 bottom-choices'>
+                <p class='bottom-text-info'>Play</p>
+            </div>
+
+            <div id='bottom-choices' class='col-2 bottom-choices'>
                 <p class='bottom-text-info'>Play</p>
             </div>
 
