@@ -76,57 +76,42 @@ function init() {
   /////////////////// DRAW LOOP /////////////////////
 
   ///////////////// FAKE PICK //////////////////////
-  /////(SHAWN WROTE THE FAKE X + Y SECTION) ////////
 
   // // play button
-  let playButton = document.getElementById('bottom-button-play-div');
-  let pauseButton = document.getElementById('bottom-button-pause-div');
+  let playButtonDiv = document.getElementById('bottom-button-play-div');
+  let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
 
-  let playIcon = document.getElementById('play-button');
-  let pauseIcon = document.getElementById('pause-button');
+  let playButton = document.getElementById('play-button');
+  let pauseButton = document.getElementById('pause-button');
 
-  playButton.addEventListener('click', () => {
+  playButtonDiv.addEventListener('click', () => {
     moveFakePick();
     console.log('play!')
-    pauseButton.style.visibility = "visible"; //div visible
-    playButton.style.visibility = "hidden";//div hidden
-    playIcon.style.visibility = 'hidden'; //play icon hidden
-    pauseIcon.style.visibility = 'visible'; //pause icon hidden
+    playButtonDiv.style.display = "none";
+    pauseButtonDiv.style.display = "inline-block";
   });
 
-  pauseButton.addEventListener('click', () => {
+  pauseButtonDiv.addEventListener('click', () => {
     stopMoveFakePick();
-    console.log('pause!')
-    pauseButton.style.visibility = "hidden";
-    playButton.style.visibility = "visible";
-    playIcon.style.visibility = 'hidden';
-    pauseIcon.style.visibility = 'visible';
+    console.log('pause!');
+
+    playButtonDiv.style.display = "inline-block";
+    //playButton.getElementsByTagName('img').style.visibility = 'visible';
+
+    pauseButtonDiv.style.display = 'none'; //pause icon hidden
+   // pauseButton.getElementsByTagName('img').style.visibility = 'hidden';
   })
 
-  let fakeX = canvas.width / 36;
-  let fakeY = canvas.height / 32;
-  let binSizeX = canvas.width / 11.85;
-  let binSizeY = canvas.height / 12.125;
-  let originFakeX = canvas.width / 36;
-  let originFakeY = canvas.width / 36;
+
+  ///////////// PLAY /////////////
 
   let playing = false;
 
-  //////////// CHANGE ICON //////////
-  // function changeIcon() {
-
-  //   if (document.getElementById("imgClickAndChange").src == "/assets/play_button.png") {
-  //     document.getElementById("imgClickAndChange").src = "http://www.userinterfaceicons.com/80x80/maximize.png";
-  //   }
-  //   else {
-  //     document.getElementById("imgClickAndChange").src = "http://www.userinterfaceicons.com/80x80/minimize.png";
-  //   }
-  // }
-
-  ///////////// PLAY /////////////
   function moveFakePick() {
     isPlaying = true;
     playing = setInterval(animateFakePick, 100); // every 1 sec move the x position by 100
+    playButtonDiv.style.block = "none";
+    pauseButtonDiv.style.visibility = 'inline-block'; //pause icon hidden
   }
 
   //////////// PAUSE ///////////
@@ -134,6 +119,15 @@ function init() {
     isPlaying = false;
     clearInterval(playing);
   }
+
+
+  ///////////VARIABLES FOR ANIMATE FAKE PICK///////////////
+  let fakeX = canvas.width / 36;
+  let fakeY = canvas.height / 32;
+  let binSizeX = canvas.width / 11.85;
+  let binSizeY = canvas.height / 12.125;
+  let originFakeX = canvas.width / 36;
+  let originFakeY = canvas.width / 36;
 
   /////////ANIMATE FAKE PICK ////////
   function animateFakePick() {

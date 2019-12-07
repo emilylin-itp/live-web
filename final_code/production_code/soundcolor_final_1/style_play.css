@@ -19,12 +19,8 @@
 /* EVERGREEN STYLE */
 html {
     box-sizing: border-box;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
-  
-body{
-    overflow: hidden;
-}
 
 #navbar{
     margin: 4vh 3vw;
@@ -87,19 +83,6 @@ html, body {
     visibility: hidden;
 }
 
-#play-button{
-    z-index: 3;
-    bottom: -400px;
-    right:0;
-    width: 20%;
-    height: 20%;
-    visibility: visible;
-}
-
-#pause-button{
-    visibility: hidden;
-}
-
 #thecolor{
     z-index: 4;
     display:block;
@@ -140,35 +123,38 @@ html, body {
     border: 1px red solid;
 }
 
+.bottom-buttons{
+    top: 0;
+    left: 3vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+
 #bottom-button-play-div{
     z-index: 3;
     border: 1px red solid;
     position: relative;
     display: inline-block;
     visibility: visible;
-    top: 0;
-    left: 3vw;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
 }
 
 #play-button{
+    display: inline-block;
     width: 5vw;
     padding-left: 1vw;
     padding-top: 2.5vh;
     padding-bottom: 2.5vh;
 }
 
+#play-button img{
+    visibility: visible;
+}
+
 #bottom-button-pause-div{
     z-index: 7;
     border: 1px red solid;
     position: relative;
-    display: inline-block;
-    visibility: hidden;
-    top: 0;
-    left: 3vw;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
+    display: none;
 }
 
 #pause-button{
@@ -178,6 +164,7 @@ html, body {
     padding-top: 2.5vh;
     padding-bottom: 2.5vh;
 }
+
 
 
 #bottom-choices{
