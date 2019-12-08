@@ -435,6 +435,7 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
 }
 
 
+
 ///////////////////* TOGGLE BOTTOM BAR *//////////////////
 // toggle the bottom palette bar
 function toggleBottom() {
@@ -447,22 +448,21 @@ function toggleBottom() {
 
     if (bottomX.style.visibility === 'hidden') {
         bottomX.style.visibility = 'visible';
-        bottomContainer.style.bottom = '0vh';
-        bottomContainer.style.height = '18vh';
+        bottomContainer.style.bottom = '-64vh';
         instructionText.innerHTML = '1. Select color <br/> 2. Click above to draw.';
         paletteContainer.style.visibility = 'visible';
         bottomPlus.style.visibility = 'hidden';
         console.log('show x and color palette');
     } else {
         bottomX.style.visibility = 'hidden';
-        bottomContainer.style.bottom = '0vh';
-        bottomContainer.style.height = '10vh';
+        bottomContainer.style.bottom = '-72vh';
         instructionText.innerHTML = 'Choose Colors';
         paletteContainer.style.visibility = 'hidden';
         bottomPlus.style.visibility = 'visible';
         console.log('hide x and color palette')
     }
 };
+
 
 
 ///////////////////////////  SOUND SECTION  ////////////////////////////
