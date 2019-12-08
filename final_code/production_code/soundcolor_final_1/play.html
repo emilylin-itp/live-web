@@ -31,7 +31,7 @@
 
         <!--NAV TITLE-->
         <div id='nav-title' class="col-6">
-            <h2 id='nav-h2'>Color Frequency</h2>
+            <h2 id='nav-h2'>Play Your Environment</h2>
         </div>
 
         <!--NAV LEARN-->
@@ -47,11 +47,6 @@
 
     <!--VIDEO-->
     <canvas id="thecanvas"></canvas>
-
-    <!--COLOR PICKER DIV-->
-    <div id='thecolor'>
-        <p id='colortext' style='font-size: 8pt; float: right; padding: 15px;'></p>
-        <p id='infotext' style='font-size: 8pt; float: right; padding: 15px;'>Color and Sound info goes here</p>
 
     </div>
 
@@ -76,23 +71,27 @@
 
             <!--MODE SELECTION-->
             <div id='bottom-mode-selection' class='col-3 bottom-choices'>
-                <p class='bottom-text-info'>Play</p>
+                <p class='bottom-text-info'>Playback</p>
             </div>
 
-            <!--COLOR INFO-->
+            <!--COLOR CIRCLE-->
             <div id='bottom-color-info' class='col-1'>
                 <div id="colorcircle"></div>
             </div>
 
-
-            <div id='bottom-choices' class='col-3 bottom-choices'>
-                <p class='bottom-text-info'>Play</p>
+            <!--COLOR FREQUENCY INFO-->
+            <div id='bottom-color-frequency-div' class='col-3 bottom-choices'>
+                <p id='color-frequency-info' class='bottom-text-info'>Color Frequency<br><span
+                        id='color-frequency-number'></span> THz</p>
             </div>
 
-            <div id='bottom-choices' class='col-3 bottom-choices'>
-                <p class='bottom-text-info'>Play</p>
+            <!--SOUND FREQUENCY INFO-->
+            <div id='bottom-sound-frequency-div' class='col-3 bottom-choices'>
+                <p id='sound-frequency-info' class='bottom-text-info'>Sound Frequency</br><span
+                        id='sound-frequency-number'></span> Hz</p>
             </div>
-<!-- 
+
+            <!-- 
             <div id='bottom-div-x' class='col-1'>
                 <img src="assets/gray_x.png" id='bottom-x' alt="x">
                 <img src="assets/gray_plus.png" id='bottom-plus' alt="plus">
