@@ -118,9 +118,14 @@ html, body {
     letter-spacing: 0.25pt;
     margin: 1vw;
     top: 0vh;
-    padding-bottom: 1%;
+    padding-bottom: 2vh;
+    margin-top: 2vh;
     /* padding-top: 1%; */
     /* position:fixed;*/
+}
+
+#bottom-mode-selection{
+    padding-top: 1vh;
 }
 
 /* .divider-line{
@@ -168,9 +173,10 @@ html, body {
 #bottom-mode-selection{
     display: inline-block;
     position: relative;
-    padding-top: 0.75vh;
+    /* padding-top: 0.75vh; */
     height: 8vh;
-    border-bottom: 0.2em solid #d8d8d8;
+    top: 0vh;
+    /* border-bottom: 0.2em solid #d8d8d8; */
 }
 
 .bottom-text-info{
@@ -180,6 +186,7 @@ html, body {
     line-height: 1em;
     letter-spacing: 0.25pt;
     text-align: center;
+    background-color: none;
 }
 
 /* COLOR CIRCLE */
@@ -242,3 +249,53 @@ html, body {
 #bottom-plus:hover{
     opacity: 0.375;
 } */
+
+
+/* DROP DOWN */
+button{
+    background-color: none;
+    color:#FFF;
+    border: none;
+}
+
+
+.dropbtn {
+    background-color: none;
+    color: white;
+    padding: 3.5vh;
+    /* font-size: 16px; */
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 20vw;
+    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+    z-index: 1;
+    border-bottom: 0.5vw solid #d8d8d8;
+    bottom: 100%; /* added this attribute */
+  }
+  
+  .dropdown-content a {
+    font-family: 'Platform-Bold';
+    font-size: 0.9em;
+    line-height: 1em;
+    letter-spacing: 0.25pt;
+    color:#d8d8d8;
+    padding: 3.5vh;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {color: #f8f8f8;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #d8d8d8}
