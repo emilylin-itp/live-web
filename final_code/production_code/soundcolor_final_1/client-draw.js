@@ -167,6 +167,7 @@ function init() {
         thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
         console.log('thingsToDraw Arr: ' + thingsToDraw);
         drawRedSine(data);
+        // drawRedSine(data);
         // console.log('red!')
         playRedFreq();
         // console.log(data);
@@ -234,6 +235,9 @@ function init() {
         //draw canvas
         ctx.save(); //push
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
 
         for (let i = 0; i < thingsToDraw.length; i++) {
             //console.log("thingsToDraw[i].color: " + thingsToDraw[i].color);
@@ -318,11 +322,11 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
 
     //length = wavelength;
     //amplitudeSine = amplitudeSine;
-    console.log("x: " + x);
-    console.log("y: " + y);
+    // console.log("x: " + x);
+    // console.log("y: " + y);
 
-    console.log("mousex: " + mouseX);
-    console.log("mousey: " + mouseY);
+    // console.log("mousex: " + mouseX);
+    // console.log("mousey: " + mouseY);
 
     //draw line begins here
     ctx.save(); //push
@@ -332,7 +336,7 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
     let cw = canvas.width;
     let ch = canvas.height;
 
-    ctx.translate((x + ch / 2), y - cw + cw/8);
+    ctx.translate((x + ch / 2), y - cw + cw / 8);
     // ctx.translate((100 + ch / 3), y - cw + cw / 5);
 
     // console.log('translate x: '+ translateX);

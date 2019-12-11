@@ -83,6 +83,8 @@ html, body {
     /* bottom: -400px;
     z-index: 2; */
     visibility: hidden;
+    filter: saturate(200%);
+    filter: brightness(100%);
 }
 
 #thecolor{
@@ -301,7 +303,7 @@ html, body {
     right: 0;
     z-index: 99;
     position: relative; 
-    top: -18vw;
+    top: -18.25vw;
     /* padding-top: 2vh; */
   }
 

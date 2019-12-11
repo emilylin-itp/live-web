@@ -39,7 +39,8 @@ function init() {
       alert(err);
     });
 
-  //////////////// DROP DOWN MENU /////////////
+
+  /////////////////// DROP DOWN MENU /////////////////////
   var x, i, j, selElmnt, a, b, c;
   /* Look for any elements with the class "custom-select": */
   x = document.getElementsByClassName("custom-select");
@@ -61,13 +62,44 @@ function init() {
       c.addEventListener("click", function (e) {
         /* When an item is clicked, update the original select box,
         and the selected item: */
+        console.log('changed!');
+
         var y, i, k, s, h;
         s = this.parentNode.parentNode.getElementsByTagName("select")[0];
         h = this.parentNode.previousSibling;
+
         for (i = 0; i < s.length; i++) {
           if (s.options[i].innerHTML == this.innerHTML) {
             s.selectedIndex = i;
-            h.innerHTML = this.innerHTML;
+            console.log('i: ' + i); //playback = 1; mousemove = 2
+
+            //////////// SELECT MODE HERE///////////////////
+            let evl = null;
+
+            if (i === 1) {
+              let playButtonDiv = document.getElementById('bottom-button-play-div');
+              let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
+              playButtonDiv.style.display = 'inline-block';
+
+              evl = i;
+              console.log("evl:" + evl);
+              if (evl != null) {
+                console.log('playback')
+                enableFakePick();
+              }
+            } else if (i === 2) {
+              // show color with pick function
+              console.log('mouse move')
+              // enableMouseMove(x, y);
+              // let x = e.clientX; //mouse x pos
+              // let y = e.clientY; //mouse y pos
+
+              // console.log('mousex pos: ' + x);
+              // console.log('mousey pos: ' + y);
+              // canvas.addEventListener('mousemove', pick(x,y));
+            }
+
+            h.innerHTML = this.innerHTML; //change innerhtml
             y = this.parentNode.getElementsByClassName("same-as-selected");
             for (k = 0; k < y.length; k++) {
               y[k].removeAttribute("class");
@@ -111,54 +143,82 @@ function init() {
     }
   }
 
+  ///ENABLE MOUSE MOVE ////
+  function enableMouseMove(x, y) {
+    // let x = e.clientX; //mouse x pos
+    // let y = e.clientY; //mouse y pos
+    // console.log('mousex pos: ' + x);
+    // console.log('mousey pos: ' + y);
+    fakePick(x, y);
+  }
+
+
+
   /* If the user clicks anywhere outside the select box,
   then close all select boxes: */
   document.addEventListener("click", closeAllSelect);
 
 
+
   /////////////////// DRAW LOOP /////////////////////
 
-  ///////////////// FAKE PICK //////////////////////
+  ///////////////// FAKE PICK WHEN PLAYBACK MODE//////////////////////
+  function enableFakePick() {
+    console.log('enable fake pick');
+    // // play button
+    let playButtonDiv = document.getElementById('bottom-button-play-div');
+    let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
 
-  // // play button
-  let playButtonDiv = document.getElementById('bottom-button-play-div');
-  let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
+    playButtonDiv.addEventListener('click', () => {
+      moveFakePick();
+      console.log('play!')
+      playButtonDiv.style.display = "none";
+      pauseButtonDiv.style.display = "inline-block";
+    });
 
-  playButtonDiv.addEventListener('click', () => {
-    moveFakePick();
-    console.log('play!')
-    playButtonDiv.style.display = "none";
-    pauseButtonDiv.style.display = "inline-block";
-  });
+    pauseButtonDiv.addEventListener('click', () => {
+      stopMoveFakePick();
+      console.log('pause!');
 
-  pauseButtonDiv.addEventListener('click', () => {
-    stopMoveFakePick();
-    console.log('pause!');
+      playButtonDiv.style.display = "inline-block";
+      //playButton.getElementsByTagName('img').style.visibility = 'visible';
 
-    playButtonDiv.style.display = "inline-block";
-    //playButton.getElementsByTagName('img').style.visibility = 'visible';
-
-    pauseButtonDiv.style.display = 'none'; //pause icon hidden
-    // pauseButton.getElementsByTagName('img').style.visibility = 'hidden';
-  })
+      pauseButtonDiv.style.display = 'none'; //pause icon hidden
+      // pauseButton.getElementsByTagName('img').style.visibility = 'hidden';
+    });
+    ///////////// PLAY /////////////
+    let playing = false;
 
 
-  ///////////// PLAY /////////////
+    function moveFakePick() {
+      isPlaying = true;
+      playing = setInterval(animateFakePick, 80); // every 1 sec move the x position by 100
+      playButtonDiv.style.block = "none";
+      pauseButtonDiv.style.visibility = 'inline-block'; //pause icon hidden
+    }
 
-  let playing = false;
+    //////////// PAUSE ///////////
+    function stopMoveFakePick() {
+      isPlaying = false;
+      clearInterval(playing);
+    }
 
-  function moveFakePick() {
-    isPlaying = true;
-    playing = setInterval(animateFakePick, 80); // every 1 sec move the x position by 100
-    playButtonDiv.style.block = "none";
-    pauseButtonDiv.style.visibility = 'inline-block'; //pause icon hidden
-  }
+  };
 
-  //////////// PAUSE ///////////
-  function stopMoveFakePick() {
-    isPlaying = false;
-    clearInterval(playing);
-  }
+
+  // function disableFakePick() {
+  //   let playButtonDiv = document.getElementById('bottom-button-play-div');
+  //   let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
+  //   playButtonDiv.style.display = 'none';
+  //   pauseButtonDiv.style.display = 'none';
+  //   // playButtonDiv.style.visibility = 'hidden';
+  //   // pauseButtonDiv.style.visibility = 'hidden';
+  // }
+
+  // function enableMousePick(x, y) {
+  //   console.log('enable mouse pick!');
+  //   canvas.addEventListener('mousemove', pick(x, y));
+  // }
 
   ///////////VARIABLES FOR ANIMATE FAKE PICK///////////////
   let fakeX = window.innerWidth / 36;
@@ -196,6 +256,10 @@ function init() {
   }
 
   // console.log("fakeX, fakeY :" + fakeX + ','+ fakeY);
+
+  ///////// OG PICK FUNCTION: MOVES THROUGH CANVAS /////////
+  var currentlyPicking = false;
+
 
   //////////////// FAKE PICK ///////////////
   function fakePick(x, y) {
@@ -245,25 +309,51 @@ function init() {
     }
   }
 
-  //////////////// DRAW SHAPE SECTION ///////////////
-  // function drawRect(x, y) {
-  //   context.fillRect(x, y, 10, 10);
+
+  // function pick(e) {
+  //   if (!currentlyPicking) {
+  //     currentlyPicking = true;
+  //     //get color info
+  //     let color = document.getElementById("thecolor");
+  //     let colorText = document.getElementById("colortext");
+  //     let hslText = document.getElementById("hsltext");
+  //     //let frequencyText = document.getElementById("frequencytext");
+
+  //     let x = e.clientX; //mouse x pos
+  //     let y = e.clientY; //mouse y pos
+
+  //     console.log('mousex pos: ' + x);
+  //     console.log('mousey pos: ' + y);
+
+  //     let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
+  //     let data = pixel.data;
+
+  //     console.log('data: ' + data);
+  //     let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
+
+  //     let r = data[0];
+  //     let g = data[1];
+  //     let b = data[2];
+
+  //     console.log("r: " + r + " g: " + g + " b: " + b);
+
+  //     //find hsl from rgb
+  //     RGBToHSL(r, g, b);
+
+  //     //change dom elements
+  //     color.style.background = rgb;
+  //     colorText.innerHTML = rgb;
+  //     hslText.innerHTML = RGBToHSL(r, g, b);
+
+  //     // console.log("wavelength text: " + hslText.innerHTML);
+  //     setTimeout(function () { currentlyPicking = false; }, 100);
+  //   }
   // }
 
-  function drawEllipse(x, y) {
-    let r = 8;
 
-    context.fillStyle = "#D8D8D8";
-    context.beginPath();
-    context.arc(x + r, y + r, r, 0, 2 * Math.PI);
-    context.fill();
-  }
-
-
-  ///////// OG PICK FUNCTION: MOVES THROUGH CANVAS /////////
-  var currentlyPicking = false;
 
   //////////* DRAW FUNCTION *//////////////
+
   function draw() {
     var dataUrl = thecanvas.toDataURL();
     //console.log(dataUrl);
@@ -290,8 +380,18 @@ function init() {
   };
 
 
-  /////////* UPDATE CANVAS AND PIXEL EFFECT *////////////
+  ////* DRAW ELLIPSE *//////
+  function drawEllipse(x, y) {
+    let r = 8;
 
+    context.fillStyle = "#D8D8D8";
+    context.beginPath();
+    context.arc(x + r, y + r, r, 0, 2 * Math.PI);
+    context.fill();
+  }
+
+
+  /////////* UPDATE CANVAS AND PIXEL EFFECT *////////////
   //update canvas + pixel effect called here
   function updateCanvas() {
     let video = document.getElementById('thevideo');
@@ -313,6 +413,9 @@ function init() {
     //animate rect here
     //drawRect(fakeX, fakeY, binSize);
 
+    //mouse move 
+    // canvas.addEventListener('mousemove', mouseMove());
+
     //animate ellipse here
     drawEllipse(fakeX, fakeY);
 
@@ -328,6 +431,12 @@ function init() {
     };
   }
 
+  function mouseMove(e) {
+    var mouseX = e.clientX;
+    var mouseY = e.clientY;
+    console.log("mousex:" + mouseX);
+    console.log("mousey:" + mouseY);
+  }
 
 
   ////* PIXELATE VID *//////
@@ -546,3 +655,44 @@ function startOsc(frequency) {
   oscillator.stop(audioCtx.currentTime + 0.1);
 }
 
+/*DUMPSTER */
+  ///////* PICK COLOR FROM CANVAS *//////
+  // function pick(e) {
+  //   if (!currentlyPicking) {
+  //     currentlyPicking = true;
+  //     //get color info
+  //     let color = document.getElementById("thecolor");
+  //     let colorText = document.getElementById("colortext");
+  //     let hslText = document.getElementById("hsltext");
+  //     //let frequencyText = document.getElementById("frequencytext");
+
+  //     let x = e.clientX; //mouse x pos
+  //     let y = e.clientY; //mouse y pos
+
+  //     console.log('mousex pos: ' + x);
+  //     console.log('mousey pos: ' + y);
+
+  //     let pixel = context.getImageData(x, y, 1, 1); //x y pos of ever 1 x 1 pixel 
+  //     let data = pixel.data;
+
+  //     console.log('data: ' + data);
+  //     let rgb = 'rgb(' + data[0] + ', ' + data[1] + ', ' + data[2] + ')';
+
+  //     let r = data[0];
+  //     let g = data[1];
+  //     let b = data[2];
+
+  //     console.log("r: " + r + " g: " + g + " b: " + b);
+
+  //     //find hsl from rgb
+  //     RGBToHSL(r, g, b);
+
+  //     //change dom elements
+  //     color.style.background = rgb;
+  //     colorText.innerHTML = rgb;
+  //     hslText.innerHTML = RGBToHSL(r, g, b);
+
+  //     // console.log("wavelength text: " + hslText.innerHTML);
+  //     setTimeout(function () { currentlyPicking = false; }, 100);
+  //   }
+  // }
