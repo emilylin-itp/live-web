@@ -12,6 +12,12 @@
     format('truetype');
 }
 
+
+#draw-canvas{
+    /* border: 1px solid red; */
+    transform-origin: 0 0;
+}
+
 /* div{
     border: 1px red solid;
 } */
@@ -255,7 +261,7 @@ body{
 #draw-canvas{
     cursor: pointer;
     position: absolute;
-    width: 105vw;
+    width: 100vw;
     top: 0;
     background-color: none; 
     z-index: 1;

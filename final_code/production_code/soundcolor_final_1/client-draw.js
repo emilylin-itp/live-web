@@ -9,6 +9,7 @@ var ctx = canvas.getContext("2d");
 //array for drawing sine waves
 var thingsToDraw = [];
 
+
 ////////////////////////////MAIN FUNCTION////////////////////////////
 function init() {
 
@@ -38,20 +39,8 @@ function init() {
     let purpleSelect = document.getElementById('purple-play-div');
 
     redSelect.addEventListener('click', () => {
-        // if (evl != null) {
-        //     canvas.removeEventListener('click', evl);
-        //     console.log('evl removed');
-        //     //to unsubscribe a certain listener
-        //     // socket.off('sendRedData');
-        //     // socket.off('click', evl);
-        //     // socket.removeEventListener('sendRedData',evl)
-        //     // socket.removeEventListener('click',evl);
-        // }
         evl = drawRedSine;
-        // evl = 'drawRedSine';
-        // console.log('evl: ' + evl);
-        // canvas.addEventListener('click', drawYellowSine);
-        var listener = canvas.addEventListener('click', (e) => {
+        let removeRed = (e) => {
             console.log('evl for red: ' + evl)
             console.log(e);
             let p = {
@@ -59,137 +48,106 @@ function init() {
                 y: e.clientY
             };
             socket.emit('sendRedData', p);
-            canvas.removeEventListener(listener);
-        });
+            console.log("EMITTED RED");
+            canvas.removeEventListener('click', removeRed);
+        }
+        var listener = canvas.addEventListener('click', removeRed);
     });
-
 
     orangeSelect.addEventListener('click', () => {
-        // if (evl != null) {
-        //     canvas.removeEventListener('click', evl);
-        //     console.log('evl removed');
-        //     //to unsubscribe a certain listener
-        //     //socket.removeListener('sendOrangeData', evl);
-        //     // socket.off('sendOrangeData');
-        //     // socket.off('sendOrangeData', 'click');
-        //     // socket.removeEventListener('sendOrangeData',evl)
-        //     socket.removeEventListener('click', evl)
-        // } 
-
         evl = drawOrangeSine;
-
-        if (evl != null) {
-            // canvas.addEventListener('click', drawYellowSine);
-            var listener = canvas.addEventListener('click', (e) => {
-                console.log('evl for orange: ' + evl)
-                console.log(e);
-                let p = {
-                    x: e.clientX,
-                    y: e.clientY
-                };
-                socket.emit('sendOrangeData', p);
-                canvas.removeEventListener('click', listener);
-            });
-
+        let removeOrange = (e) => {
+            console.log('evl for orange: ' + evl)
+            console.log(e);
+            let p = {
+                x: e.clientX,
+                y: e.clientY
+            };
+            socket.emit('sendOrangeData', p);
+            console.log("EMITTED ORANGE");
+            canvas.removeEventListener('click', removeOrange);
         }
+        var listener = canvas.addEventListener('click', removeOrange);
     });
 
-
     yellowSelect.addEventListener('click', () => {
-        // if (evl != null) {
-        //     canvas.removeEventListener('click', evl);
-        //     console.log('evl removed');
-        //     // socket.off('sendYellowData');
-        // }
         evl = drawYellowSine;
-        // canvas.addEventListener('click', drawYellowSine);
-
-        if (evl != null) {
-            var listener = canvas.addEventListener('click', (e) => {
-                console.log(e);
-                let p = {
-                    x: e.clientX,
-                    y: e.clientY
-                };
-                socket.emit('sendYellowData', p);
-                canvas.removeEventListener('click', listener);
-            });
+        let removeYellow = (e) => {
+            console.log('evl for yellow: ' + evl)
+            console.log(e);
+            let p = {
+                x: e.clientX,
+                y: e.clientY
+            };
+            socket.emit('sendYellowData', p);
+            console.log("EMITTED YELLOW");
+            canvas.removeEventListener('click', removeYellow);
         }
-
+        var listener = canvas.addEventListener('click', removeYellow);
     });
 
     greenSelect.addEventListener('click', () => {
-        // if (evl != null) {
-        //     canvas.removeEventListener('click', evl);
-        //     console.log('evl removed');
-        // }
         evl = drawGreenSine;
-        var listener = canvas.addEventListener('click', (e) => {
+        let removeGreen = (e) => {
+            console.log('evl for green: ' + evl)
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendGreenData', p);
-            canvas.removeEventListener(listener); //shawn wrote this
-        });
-        // canvas.addEventListener('click', drawGreenSine);
+            console.log("EMITTED GREEN");
+            canvas.removeEventListener('click', removeGreen);
+        }
+        var listener = canvas.addEventListener('click', removeGreen);
     });
 
     cyanSelect.addEventListener('click', () => {
-        // if (evl != null) {
-        //     canvas.removeEventListener('click', evl);
-        //     console.log('evl removed');
-        // }
         evl = drawCyanSine;
-        canvas.addEventListener('click', (e) => {
+        let removeCyan = (e) => {
+            console.log('evl for cyan: ' + evl)
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendCyanData', p);
-            canvas.removeEventListener(listener);
-        });
-        // canvas.addEventListener('click', drawCyanSine);
+            console.log("EMITTED CYAN");
+            canvas.removeEventListener('click', removeCyan);
+        }
+        var listener = canvas.addEventListener('click', removeCyan);
     });
 
     blueSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-        }
         evl = drawBlueSine;
-        canvas.addEventListener('click', (e) => {
-
+        let removeBlue = (e) => {
+            console.log('evl for blue: ' + evl)
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendBlueData', p);
-            canvas.removeEventListener(listener);
-        });
-        // canvas.addEventListener('click', drawBlueSine);
+            console.log("EMITTED BLUE");
+            canvas.removeEventListener('click', removeBlue);
+        }
+        var listener = canvas.addEventListener('click', removeBlue);
     });
 
     purpleSelect.addEventListener('click', () => {
-        if (evl != null) {
-            canvas.removeEventListener('click', evl);
-            console.log('evl removed');
-        }
         evl = drawPurpleSine;
-        canvas.addEventListener('click', (e) => {
-
+        let removePurple = (e) => {
+            console.log('evl for purple: ' + evl)
             console.log(e);
             let p = {
                 x: e.clientX,
                 y: e.clientY
             };
             socket.emit('sendPurpleData', p);
-            canvas.removeEventListener(listener);
-        });
-        //canvas.addEventListener('click', drawPurpleSine);
+            console.log("EMITTED PURPLE");
+            canvas.removeEventListener('click', removePurple);
+        }
+        var listener = canvas.addEventListener('click', removePurple);
     });
 
 
@@ -207,15 +165,6 @@ function init() {
 
 
     socket.on('sendRedData', function (data) {
-        //drawRedSine(data);
-        // var sineToDraw = {color: 'red', data: data};
-        // if (evl_2 != null) {
-        //     thingsToDraw.pop(); //remove from array 'thingsToDraw'
-        //     console.log("thingsToDraw: " + thingsToDraw.data);
-        // }
-
-        // evl_2 = sineToDraw;
-        // console.log("evl_2: " + evl_2);
         var sineToDraw = { color: 'red', data: data };  //make json obj
         thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
         console.log('thingsToDraw Arr: ' + thingsToDraw);
@@ -226,10 +175,9 @@ function init() {
         // console.log("sineToDraw.data:  " + sineToDraw.data);
 
         drawRedSine(data);
+        // console.log('red!')
         playRedFreq();
-        console.log(data);
-
-        // socket.removeListener('sendRedData', data);
+        // console.log(data);
     });
 
 
@@ -239,6 +187,7 @@ function init() {
         thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
 
         drawOrangeSine(data);
+        // console.log('orange!')
         playOrangeFreq();
         // console.log(data);
     });
@@ -289,40 +238,20 @@ function init() {
 
     /////////////////// ANIMATE THE LINE ///////////////////
     function mainLoop() {
+
         //draw canvas
         ctx.save(); //push
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // // Move registration point to the center of the canvas
-        // ctx.translate(canvas.width / 2, canvas.height / 2);
-
-        // ctx.rotate(20 * Math.PI / 180);
-
-        // // Move registration point back to the top left corner of canvas
-        // context.translate(-canvasWidth / 2, -canvasWidth / 2);
-
-        //EXAMPLE CODE SHAWN WROTE:
-        //for (var i) ..
-        //  if (thingsToDraw[i].color = "red") {
-        //      drawRedSine(thingsToDraw[i].data);
-        //  }
-
-
         for (let i = 0; i < thingsToDraw.length; i++) {
             //console.log("thingsToDraw[i].color: " + thingsToDraw[i].color);
 
+
             if (thingsToDraw[i].color === 'red') {
                 drawRedSine(thingsToDraw[i].data);
-                //console.log("thingsToDraw[i].data): " + thingsToDraw[i].data);
-                // delete thingsToDraw.sineToDraw;
-                // // thingsToDraw[i].splice(i,1); 
-                // console.log('thingsToDraw.sineToDraw :' + thingsToDraw.sineToDraw);
             }
             if (thingsToDraw[i].color === 'orange') {
                 drawOrangeSine(thingsToDraw[i].data);
-                // delete thingsToDraw.sineToDraw;
-                // thingsToDraw[i].splice(i,1); 
-                //console.log('thingsToDraw.sineToDraw :' + thingsToDraw.sineToDraw);
             }
             if (thingsToDraw[i].color === 'yellow') {
                 drawYellowSine(thingsToDraw[i].data);
@@ -346,7 +275,6 @@ function init() {
         requestAnimationFrame(mainLoop);
     }
     requestAnimationFrame(mainLoop);
-    // window.requestAnimationFrame(drawRedSine);
 }
 
 /////////////////// FUNCTIONS TO DRAW //////////////////
@@ -395,18 +323,39 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
     let x = mouseX - canvas.offsetLeft;
     let y = mouseY - canvas.offsetTop;
 
+
     //length = wavelength;
     //amplitudeSine = amplitudeSine;
-    // console.log("x: " + x);
-    // console.log("y: " + y);
+    console.log("x: " + x);
+    console.log("y: " + y);
+
+    console.log("mousex: " + mouseX);
+    console.log("mousey: " + mouseY);
 
     //draw line begins here
     ctx.save(); //push
     ctx.beginPath();
 
-    //ctx.translate(canvas.width / 0.575, 0); //translate 
-    //ctx.rotate(Math.PI / 2); // rotate 90 degrees clockwise
-    //ctx.translate(canvas.width / 6, 0); //translate
+    // reset the canvas with new dimensions
+    let cw = canvas.width;
+    let ch = canvas.height;
+
+
+    // translate and rotate
+    //ctx.translate((x + ch / 4) - ch / 8, y - (3 * ch / 3) + (ch / cw * 1.25));
+
+    ctx.translate((x + ch / 2), y - cw + cw/8);
+
+    // console.log('translate x: '+ translateX);
+    // console.log('translate y: '+ translateY);
+
+    ctx.rotate(Math.PI / 2);
+    //ctx.translate(x + cw/4, y - ch);
+
+    // ctx.translate(ch/2 - cw/2, -(cw/2 + ch));
+    // ctx.translate(x, y);
+
+    // draw the previows image, now rotate
     ctx.lineCap = 'round';
     ctx.lineWidth = lineWidth;
     // ctx.fillStyle = "rgba(255, 255, 255, 1)"; //white
@@ -589,7 +538,7 @@ function startOsc(frequency) {
     oscillator.frequency.value = frequency; //frequency val to be passed in on event click
     // oscillator.frequency.setValueAtTime(3000, audioCtx.currentTime); // value in hertz *** THIS MAKES IT INFLEXIBLE / NOT ABLE TO CHANGE THE FREQUENCY WITH THIS **** DONT USE ****
 
-    oscillator.start(audioCtx.currentTime);
+    // oscillator.start(audioCtx.currentTime);
 
     // Create GainNode	
     gain = audioCtx.createGain(); // Create gain node
@@ -598,8 +547,10 @@ function startOsc(frequency) {
     // Connect the Nodes
     oscillator.connect(gain); // Connect oscillator to gain
     gain.connect(audioCtx.destination); // Connect gain to output
+    // oscillator.start();
     // stop 2 seconds after the current time
-    oscillator.stop(audioCtx.currentTime + 1.01);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.01);
 }
 
 
