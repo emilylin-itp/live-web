@@ -161,19 +161,11 @@ function init() {
 
 
     /////////////* SOCKET FOR RECEIVING DATA *////////////
-    // let evl_2 = null;
-
 
     socket.on('sendRedData', function (data) {
         var sineToDraw = { color: 'red', data: data };  //make json obj
         thingsToDraw.push(sineToDraw); //push into array 'thingsToDraw'
         console.log('thingsToDraw Arr: ' + thingsToDraw);
-
-        // console.log("sineToDraw.color:  " + sineToDraw.color);
-        // console.log("sineToDraw.mousex:  " + sineToDraw.data.x);
-        // console.log("sineToDraw.mousey:  " + sineToDraw.data.y);
-        // console.log("sineToDraw.data:  " + sineToDraw.data);
-
         drawRedSine(data);
         // console.log('red!')
         playRedFreq();
@@ -340,46 +332,25 @@ function plotSine(mouseX, mouseY, wavelength, step, yOffset, amplitudeSine, freq
     let cw = canvas.width;
     let ch = canvas.height;
 
-
-    // translate and rotate
-    //ctx.translate((x + ch / 4) - ch / 8, y - (3 * ch / 3) + (ch / cw * 1.25));
-
     ctx.translate((x + ch / 2), y - cw + cw/8);
+    // ctx.translate((100 + ch / 3), y - cw + cw / 5);
 
     // console.log('translate x: '+ translateX);
     // console.log('translate y: '+ translateY);
 
     ctx.rotate(Math.PI / 2);
-    //ctx.translate(x + cw/4, y - ch);
-
-    // ctx.translate(ch/2 - cw/2, -(cw/2 + ch));
-    // ctx.translate(x, y);
-
-    // draw the previows image, now rotate
     ctx.lineCap = 'round';
     ctx.lineWidth = lineWidth;
     // ctx.fillStyle = "rgba(255, 255, 255, 1)"; //white
 
-
     //while x is a certain length, draw the sine wave
     while (x < wavelength) {
         ctx.strokeStyle = color;
-
-        //this is to draw a white background each time
-        // ctx.fillStyle = "rgba(255, 255, 255, 1)"; //white
-        //ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         z = y + amplitudeSine * Math.sin((x + step) / frequency);
         ctx.lineTo(x, z);
         x++;
-        // fadeOutEffect();
-        // setTimeout(fadeOutEffect, 2000);
     }
     ctx.stroke();
-    // ctx.save(); //push
-    // //console.log("Drawing point at y=" + y);
-
-    // ctx.stroke();
     ctx.restore(); //pop
 }
 

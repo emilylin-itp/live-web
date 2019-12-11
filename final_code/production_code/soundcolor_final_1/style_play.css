@@ -111,7 +111,6 @@ html, body {
 }
 
 .bottom-choices{
-    /* border: 1px red solid; */
     display: inline-block;
     height: 7vh; 
     margin: none!important;
@@ -121,13 +120,8 @@ html, body {
     top: 0vh;
     padding-bottom: 2vh;
     margin-top: 2vh;
-    /* padding-top: 1%; */
-    /* position:fixed;*/
 }
 
-#bottom-mode-selection{
-    padding-top: 1vh;
-}
 
 /* .divider-line{
     width: 0.55vw;
@@ -174,7 +168,7 @@ html, body {
 #bottom-mode-selection{
     display: inline-block;
     position: relative;
-    /* padding-top: 0.75vh; */
+    padding-top: 0.75vh;
     height: 8vh;
     top: 0vh;
     /* border-bottom: 0.2em solid #d8d8d8; */
@@ -183,7 +177,7 @@ html, body {
 .bottom-text-info{
     font-family: 'Platform-Bold';
     color: #D5D5D5;
-    font-size: 0.9em;
+    font-size: 1em;
     line-height: 1em;
     letter-spacing: 0.25pt;
     text-align: center;
@@ -194,8 +188,6 @@ html, body {
 #bottom-color-info{
     display: inline-block;
     position: relative;
-    /* border-right: 0.3em solid #d8d8d8; */
-    /* border: red solid 1px; */
     padding-top: 2.5vh;
     padding-left: 3vw;
 }
@@ -210,7 +202,7 @@ html, body {
 }
 
 #bottom-color-frequency-div{
-    border-right: 0.6vw solid #d8d8d8;
+    border-right: 0.5vw solid #d8d8d8;
 }
 
 
@@ -239,64 +231,95 @@ html, body {
     opacity: 0.375;
 }
 
-/* #bottom-plus{
+/*the container must be positioned relative:*/
+
+#dropdown-content{
     position:absolute;
-    top: 3vh;
-    right: 4vw;
-    width: 3vw;
-    visibility: hidden;
+    top:100%;
 }
 
-#bottom-plus:hover{
-    opacity: 0.375;
-} */
-
-
-/* DROP DOWN */
-button{
-    background-color: none;
-    color:#FFF;
-    border: none;
-}
-
-
-.dropbtn {
-    background-color: none;
-    color: white;
-    padding: 3.5vh;
-    /* font-size: 16px; */
-    border: none;
-  }
-  
-  .dropdown {
+.custom-select {
     position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 20vw;
-    /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-    z-index: 1;
-    border-bottom: 0.5vw solid #d8d8d8;
-    bottom: 100%; /* added this attribute */
-  }
-  
-  .dropdown-content a {
     font-family: 'Platform-Bold';
-    font-size: 0.9em;
-    line-height: 1em;
-    letter-spacing: 0.25pt;
-    color:#d8d8d8;
-    padding: 3.5vh;
-    text-decoration: none;
-    display: block;
+    font-size: 1.5vw;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    background: none;
+    text-align: center;
+    bottom: 100%;
   }
   
-  .dropdown-content a:hover {color: #f8f8f8;}
+  .custom-select select {
+    display: none; /*hide original SELECT element:*/
+    cursor: pointer;
+  }
   
-  .dropdown:hover .dropdown-content {display: block;}
+  .select-selected {
+    background-color: white;
+    border-bottom: none;
+    /* border-bottom: 0.5vw solid #d8d8d8; */
+    /* bottom: 100%; */
+    padding-top: 0.75vw;
+    font-size: 1.5vw;
+    bottom: 0;
+
+  }
   
-  .dropdown:hover .dropbtn {background-color: #d8d8d8}
+  /*style the arrow inside the select element:*/
+  .select-selected:after {
+    position: absolute;
+    content: "";
+  }
+  
+  /*point the arrow upwards when the select box is open (active):*/
+  .select-selected.select-arrow-active:after {
+    /* border-color: transparent transparent #fff transparent;
+    top: 7px; */
+  }
+  
+  /*style the items (options), including the selected item:*/
+  .select-items div,.select-selected {
+    color:#d8d8d8;
+    padding-bottom: 0.8vw;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 0.5vw solid #d8d8d8;
+    bottom: 100%;
+    font-size: 1.75em;
+    background-color: white;
+  }
+  
+  /*style items (options):*/
+  .select-items {
+    /* position: absolute; */
+    background-color: white;
+    /* top: 100%; */
+    left: 0;
+    right: 0;
+    z-index: 99;
+    position: relative; 
+    top: -18vw;
+    /* padding-top: 2vh; */
+  }
+
+  .select-items div{
+    padding-top: 2vh;
+  }
+  
+  /*hide the items when the select box is closed:*/
+  .select-hide {
+    display: none;
+  }
+  
+  .select-items div:hover, .same-as-selected {
+    background-color: white;
+  }
+
+
+  /* .same-as-selected{
+      position: relative;
+      top: -20vh;
+  } */
