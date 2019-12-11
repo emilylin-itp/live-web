@@ -1,5 +1,5 @@
 //////*  HTTPS SECTION *///////
-var http = require('http');
+var https = require('https');
 var fs = require('fs'); // Using the filesystem module
 var url = require('url');
 
@@ -34,10 +34,10 @@ function handleIt(req, res) {
     console.log("Got a request " + req.url);
 }
 
-var httpServer = http.createServer(options, handleIt);
-httpServer.listen(3113);
+var httpServer = https.createServer(options, handleIt);
+httpServer.listen(3115);
 
-console.log('Server listening on port 3113');
+console.log('Server listening on port 3115');
 
 
 ////////////////*  WEB SOCKET PORTION *////////////////
