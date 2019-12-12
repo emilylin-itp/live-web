@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pixelate Test</title>
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style_play.css">
+</head>
+
+<body>
+    <script src="client_play.js"></script>
+
+    <!--NAVBAR-->
+    <!--NAV HOME/ABOUT-->
+    <nav id='navbar' class='row justify-content-between'>
+        <div id='nav-about' class="col-1">
+            <a class='nav-text' href="index.html">About</a>
+        </div>
+
+        <!--NAV PLAY-->
+        <div id='nav-play' class="col-1">
+            <a class='nav-text' href="play.html">Play</a>
+        </div>
+
+        <!--NAV TITLE-->
+        <div id='nav-title' class="col-6">
+            <h2 id='nav-h2'>Play Your Environment</h2>
+        </div>
+
+        <!--NAV LEARN-->
+        <div id='nav-learn' class="col-1">
+            <a class='nav-text' href="learn.html">Learn</a>
+        </div>
+
+        <!--NAV DRAW-->
+        <div id='nav-play' class="col-1">
+            <a class='nav-text' href="draw.html">Draw</a>
+        </div>
+    </nav>
+
+    <!--VIDEO-->
+    <canvas id="thecanvas"></canvas>
+
+    </div>
+
+
+    <!--OG VIDEO-->
+    <video id="thevideo"></video>
+
+    <!--CONTAINER FOR ALL COLORS-->
+    <div id='bottom-container' class='row justify-content-between'>
+        <div id='bottom-div' class='col-12'>
+
+            <!--BOTTOM BUTTON PLAY-->
+            <div id='bottom-button-play-div' class='col-1 bottom-choices'>
+                <img src="/assets/play_button.png" alt="play button" id='play-button'>
+                <!-- <img src="/assets/divider_line.svg" alt="divider line" class = 'divider-line'> -->
+            </div>
+
+            <!--BOTTOM BUTTON PAUSE-->
+            <div id='bottom-button-pause-div' class='col-1 bottom-choices'>
+                <img src="/assets/pause_button.png" alt="play button" id='pause-button'>
+            </div>
+
+            <!--MODE SELECTION-->
+            <!-- <div id='bottom-mode-selection' class='col-3 bottom-choices'>
+                <p class='bottom-text-info'>Playback</p>
+            </div> -->
+
+            <!-- <div id='bottom-mode-selection' class='col-3 bottom-choices dropdown'>
+                <button class='bottom-text-info'>Playback</button>
+                <div class='dropdown-content'>
+                    <a href="#">Mouse Pick</a>
+                </div>
+            </div> -->
+
+            <div id='bottom-mode-selection' class='col-3 custom-select'>
+                <select id="dropdown-content">
+                    <option value="0" class= 'bottom-text-info' id = 'playback-option'>Select Mode:</option>
+                    <option value="1" class= 'bottom-text-info' id = 'mouse-option'>Playback</option>
+                    <option value="2" class= 'bottom-text-info' id = 'mouse-option'>Mouse Move</option>
+                </select>
+            </div>
+
+            <!--COLOR CIRCLE-->
+            <div id='bottom-color-info' class='col-1'>
+                <div id="colorcircle"></div>
+            </div>
+
+            <!--COLOR FREQUENCY INFO-->
+            <div id='bottom-color-frequency-div' class='col-3 bottom-choices'>
+                <p id='color-frequency-info' class='bottom-text-info'>Color Frequency<br><span
+                        id='color-frequency-number'></span> THz</p>
+            </div>
+
+            <!--SOUND FREQUENCY INFO-->
+            <div id='bottom-sound-frequency-div' class='col-3 bottom-choices'>
+                <p id='sound-frequency-info' class='bottom-text-info'>Sound Frequency</br><span
+                        id='sound-frequency-number'></span> Hz</p>
+            </div>
+
+            <!-- 
+            <div id='bottom-div-x' class='col-1'>
+                <img src="assets/gray_x.png" id='bottom-x' alt="x">
+                <img src="assets/gray_plus.png" id='bottom-plus' alt="plus">
+            </div> -->
+        </div>
+    </div>
+
+</body>
+
+</html>
