@@ -92,8 +92,55 @@ function init() {
                 let playButtonDiv = document.getElementById('bottom-button-play-div');
                 playButtonDiv.style.pointerEvents = 'auto';
                 console.log('playback');
-                enableFakePick();
+                // enableFakePick();
                 playButtonDiv.addEventListener('click', enableFakePick);  //enable play button
+
+                // playButtonDiv.addEventListener('click', () => {
+
+                //   console.log('enable fake pick');
+                //   // // play button
+                //   let playButtonDiv = document.getElementById('bottom-button-play-div');
+                //   let pauseButtonDiv = document.getElementById('bottom-button-pause-div');
+
+                //   playButtonDiv.addEventListener('click', () => {
+                //     moveFakePick();
+                //     console.log('play!')
+                //     playButtonDiv.style.display = "none";
+                //     pauseButtonDiv.style.display = "inline-block";
+                //   });
+
+                //   pauseButtonDiv.addEventListener('click', () => {
+                //     stopMoveFakePick();
+                //     console.log('pause!');
+
+                //     playButtonDiv.style.display = "inline-block";
+                //     //playButton.getElementsByTagName('img').style.visibility = 'visible';
+
+                //     pauseButtonDiv.style.display = 'none'; //pause icon hidden
+                //     // pauseButton.getElementsByTagName('img').style.visibility = 'hidden';
+                //   });
+
+                //   ///////////// PLAY /////////////
+                //   let playing = false;
+                //   //let isPlaying = false;
+                //   let setSpeed = 80;
+
+                //   function moveFakePick() {
+                //     clearInterval(playing);
+                //     isPlaying = true;
+                //     playing = setInterval(animateFakePick, setSpeed); // every 1 sec move the x position by 100
+                //     playButtonDiv.style.block = "none";
+                //     pauseButtonDiv.style.visibility = 'inline-block'; //pause icon hidden
+                //     console.log("set speed:" + setSpeed);
+                //   }
+
+                //   //////////// PAUSE ///////////
+                //   function stopMoveFakePick() {
+                //     isPlaying = false;
+                //     clearInterval(playing);
+                //   }
+                //   clearInterval(playing);
+                // });
               }
               //remove mouse pick function
               document.removeEventListener('mousemove', enableMouseMove);
@@ -205,8 +252,8 @@ function init() {
 
     ///////////// PLAY /////////////
     let playing = false;
-    let isPlaying = false;
-    let setSpeed = 180;
+    //let isPlaying = false;
+    let setSpeed = 200;
 
     function moveFakePick() {
       isPlaying = true;
@@ -221,15 +268,16 @@ function init() {
       isPlaying = false;
       clearInterval(playing);
     }
+    clearInterval(playing);
   };
 
   ///////////VARIABLES FOR ANIMATE FAKE PICK///////////////
   let fakeX = window.innerWidth / 26;
-  let fakeY = window.innerHeight / 13;
-  let binSizeX = window.innerWidth / 12;
-  let binSizeY = window.innerHeight / 10;
+  let fakeY = window.innerHeight / 14;
+  let binSizeX = window.innerWidth / 9;
+  let binSizeY = window.innerHeight / 6.35;
   let originFakeX = window.innerWidth / 26;
-  let originFakeY = window.innerHeight / 13;
+  let originFakeY = window.innerHeight / 14;
 
   /////////ANIMATE FAKE PICK ////////
   function animateFakePick() {
@@ -365,7 +413,7 @@ function init() {
         setInterval(updateCanvas, 30);
         let video = document.getElementById('thevideo');
         let canvas = document.getElementById('thecanvas');
-        
+
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
       }, 1000);

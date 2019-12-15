@@ -35,9 +35,9 @@ function handleIt(req, res) {
 }
 
 var httpServer = https.createServer(options, handleIt);
-httpServer.listen(3124);
+httpServer.listen(3125);
 
-console.log('Server listening on port 3124');
+console.log('Server listening on port 3125');
 
 
 ////////////////*  WEB SOCKET PORTION *////////////////
